@@ -1,0 +1,27 @@
+{
+  "name": "boilerplate-babel-requirejs",
+  "version": "0.0.1",
+  "author": "Dmitry Sheiko (http://dsheiko.com)",
+  "scripts": {
+    "build": "babel src -d build",
+    "start": "http-server . -c-1"
+  },
+  "keywords": [
+    "babel",
+    "requirejs",
+    "starter",
+    "boilerplate"
+  ],
+  "devDependencies": {
+    "babel-cli": "^6.23.0",
+    "babel-plugin-transform-es2015-modules-amd": "^6.24.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.6.0",
+    "http-server": "^0.10.0"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "console-log-html": "^2.0.2"
+  }
+}

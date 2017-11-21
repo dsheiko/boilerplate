@@ -1,0 +1,29 @@
+{
+  "name": "boilerplate-postcss",
+  "version": "0.0.1",
+  "author": "Dmitry Sheiko (http://dsheiko.com)",
+  "keywords": [
+    "sass",
+    "postcss",
+    "autoprefixer",
+    "starter",
+    "boilerplate",
+    "hot"
+  ],
+  "scripts": {
+    "build": "npm run build:sass:compile && npm run build:sass:autoprefix",
+    "build:sass:compile": "node-sass sass/index.scss -o /tmp/",
+    "build:sass:autoprefix": "postcss /tmp/index.css -o ./index.css",
+    "watch": "nodemon --watch sass  -e scss -x \"npm run build:sass\"",
+    "start": "http-server . -o -c-1"
+  },
+  "devDependencies": {
+    "autoprefixer": "^7.1.6",
+    "http-server": "^0.10.0",
+    "node-sass": "^4.7.1",
+    "nodemon": "^1.12.1",
+    "postcss-cli": "^4.1.1"
+  },
+  "license": "ISC",
+  "dependencies": {}
+}

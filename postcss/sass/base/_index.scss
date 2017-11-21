@@ -1,0 +1,19 @@
+// Global styles (theme agnostic))
+$rhythm: .8rem;
+$animation-duration: 250ms;
+$color-primary: #2196f3;
+$color-primary-dark: #1976d2;
+$color-white: white;
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 10px;
+}
+
+body {
+  font-size: 1.6rem;
+}
+

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Boilerplate Demo</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script data-main="./build/app.js" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.3/require.min.js"></script>
+    <script type="application/javascript" src="//cdn.rawgit.com/Alorel/console-log-html/master/console-log-html.min.js"></script>
+  </head>
+  <body>
+    <h3>JavaScript Console</h3>
+    <ul id="log"></ul>
+    <script>
+      // Redirecting log message to HTML
+      ConsoleLogHTML.connect( document.querySelector( "#log" ) );
+    </script>
+  </body>
+</html>

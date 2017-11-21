@@ -1,0 +1,11 @@
+{
+  "presets": [
+    ["env", {
+      "targets": {
+        "browsers": [ ">2%", "last 2 versions" ]
+      },
+      "debug": false
+    }]
+  ],
+  "plugins": [ "transform-es2015-modules-amd", "transform-runtime" ]
+}

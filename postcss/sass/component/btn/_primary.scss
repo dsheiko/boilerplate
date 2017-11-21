@@ -1,0 +1,25 @@
+.btn--primary {
+  color: $color-white;
+  background-color: $color-primary;
+  font-size: 1.4rem;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 500;
+  border: 0;
+  border-radius: .2rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  align-items: center;
+
+  transition: background-color $animation-duration cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+
+  box-shadow: 0 .1rem .5rem 0 rgba(0, 0, 0, 0.2),
+    0 .2rem .2rem 0 rgba(0, 0, 0, 0.14),
+    0 .3rem .1rem -.2rem rgba(0, 0, 0, 0.12);
+
+  &:hover {
+    background-color: $color-primary-dark;
+  }
+  &:disabled {
+    box-shadow: 0;
+  }
+}

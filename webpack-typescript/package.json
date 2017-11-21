@@ -1,0 +1,45 @@
+{
+  "name": "boilerplate-webpack-typescript",
+  "version": "0.0.1",
+  "author": "Dmitry Sheiko (http://dsheiko.com)",
+  "scripts": {
+    "build": "webpack --config webpack.config.js",
+    "lint": "tslint --project tsconfig.json",
+    "test": "jest --verbose",
+    "test:watch": "npm test -- --watch",
+    "start": "http-server . -o -c-1"
+  },
+  "keywords": [
+    "webpack",
+    "typescript",
+    "starter",
+    "jest",
+    "boilerplate",
+    "hot"
+  ],
+  "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "transform": {
+      "^.+\\.(ts|tsx)$": "./jest-preprocessor.js"
+    },
+    "testRegex": "/.*\\.spec\\.(ts|tsx)$"
+  },
+  "devDependencies": {
+    "@types/node": "^8.0.53",
+    "clean-webpack-plugin": "^0.1.17",
+    "http-server": "^0.10.0",
+    "jest": "^21.2.1",
+    "ts-loader": "^3.1.1",
+    "tslint": "^5.8.0",
+    "typescript": "^2.6.1",
+    "webpack": "^3.8.1"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "console-log-html": "^2.0.2"
+  }
+}

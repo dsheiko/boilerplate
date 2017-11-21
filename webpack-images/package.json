@@ -1,0 +1,25 @@
+{
+  "name": "boilerplate-webpack-sass",
+  "version": "0.0.1",
+  "author": "Dmitry Sheiko (http://dsheiko.com)",
+  "keywords": [
+    "webpack",
+    "file-loader",
+    "image-loader"
+  ],
+  "scripts": {
+    "build": "webpack --config webpack.config.js",
+    "start": "http-server . -o -c-1"
+  },
+  "devDependencies": {
+    "clean-webpack-plugin": "^0.1.17",
+    "file-loader": "^1.1.5",
+    "http-server": "^0.10.0",
+    "image-webpack-loader": "^3.4.2",
+    "webpack": "^3.8.1"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "ionicons": "^3.0.0"
+  }
+}

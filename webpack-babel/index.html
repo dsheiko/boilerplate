@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Boilerplate Demo</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+    <h3>JavaScript Console</h3>
+    <ul id="log"></ul>
+    <!-- Browsers with ES module support load this script. -->
+    <script type="module" src="./build/index.js"></script>
+    <!-- Other browsers load this script, new ones skip it -->
+    <script nomodule src="./build/legacy/index.js"></script>
+  </body>
+</html>

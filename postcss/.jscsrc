@@ -1,0 +1,37 @@
+{
+  "preset": "jquery",
+  "excludeFiles": [
+    "Marketplace/View/Js/index.js",
+    "Marketplace/View/Js/vendor/**/*.js"
+  ],
+  "maximumLineLength": {
+    "value": 120,
+    "allowComments": true,
+    "allowRegex": true
+  },
+  "requirePaddingNewLinesBeforeLineComments": false,
+  "validateIndentation": 4,
+  "disallowMultipleLineBreaks": true,
+  "disallowMixedSpacesAndTabs": true,
+  "disallowTrailingWhitespace": true,
+  "disallowNewlineBeforeBlockStatements": true,
+  "requireSpacesInsideParentheses": {
+    "all": true,
+    "except": [
+      "{",
+      "}",
+      "\""
+    ]
+  },
+  "requireSpaceAfterKeywords": [
+    "if",
+    "else",
+    "for",
+    "while",
+    "do",
+    "switch",
+    "return",
+    "try",
+    "catch"
+  ]
+}
