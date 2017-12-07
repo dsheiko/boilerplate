@@ -24,5 +24,6 @@ Tests are written by using [Jasmine](https://jasmine.github.io/) testing framewo
 - `karma-chrome-launcher` - [Chrome Launcher for Karma](https://github.com/karma-runner/karma-chrome-launcher)
 - `karma-cli` - [Karma Runner CLI](https://github.com/indexzero/http-server) to run run Karma from command line
 - `karma-jasmine` - [Karma plugin](https://github.com/karma-runner/karma-jasmine) to handle Jasmine
+- `karma-spec-reporter` - [Karma plugin](https://github.com/mlex/karma-spec-reporter) test reporter, that prints detailed results to console
 
 
