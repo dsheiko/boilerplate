@@ -1,0 +1,23 @@
+{
+  "name": "boilerplate-express",
+  "version": "0.0.1",
+  "author": "Dmitry Sheiko (http://dsheiko.com)",
+  "main": "server.js",
+  "scripts": {
+    "start": "DEBUG=HTTP,ERROR,AUTH node server.js -p 9002 -h localhost"
+  },
+  "keywords": [
+    "bode",
+    "express",
+    "starter",
+    "boilerplate",
+    "hot"
+  ],
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "debug": "^3.1.0",
+    "express": "^4.16.2",
+    "minimist": "^1.2.0"
+  }
+}
