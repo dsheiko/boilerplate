@@ -15,9 +15,11 @@ class Router {
    * @returns {function}
    */
   asyncMiddleware( action ) {
-    const ctrl = this.controller,
-          // Add here check for action not found exceptions
-          fn = ctrl[ action ].bind( ctrl );
+    const ctrl = this.controller;
+    if ( !( action in ctrl ) ) {
+        throw new RangeError( `Invalid controller action ${action}` );
+    }
+    const fn = ctrl[ action ].bind( ctrl );
     return ( req, res, next ) => {
       Promise.resolve( fn( req, res, next ) ).catch( next );
     };
@@ -29,7 +31,9 @@ class Router {
   dispatch( map ) {
     map.forEach( ([ method, route, action ]) => {
       const ctrl = this.controller;
-      // Add here checks for method not found exceptions
+      if ( !( method in this.app ) ) {
+        throw new RangeError( `Invalid HTTP method ${method}` );
+      }
       this.app[ method ]( route, this.asyncMiddleware( action ) );
     });
   }

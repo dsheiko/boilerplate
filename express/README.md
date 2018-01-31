@@ -1,9 +1,10 @@
 # Starter template for Node.js/ Express
 
-The bundle contains REST server sample with asynchronous controller actions written in MVC style
+The bundle contains a minimalistic REST server sample with asynchronous controller actions written in MVC style
 
 ## Available Automation Commands
 - `npm start` - start server
+- `npm run test` - run tests
 
 
 ## package.json
@@ -18,7 +19,7 @@ The bundle contains REST server sample with asynchronous controller actions writ
 ```
 curl -X GET http://127.0.0.1:9002/news/101
 ```
-Possible response: `{"content":"Content of new entry 101"}`
+Possible response: 200 - `{"content":"Content of new entry 101"}`
 
 
 ```
@@ -28,4 +29,9 @@ curl -X POST http://127.0.0.1:9002/news \
   -F 'body=some body'
 ```
 
-Possible response: `{"message":"News entry with id 69 added"}`
+Possible response: 200 - `{"message":"News entry with id 69 added"}`
+
+```
+curl -X GET http://127.0.0.1:9002/news/invalid
+```
+Possible response: 500 - `{"message":"Required parameter is is missing or empty"}`

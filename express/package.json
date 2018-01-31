@@ -4,7 +4,8 @@
   "author": "Dmitry Sheiko (http://dsheiko.com)",
   "main": "server.js",
   "scripts": {
-    "start": "DEBUG=HTTP,ERROR,AUTH node server.js -p 9002 -h localhost"
+    "start": "DEBUG=HTTP,ERROR,AUTH node server.js -p 9002 -h localhost",
+    "test": "jasmine"
   },
   "keywords": [
     "bode",
@@ -19,5 +20,10 @@
     "debug": "^3.1.0",
     "express": "^4.16.2",
     "minimist": "^1.2.0"
+  },
+  "devDependencies": {
+    "jasmine": "^2.9.0",
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2"
   }
 }
