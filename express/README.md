@@ -41,4 +41,4 @@ Possible response: 200 - `{"message":"News entry with id 69 added"}`
 ```
 curl -X GET http://127.0.0.1:9002/news/invalid
 ```
-Possible response: 500 - `{"message":"Required parameter is is missing or empty"}`
+Possible response: 400 - `{"message":"Required parameter is is missing or empty"}`
