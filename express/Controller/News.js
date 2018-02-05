@@ -14,10 +14,11 @@ class News extends AbstractController {
     super();
     this.model = model;
   }
+
   /**
    *
    * @api {post} /news Add a news entry
-   * @apiVersion 1.0.0
+   * @apiVersion 0.3.0
    * @apiName PostEntry
    * @apiGroup NewsGroup
    *
@@ -31,14 +32,18 @@ class News extends AbstractController {
    *   -F 'body=some body'
    *
    * @apiError InvalidArgument  Required parameters missing
+   * @apiError NotFound   The news entry was not found.
    *
    * @apiErrorExample Response (example):
-   *     HTTP/1.1 505 Not Found
+   *     HTTP/1.1 400 Not Found
    *     {
    *       "message": "Required parameters title and text are missing or empty"
    *     }
    *
-   *
+   **/
+
+  /**
+   * Add a news entry
    * @param {IncomingMessage} req
    * @param {ServerResponse} res
    * @param {function} [next]
@@ -54,7 +59,7 @@ class News extends AbstractController {
   /**
    *
    * @api {get} /news/:id Get news entry content
-   * @apiVersion 1.0.0
+   * @apiVersion 0.3.0
    * @apiName GetEntry
    * @apiGroup NewsGroup
    *
@@ -64,15 +69,19 @@ class News extends AbstractController {
    * @apiExample Example usage:
    * curl -X GET http://127.0.0.1:9002/news/101
    *
+   * @apiError InvalidArgument  Required parameters missing
    * @apiError NotFound   The news entry was not found.
    *
    * @apiErrorExample Response (example):
-   *     HTTP/1.1 404 Not Found
+   *     HTTP/1.1 400 Not Found
    *     {
-   *       "message": "Cannot find GET /news/100"
+   *       "message": "Required parameter is is missing or empty"
    *     }
    *
-   *
+   */
+
+  /**
+   * Get news entry content
    * @param {IncomingMessage} req
    * @param {ServerResponse} res
    * @param {function} [next]

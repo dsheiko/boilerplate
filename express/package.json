@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "DEBUG=HTTP,ERROR,AUTH node index.js -p 9002 -h localhost",
-    "test": "jasmine"
+    "test": "jasmine",
+    "update:doc": "apidoc -i Controller -o doc && apidoc-markdown -p doc -o ./API.md"
   },
   "keywords": [
     "bode",
@@ -26,6 +27,8 @@
     "minimist": "^1.2.0"
   },
   "devDependencies": {
+    "apidoc": "^0.17.6",
+    "apidoc-markdown": "^0.2.0",
     "jasmine": "^2.9.0",
     "request": "^2.83.0",
     "request-promise": "^4.2.2"
