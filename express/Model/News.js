@@ -1,4 +1,6 @@
-class NewsModel {
+const AbstractModel = require( "./AbstractModel" );
+
+class News extends AbstractModel {
   /**
    * Stub method
    * @param {string} title
@@ -9,7 +11,7 @@ class NewsModel {
     return await Promise.resolve( Math.floor( Math.random() * 100 ) );
   }
   /**
-   * Stub method 
+   * Stub method
    * @param {number} id
    * @returns {Promise}
    */
@@ -18,4 +20,4 @@ class NewsModel {
   }
 }
 
-module.exports = NewsModel;
+module.exports = News;

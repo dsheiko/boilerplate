@@ -1,5 +1,5 @@
 const rp = require( "request-promise" ),
-      server = require( "../Lib/server" ),
+      server = require( "../server" ),
       HOST = "127.0.0.1",
       PORT = 9002;
 
@@ -41,24 +41,24 @@ describe("API", () => {
       await req( "GET" , "news/101" )
         .then( r => expect( r.content ).toBe( "Content of new entry 101" ) );
     });
-    it( "fails with 500 status code when invalid :id ", async () => {
+    it( "fails with 400 status code when invalid :id ", async () => {
       await req( "GET" , "news/invalid" )
         .catch( r => {
-          expect( r.statusCode ).toBe( 500 );
+          expect( r.statusCode ).toBe( 400 );
           expect( r.error.message ).toBe( "Required parameter is is missing or empty" );
         });
     });
   });
 
-   describe("POST /news", () => {
+  describe("POST /news", () => {
     it( "responds with intended content", async () => {
       await req( "POST" , "news", { title: "foo", text: "bar" } )
         .then( r => expect( r.message ).toContain( "News entry with id" ) );
     });
-    it( "fails with 500 status code when invalid data ", async () => {
+    it( "fails with 400 status code when invalid data ", async () => {
       await req( "POST" , "news" )
         .catch( r => {
-          expect( r.statusCode ).toBe( 500 );
+          expect( r.statusCode ).toBe( 400 );
           expect( r.error.message ).toBe( "Required parameters title and text are missing or empty" );
         });
     });

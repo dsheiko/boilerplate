@@ -2,9 +2,9 @@
   "name": "boilerplate-express",
   "version": "0.0.1",
   "author": "Dmitry Sheiko (http://dsheiko.com)",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
-    "start": "DEBUG=HTTP,ERROR,AUTH node server.js -p 9002 -h localhost",
+    "start": "DEBUG=HTTP,ERROR,AUTH node index.js -p 9002 -h localhost",
     "test": "jasmine"
   },
   "keywords": [
@@ -14,9 +14,13 @@
     "boilerplate",
     "hot"
   ],
+  "engines": {
+    "node": ">=8"
+  },
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
     "debug": "^3.1.0",
     "express": "^4.16.2",
     "minimist": "^1.2.0"
