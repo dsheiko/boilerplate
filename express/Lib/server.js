@@ -20,6 +20,9 @@ app.use( bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 }));
 
+app.disable( "x-powered-by" ); // removing X-Powered-By
+
+
 // Reporting to the console what is going on
 app.use(function ( req, res, next ) {
   const data = url.parse( req.url );
