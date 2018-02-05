@@ -25,6 +25,10 @@ describe("API", () => {
     server.listen( PORT, HOST, done );
   });
 
+  afterAll( done  => {
+    server.close( done );
+  });
+
   describe("GET /not-registered-route", () => {
     it( "fails with 404 status code", async () => {
       await req( "GET" , "not-registered-route" )
