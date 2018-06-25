@@ -49,4 +49,4 @@ The application represents the fundamental patterns of React 16.
 - `redux-actions` - [Helper](https://github.com/reduxactions/redux-actions) to create actions and reducers
 - `redux-promise` - [Redux Store Middleware](https://github.com/acdlite/redux-promise) to handle promisable actions
 - `redux-thunk` - [Redux Store Middleware](https://github.com/gaearon/redux-thunk) to handle async actions
-
+- `redux-devtools-extension` - [Redux DevTools extension](https://github.com/zalmoxisus/redux-devtools-extension)

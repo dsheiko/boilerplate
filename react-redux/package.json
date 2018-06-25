@@ -5,17 +5,17 @@
   "scripts": {
     "build": "webpack --config webpack.config.js",
     "watch": "webpack --watch  --config webpack.config.js",
-    "start": "http-server . -o -c-1",
+    "start": "http-server . -c-1",
     "lint:js": "jscs src",
     "lint:js:fix": "jscs src -x"
   },
   "keywords": [
-      "webpack",
-      "react",
-      "redux",
-      "starter",
-      "boilerplate",
-      "hot"
+    "webpack",
+    "react",
+    "redux",
+    "starter",
+    "boilerplate",
+    "hot"
   ],
   "devDependencies": {
     "babel-cli": "^6.23.0",
@@ -42,6 +42,7 @@
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
     "redux-actions": "^2.2.1",
+    "redux-devtools-extension": "^2.13.5",
     "redux-promise": "^0.5.3",
     "redux-thunk": "^2.2.0"
   }
