@@ -8,6 +8,7 @@ Collection of Front End Developer Boilerplates
 * [Starter template for Karma + Jasmine](./jasmine-karma)
 * [Starter template for SASS + PostCSS( Autoprefix )](./postcss)
 * [Starter template for Express.js ( Express.js )](./express)
+* [Starter template for E2E testing with Puppeteer/Jest](./puppeteer-jest)
 * [Learning to bundle images with Webpack](./webpack-images)
 * [Learning to bundle SASS with Webpack](./webpack-sass)
 
