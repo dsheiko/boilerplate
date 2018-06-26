@@ -6,6 +6,13 @@ const { join } = require( "path" ),
       PUBLIC_FULL_PATH = join( __dirname, PUBLIC_PATH );
 
 module.exports = {
+  
+    mode: "development",
+
+    watchOptions: {
+      ignored: /node_modules/
+    },
+
     // Application entry scripts
     entry: {
       // script alias : path

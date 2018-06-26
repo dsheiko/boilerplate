@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import ErrorBoundary from "./ErrorBoundary";
 import Table, { TableBody, TableCell, TableHead, TableRow } from "material-ui/Table";
 import Paper from "material-ui/Paper";
 import Row from "./Row";
@@ -17,27 +18,17 @@ export default class Main extends Component {
     })
   }
 
-  constructor( props ) {
-    super( props );
-    // Set error boundary
-    this.state = { hasError: false };
-  }
   // Using life-cycle methods
   componentDidMount() {
     const { actions } = this.props;
     actions.fetchPeople();
   }
 
-  // Catching JavaScript errors occurred within the component
-  componentDidCatch() {
-    this.setState({ hasError: true });
-  }
-
   render() {
     const { people } = this.props.states;
 
     return (
-      <div>
+      <ErrorBoundary>
         <Header />
         <main>
           <Paper>
@@ -57,7 +48,7 @@ export default class Main extends Component {
             </Table>
           </Paper>
         </main>
-      </div>
+      </ErrorBoundary>
     );
   }
 }
