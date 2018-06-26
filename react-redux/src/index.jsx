@@ -9,19 +9,19 @@ import promiseMiddleware from "redux-promise";  // Support for promisable action
 import thunkMiddleware from "redux-thunk"; // Support for asynchronous actions
 
 // Store enhancement
-const storeEnhancer = composeWithDevTools(compose(
-  applyMiddleware(
-    thunkMiddleware,
-    promiseMiddleware
-  )
-));
-// Store creation
-const store = createStore(
-  appReducer,
-  storeEnhancer
-);
+const storeEnhancer = composeWithDevTools( compose(
+        applyMiddleware(
+          thunkMiddleware,
+          promiseMiddleware
+        )
+      ) ),
+      // Store creation
+      store = createStore(
+        appReducer,
+        storeEnhancer
+      );
 
 render( <Provider store={store}>
   <App />
- </Provider>, document.querySelector( "root" ) );
+</Provider>, document.querySelector( "root" ) );
 

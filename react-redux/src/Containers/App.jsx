@@ -5,17 +5,17 @@ import Main from "../Components/Main.jsx";
 import * as Actions from "../Actions";
 
 // Mapping state to the props
-const mapStateToProps = ( state ) => ({ states: state });
-// Mapping actions to the props
-const mapDispatchToProps = ( dispatch ) => ({
-  actions: bindActionCreators( Actions, dispatch )
-});
+const mapStateToProps = ( state ) => ({ states: state }),
+      // Mapping actions to the props
+      mapDispatchToProps = ( dispatch ) => ({
+        actions: bindActionCreators( Actions, dispatch )
+      });
 // Using store connect as a decorator
 @connect( mapStateToProps, mapDispatchToProps )
 export default class App extends Component {
   render() {
     return (
-        <Main {...this.props} />
+      <Main {...this.props} />
     );
   }
 }
