@@ -7,7 +7,7 @@ The application represents the fundamental patterns of React 16.
 - `npm run build` - build app
 - `npm run watch` - watch for updates in the code base
 - `npm start` - start app
-- `npm run lint:js` - ensure the code follows the code style conventions (see [.jscsrc](./.jscsrc))
+- `npm run lint:js` - ensure the code follows the code style conventions (see [.eslintrc.js](./.eslintrc.js))
 - `npm run lint:js:fix` - adjust the code automatically according to the code style conventions
 
 ## References

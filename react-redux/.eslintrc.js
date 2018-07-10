@@ -104,6 +104,17 @@ module.exports = {
         "caughtErrors": "all",
         "args": "after-used",
         "ignoreRestSiblings": true
-      } ]
+      } ],
+      
+       // require "1tbs" brace style (https://eslint.org/docs/rules/brace-style)
+    "brace-style": [ "error", "1tbs", { "allowSingleLine": true } ],
+    // no more than two sequent empty lines
+    "no-multiple-empty-lines": ["error", { "max": 2 }],
+    // do not mix spaces and tabs for indentation
+    "no-mixed-spaces-and-tabs": ["error"],
+    // no trailing spaces llowed
+    "no-trailing-spaces":  ["error"],
+    // keyword words shall be surrounded by spaces
+    "keyword-spacing": ["error", { "before": true, "after": true }]
   }
 };
