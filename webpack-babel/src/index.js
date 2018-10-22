@@ -12,10 +12,10 @@ console.log( "Compiled modules exports ", utilFoo(), utilBar() );
 
 // Requesting modules async
 Promise.all([
-  import(/* webpackChunkName: "foo" */ "./widget/foo" ),
-  import(/* webpackChunkName: "bar" */ "./widget/bar" )
+  import( /* webpackChunkName: "foo" */ "./widget/foo" ),
+  import( /* webpackChunkName: "bar" */ "./widget/bar" )
 ]).then( ([{ widgetFoo }, { widgetBar }])  => {
   console.log( "Lazy-loaded modules exports ", widgetFoo(), widgetBar() );
-}).catch(( e )=> {
+}).catch( ( e )=> {
   console.error( e );
 });

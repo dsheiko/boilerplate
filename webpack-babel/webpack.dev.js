@@ -4,6 +4,8 @@ const merge = require( "webpack-merge" ),
 // Extending COMMON configuration
 module.exports = merge( baseConfig, {
 
+    mode: "development",
+
     module: {
 			rules: [
         {
@@ -12,7 +14,7 @@ module.exports = merge( baseConfig, {
           use: [{
             loader: "babel-loader",
             options: {
-              presets: [ [ "env", {
+              presets: [ [ "@babel/preset-env", {
                 "targets": {
                   "browsers": [
                     "Chrome >= 60",
@@ -23,14 +25,14 @@ module.exports = merge( baseConfig, {
                   ]
                 },
                 "modules": false,
-                "useBuiltIns": true,
+                "useBuiltIns": "entry",
                 "debug": false
               }] ],
               plugins: [
-                "transform-class-properties",
-                "transform-object-rest-spread",
-                "babel-plugin-syntax-dynamic-import",
-                "transform-runtime"
+                "@babel/plugin-syntax-dynamic-import",
+                "@babel/plugin-proposal-class-properties",
+                "@babel/plugin-proposal-object-rest-spread",
+                "@babel/plugin-transform-runtime"
               ]
             }
           }]

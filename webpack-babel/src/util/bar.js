@@ -1,3 +1,3 @@
 export function utilBar() {
-    return "util-bar";
+  return "util-bar";
 }

@@ -13,22 +13,25 @@ The application uses Webpack to bundle the modules. It shows how to to import st
 - `npm run build:prod` - build app for dev environment
 - `npm run watch` - watch for updates in the code base
 - `npm start` - start app
-- `npm run lint:js` - ensure the code follows the code style conventions
-- `npm run lint:js:fix` - adjust the code automatically according to the code style conventions
+- `npm run lint` - ensure the code follows the code style conventions
+- `npm run lint:fix` - adjust the code automatically according to the code style conventions
 
 ## package.json
 
-- `babel-cli` - [Babel CLI](https://babeljs.io/docs/usage/cli/)
+- `@babel/core`, `@babel/cli` - [Babel CLI](https://babeljs.io/docs/usage/cli/)
 - `babel-loader` - [Babel loader for Webpack](https://github.com/babel/babel-loader)
-- `babel-preset-env` - [Babel env preset](https://github.com/babel/babel-preset-env) to include all the plugins required for target environment automatically
-- `babel-plugin-transform-class-properties`  - [Babel plugin](https://babeljs.io/docs/plugins/transform-class-properties/) to unlock class properties of ES8
-- `babel-plugin-transform-object-rest-spread` - [Babel plugin](https://babeljs.io/docs/plugins/transform-object-rest-spread/) to unlock desctructuring in objects
-- `babel-plugin-transform-runtime` - [Runtime transform](https://babeljs.io/docs/plugins/transform-runtime/) to inject polyfills required according to `Babel env preset` configuration
-- `babel-plugin-syntax-dynamic-import` - [Babel plugin](https://github.com/babel/babel/tree/master/packages/babel-plugin-syntax-dynamic-import) to unlock lazy-loading for modules
-- `clean-webpack-plugin` - [Babel plugin](https://github.com/johnagan/clean-webpack-plugin) to clean up build directory before compilation
-- `uglifyjs-webpack-plugin` - [Babel plugin](https://webpack.js.org/plugins/uglifyjs-webpack-plugin/) to minify & optimize built code
+- `@babel/preset-env` - [Babel env preset](https://github.com/babel/babel-preset-env) to include all the plugins required for target environment automatically
+- `@babel/plugin-proposal-class-properties`  - [Babel plugin](https://babeljs.io/docs/plugins/transform-class-properties/) to unlock class properties of ES8
+- `@babel/plugin-proposal-object-rest-spread` - [Babel plugin](https://babeljs.io/docs/plugins/transform-object-rest-spread/) to unlock desctructuring in objects
+- `@babel/plugin-transform-runtime` - [Runtime transform](https://babeljs.io/docs/plugins/transform-runtime/) to inject polyfills required according to `Babel env preset` configuration
+- `@babel/plugin-syntax-dynamic-import` - [Babel plugin](https://github.com/babel/babel/tree/master/packages/babel-plugin-syntax-dynamic-import) to unlock lazy-loading for modules
+- `clean-webpack-plugin` - [Webpack plugin](https://github.com/johnagan/clean-webpack-plugin) to clean up build directory before compilation
+- `terser-webpack-plugin` - [Webpack plugin](https://github.com/webpack-contrib/terser-webpack-plugin) to minify & optimize built code
 - `http-server` - [Command-line http server](https://github.com/indexzero/http-server)
 - `webpack` - [Webpack bundler](https://github.com/webpack/webpack)
+- `eslint` - [JavaScript linter](https://eslint.org/)
+- `eslint-plugin-import` - [ESLint plugin](https://www.npmjs.com/package/eslint-plugin-import) to support linting of ES2015+ (ES6+) import/export syntax
+- `babel-eslint` - [Webpack parser](https://github.com/babel/babel-eslint) used for ESLint
 
 ## Webpack Configuration Overview
 

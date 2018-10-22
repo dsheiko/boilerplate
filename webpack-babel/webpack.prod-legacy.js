@@ -22,7 +22,7 @@ module.exports = merge({
       // find module.rules[].use[].options.presets[] matching "babel-loader"
       const rule = baseCfg.rules.find( rule => rule.use.find( uc => uc.loader === "babel-loader" ) ),
             usecase = rule.use.find( uc => uc.loader === "babel-loader" ),
-            preset = usecase.options.presets.find( ( [ name ] ) => name === "env" );
+            preset = usecase.options.presets.find( ( [ name ] ) => name === "@babel/preset-env" );
       // replace ENV browsers configuration
       preset[ 1 ].targets.browsers = [
         ">1%",

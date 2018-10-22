@@ -1,3 +1,3 @@
 export function widgetBar() {
-    return "widget-bar";
+  return "widget-bar";
 }

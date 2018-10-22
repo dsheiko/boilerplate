@@ -18,7 +18,7 @@ module.exports = {
       chunkFilename: `[name].v${pkg.version}.widget.js`,
       publicPath: PUBLIC_PATH
     },
-
+    
     // JavaScript (*.js) module paths to be resolved relatively to node_modules and SRC_FULL_PATH
     // e.g. if we have `import "mymodule"`
     // Webpack looks up in node_modules/mymodule/ according to Node.js module loading convention
