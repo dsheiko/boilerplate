@@ -35,7 +35,7 @@ The application uses Webpack to bundle the modules. It shows how to to import st
 
 ## Webpack Configuration Overview
 
-```
+```javascript
 module.exports = {
     entry: <Path to the entry script(s). It accepts a string or an array of strings>
     output: {
