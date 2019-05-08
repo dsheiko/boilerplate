@@ -51,3 +51,5 @@ export default class SettingsProjectTable extends AbstractTable {
   }
 
 };
+// Need it available even before class props parsed because it's used as table ID
+SettingsProjectTable.displayName = "SettingsProjectTable";

@@ -15,6 +15,8 @@ const mapStateToProps = ( state ) => ({ store: state }),
 @connect( mapStateToProps, mapDispatchToProps )
 export default class App extends Component {
 
+  static displayName = "App";
+
   async componentDidMount() {
     // Bootstrap
   }

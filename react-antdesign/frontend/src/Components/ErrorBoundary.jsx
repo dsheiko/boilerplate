@@ -4,6 +4,8 @@ import { Icon } from "antd";
 
 export default class ErrorBoundary extends React.Component {
 
+  static displayName = "ErrorBoundary";
+
   static propTypes = {
     children: PropTypes.any
   }

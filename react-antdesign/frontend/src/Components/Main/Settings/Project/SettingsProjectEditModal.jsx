@@ -15,6 +15,7 @@ const FormItem = Form.Item,
 @connectForm
 export default class SettingsProjectEditModal extends AbstractEditModal {
 
+  static displayName = "SettingsProjectEditModal";
 
   static propTypes = {
     history: PropTypes.object.isRequired,

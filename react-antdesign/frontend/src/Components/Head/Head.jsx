@@ -7,6 +7,7 @@ const { Header } = Layout;
 
 export default class Head extends React.Component {
 
+  static displayName = "Head";
 
   render() {
 

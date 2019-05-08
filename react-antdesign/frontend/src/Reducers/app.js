@@ -14,7 +14,7 @@ const DEFAULT_STATE = {
   loading: false,
   menu: [ "Item1" ],
   tables: {
-    [ SettingsProjectTable.name ]: { ...TABLE_OPTS }
+    [ SettingsProjectTable.displayName ]: { ...TABLE_OPTS }
   }
 };
 

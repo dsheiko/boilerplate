@@ -14,6 +14,7 @@ const { Content } = Layout;
 
 export default class AppLayout extends React.Component {
 
+  static displayName = "AppLayout";
 
   static propTypes = {
     actions: PropTypes.object.isRequired,
@@ -40,7 +41,7 @@ export default class AppLayout extends React.Component {
 
                     <Route path="/settings/project/:pk" render={({ history, match }) => (
                       <SettingsProjectEditModal
-                          table={ SettingsProjectTable.name }
+                          table={ SettingsProjectTable.displayName }
                           pk={ parseInt( match.params.pk, 10 ) }
                           baseUrl="/settings/project"
                           history={ history }

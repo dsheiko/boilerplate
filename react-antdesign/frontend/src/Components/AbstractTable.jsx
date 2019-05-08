@@ -21,7 +21,7 @@ export default class AbstractTable extends React.Component {
       filterParams: {}
     }
     this.url = this.props.baseUrl;
-    this.table = this.constructor.name;
+    this.table = this.constructor.displayName;
     this.addButtonText = `New record`;
   }
 

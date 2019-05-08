@@ -8,6 +8,8 @@ const { Content, Sider } = Layout,
 
 export default class Sidebar extends React.Component {
 
+  static displayName = "Sidebar";  
+
   render() {
     const { store } = this.props;
     return (<Sider width={200} style={{ background: '#fff' }}>
