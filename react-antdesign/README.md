@@ -1,6 +1,6 @@
 # Starter template for React + Ant.Design
 
-The bundle represents a manageable data table UI (sortintg/filtering and pagination) based on React + Ant.Design
+The bundle represents a manageable data table UI (sorting/filtering and pagination) based on React + Ant.Design
 provided with backend driven by Express.js + MySQL
 
 ![Template in action](https://github.com/dsheiko/boilerplate/raw/master/react-antdesign/docs/data-table-demo.gif)
@@ -112,7 +112,7 @@ npm start
 - `update( id:number, data:Entity )` - update entity
 - `remove( id:number )` - remove entity
 - `find( id:number )` - fetch one entity
-- `findAll( query:QueryParams )
+- `findAll( query:QueryParams )` - fetch selected entities
 
 where `QueryParams` can be:
 ```
