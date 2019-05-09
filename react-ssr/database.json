@@ -1,0 +1,10 @@
+{
+  "dev": {
+    "host": { "ENV" : "DEMO_DB_HOST" },
+    "user": { "ENV" : "DEMO_DB_USER" },
+    "password" : { "ENV" : "DEMO_DB_PASS" },
+    "database": { "ENV" : "DEMO_DB_NAME" },
+    "driver": "mysql",
+    "multipleStatements": true
+  }
+}

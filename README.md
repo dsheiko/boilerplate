@@ -4,6 +4,7 @@ Collection of Front End Developer Boilerplates
 * [Starter template for React + Redux](./react-redux)
 * [Starter template for React + Redux + TypeScript](./react-redux-typescript)
 * [Starter template for React + Ant.Design](./react-antdesign)
+* [Starter template for Server-Side Rendering in React](./react-ssr)
 * [Starter template for TypeScript + Jest](./webpack-typescript)
 * [Starter template for RequireJS + Babel](./babel-requirejs)
 * [Starter template for Karma + Jasmine](./jasmine-karma)

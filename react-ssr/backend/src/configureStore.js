@@ -1,17 +1,19 @@
 import { Provider } from "react-redux";
 import promiseMiddleware from "redux-promise";  // Support for promisable actions
 import thunkMiddleware from "redux-thunk"; // Support for asynchronous actions
-import { createBrowserHistory } from "history";
-import { composeWithDevTools } from "redux-devtools-extension";
+import { createMemoryHistory } from "history";
 import { applyMiddleware, compose, createStore } from "redux";
 import { routerMiddleware } from "connected-react-router";
-import createRootReducer from "./Reducers";
+import createRootReducer from "Reducers";
 
-export const history = createBrowserHistory();
+export let history;
 
-export default function configureStore() {
-// Store enhancement
-const storeEnhancer = composeWithDevTools(
+export default function configureStore( initialState, url ) {
+    history = createMemoryHistory({
+      initialEntries: [ url ]
+    });
+    // Store enhancement
+    const storeEnhancer = compose(
         applyMiddleware(
           thunkMiddleware,
           promiseMiddleware,
@@ -22,7 +24,7 @@ const storeEnhancer = composeWithDevTools(
     // Store creation
     return createStore(
       createRootReducer( history ),
-      //, preloadedState
+      initialState,
       storeEnhancer
     );
 }
