@@ -1,0 +1,37 @@
+{
+  "name": "boilerplate-webpack-sqip",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "http-server . -c0",
+    "build:primitive": "webpack --config webpack.primitive.js",
+    "build:trace": "webpack --config webpack.trace.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "lazysizes": "^5.1.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.5.0",
+    "@babel/core": "^7.5.4",
+    "@babel/node": "^7.5.0",
+    "@babel/preset-env": "^7.5.4",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.6",
+    "clean-webpack-plugin": "^3.0.0",
+    "file-loader": "^4.0.0",
+    "http-server": "^0.11.1",
+    "image-trace-loader": "^0.1.0",
+    "image-webpack-loader": "^5.0.0",
+    "sqip-loader": "^0.2.0",
+    "url-loader": "^2.0.1",
+    "webpack": "^4.35.3",
+    "webpack-cli": "^3.3.5",
+    "webpack-merge": "^4.2.1"
+  }
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<!--*
+@copyright 2012 - 2015 Crytek GmbH
+@license http://gface.de/license
+-->
+<html>
+  <head>
+    <title>Demo</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      img {
+        width: 620px;
+      }
+
+      @media screen and (max-width: 620px) {
+        img {
+          width: calc(100vw - 64px);
+        }
+      }
+
+      body {
+        line-height: 1;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        -webkit-text-size-adjust: none;
+        background: #7b4397;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, #dc2430, #7b4397);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, #dc2430, #7b4397); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        margin: 0;
+        padding: 32px;
+        text-align: center;
+      }
+
+      .blur-up {
+        -webkit-filter: blur(2px);
+        filter: blur(2px);
+        transition: filter 400ms, -webkit-filter 400ms;
+      }
+
+      .blur-up.lazyloaded {
+        -webkit-filter: blur(0);
+        filter: blur(0);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script src="build/index.js"></script>
+  </body>
+</html>
