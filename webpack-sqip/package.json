@@ -6,7 +6,8 @@
   "scripts": {
     "start": "http-server . -c0",
     "build:primitive": "webpack --config webpack.primitive.js",
-    "build:trace": "webpack --config webpack.trace.js"
+    "build:trace": "webpack --config webpack.trace.js",
+    "build:sqip": "webpack --config webpack.sqip.js"
   },
   "keywords": [],
   "author": "",

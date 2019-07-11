@@ -6,5 +6,6 @@
 ## Available Commands
 - `npm run build:primitive` - build app with SQIP based on primitives
 - `npm run build:trace` - build app with SQIP based on silhouettes
+- `npm run build:sqip` - build app with SQIP based on blurred primitives
 - `npm start` - start app
 
