@@ -1,7 +1,6 @@
 import React from "react";
 import { render } from "react-dom";
 import Image from "./component/Image";
-import "lazysizes/plugins/rias/ls.rias.js";
 import "lazysizes";
 
 import productImg1x from "./img/test-1x.jpg";
