@@ -131,13 +131,10 @@ where `QueryParams` can be:
 
 - `babel-cli` - [Babel CLI](https://babeljs.io/docs/usage/cli/)
   - `babel-loader` - [Babel loader for Webpack](https://github.com/babel/babel-loader)
-  - `babel-preset-env` - [Babel env preset](https://github.com/babel/babel-preset-env) to include all the plugins required for target environment automatically
-  - `babel-plugin-transform-class-properties`  - [Babel plugin](https://babeljs.io/docs/plugins/transform-class-properties/) to unlock class properties of ES8
-  - `babel-plugin-transform-object-rest-spread` - [Babel plugin](https://babeljs.io/docs/plugins/transform-object-rest-spread/) to unlock desctructuring in objects
-  - `babel-plugin-transform-runtime` - [Runtime transform](https://babeljs.io/docs/plugins/transform-runtime/) to inject polyfills required according to `Babel env preset` configuration
-  - `babel-plugin-syntax-dynamic-import` - [Babel plugin](https://github.com/babel/babel/tree/master/packages/babel-plugin-syntax-dynamic-import) to unlock lazy-loading for modules
-  - `babel-plugin-transform-decorators-legacy` - [Babel plugin](https://github.com/loganfsmyth/babel-plugin-transform-decorators-legacy) to unlock decorators
-  - `babel-preset-react` - [Babel preset](https://github.com/loganfsmyth/babel-plugin-transform-decorators-legacy) for React
+  - `@babel/preset-env` - [Babel env preset](https://babeljs.io/docs/en/babel-preset-env) to include all the plugins required for target environment automatically
+  - `@babel/plugin-proposal-class-properties`  - [Babel plugin](https://babeljs.io/docs/en/babel-plugin-proposal-class-properties) to unlock class properties of ES8 
+  - `@babel/plugin-proposal-decorators` - [Babel plugin](https://babeljs.io/docs/en/babel-plugin-proposal-decorators) to unlock decorators
+  - `@babel/preset-react` - [Babel preset](https://babeljs.io/docs/en/babel-preset-react) for React
 
 - `webpack` - [Webpack bundler](https://github.com/webpack/webpack)
   - `clean-webpack-plugin` - [Webpack plugin](https://github.com/johnagan/clean-webpack-plugin) to clean up build directory before compilation

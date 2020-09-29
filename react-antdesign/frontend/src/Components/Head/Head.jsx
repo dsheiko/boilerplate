@@ -2,8 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import ErrorBoundary from "../ErrorBoundary";
 import If from "../If";
-import { Icon, Layout } from "antd";
+import {  Layout } from "antd";
 const { Header } = Layout;
+import { DesktopOutlined } from '@ant-design/icons';
 
 export default class Head extends React.Component {
 
@@ -13,7 +14,7 @@ export default class Head extends React.Component {
 
     return (<Header className="header">
     <a className="logo">
-      <Icon type="desktop" />
+      <DesktopOutlined />
     </a>
 
 

@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import ErrorBoundary from "../ErrorBoundary";
-
-import {  Layout, Menu, Icon } from "antd";
+import { ProjectOutlined } from '@ant-design/icons';
+import { Layout, Menu, Icon } from "antd";
 const { Content, Sider } = Layout,
       { SubMenu } = Menu;
 
@@ -19,7 +19,7 @@ export default class Sidebar extends React.Component {
         >
 
         { store.app.menu.map( ( project, inx ) => (<Menu.Item key={ inx }>
-          <span><Icon type="project" />{ project }</span>
+          <span><ProjectOutlined />{ project }</span>
         </Menu.Item>)) }
 
         </Menu>

@@ -4,7 +4,8 @@ import ErrorBoundary  from "Components/ErrorBoundary";
 import If  from "Components/If";
 import * as _ from "constants";
 import { Link } from "react-router-dom";
-import { Table, Divider, Icon, Button, Spin, Alert, Popconfirm } from "antd";
+import { Table, Divider, Button, Spin, Alert, Popconfirm } from "antd";
+import { PlusOutlined } from '@ant-design/icons';
 
 export default class AbstractTable extends React.Component {
 
@@ -31,7 +32,7 @@ export default class AbstractTable extends React.Component {
       <Divider type="vertical" />
       <Popconfirm placement="topRight" title="Are you sure to delete this record?"
         onConfirm={ () => this.removeRecord( record.id ) } okText="Yes" cancelText="No">
-        <a  href="javascript:;">Delete</a>
+        <a href="#">Delete</a>
       </Popconfirm>
     </span>
   )
@@ -121,7 +122,7 @@ export default class AbstractTable extends React.Component {
         ...this.state.pagination,
         total
       }}
-      footer={() => ( <Link to={ `${ this.url }/0` }><Button><Icon type="plus" />{
+      footer={() => ( <Link to={ `${ this.url }/0` }><Button><PlusOutlined />{
       this.addButtonText || "Add record" }</Button></Link> )}
      />
 

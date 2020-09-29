@@ -1,6 +1,6 @@
 const { join } = require( "path" ),
       pkg = require( "./package.json" ),
-      CleanWebpackPlugin = require( "clean-webpack-plugin" ),
+      { CleanWebpackPlugin } = require('clean-webpack-plugin'),
       MiniCssExtractPlugin = require( "mini-css-extract-plugin" ),
       SRC_FULL_PATH = join( __dirname, "./frontend/src/" ),
       PUBLIC_PATH = "./build/",
@@ -41,7 +41,7 @@ module.exports = {
 
     plugins: [
       // cleaning up the build directory prior to update
-      new CleanWebpackPlugin([ PUBLIC_PATH ]),
+      new CleanWebpackPlugin(),
       new MiniCssExtractPlugin({
             // Options similar to the same options in webpackOptions.output
             // both options are optional
@@ -74,8 +74,8 @@ module.exports = {
             loader: "babel-loader",
             options: {
               presets: [
-                "react",
-                [ "env", {
+                "@babel/preset-react",
+                [ "@babel/preset-env", {
                   "targets": {
                     "browsers": [
                       ">1%",
@@ -85,12 +85,9 @@ module.exports = {
                   }
                 }]
               ],
-              plugins: [
-                "transform-class-properties",
-                "transform-object-rest-spread",
-                "babel-plugin-syntax-dynamic-import",
-                "transform-runtime",
-                "transform-decorators-legacy"
+              "plugins": [                
+                ["@babel/plugin-proposal-decorators", { "legacy": true }],
+                "@babel/plugin-proposal-class-properties"
               ]
             }
           }]

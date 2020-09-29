@@ -10,13 +10,15 @@ export default class AbstractEditModal extends AbstractForm {
     super( props );
     this.url = this.props.baseUrl;
     this.table = this.props.table;
+    this.formRef = React.createRef();
     this.state = {
       loading: false,
       errorMessage: "",
       files: {},
       entity: {
       },
-      ready: false
+      ready: false,
+      disabled: false
     }
   }
 
@@ -64,12 +66,20 @@ export default class AbstractEditModal extends AbstractForm {
   }
 
   async submit( pk, values ) {
-    const data = values;
-    if ( pk ) {
-      return await this.api.update( pk, data );
-    } else {
-      return await this.api.add( data );
-    }
+    const data = await this.normalizeData( values );
+    this.setState({ errorMessage: ``, loading: true });
+    try {
+      if ( pk ) {
+        await this.api.update( pk, data );
+      } else {
+        await this.api.add( data );
+      }
+      this.props.actions.loadTable( this.table, this.api );
+      this.close();
+    } catch ( err ) {
+      console.log( "Error", err );
+      this.setState({ errorMessage: `Internal server error: ${ err.message }`, loading: false });
+    }  
   }
 
   async transformFetch( entity ) {
@@ -77,25 +87,9 @@ export default class AbstractEditModal extends AbstractForm {
   }
 
   onClickOk = ( e ) => {
-    const { validateFields } = this.props.form,
-          pk = this.props.pk;
-    e.preventDefault();
-    this.setState({ errorMessage: ``, loading: true });
+    e.preventDefault();    
 
-    validateFields( async ( err, data ) => {
-      const values = this.normalizeData( data );
-      if ( err ) {
-        this.setState({ loading: false });
-        return;
-      }
-      try {
-        await this.submit( pk, values );
-        this.props.actions.loadTable( this.table, this.api );
-        this.close();
-      } catch ( err ) {
-        this.setState({ errorMessage: `Internal server error: ${ err.message }`, loading: false });
-      }
-    });
+    this.formRef.current.submit();
   }
 
 };
