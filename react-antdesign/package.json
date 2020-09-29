@@ -19,7 +19,7 @@
     "antd": "^4.6.6",
     "axios": "^0.20.0",
     "body-parser": "^1.19.0",
-    "bycontract": "file:../../bycontract/bycontract-2.0.0.tgz",
+    "bycontract": "^2.0.9",
     "connected-react-router": "^6.8.0",
     "css-loader": "^4.3.0",
     "debug": "^4.2.0",
