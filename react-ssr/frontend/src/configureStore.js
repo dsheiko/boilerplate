@@ -9,7 +9,7 @@ import createRootReducer from "./Reducers";
 
 export const history = createBrowserHistory();
 
-export default function configureStore() {
+export default function configureStore( preloadedState ) {
 // Store enhancement
 const storeEnhancer = composeWithDevTools(
         applyMiddleware(
@@ -22,7 +22,7 @@ const storeEnhancer = composeWithDevTools(
     // Store creation
     return createStore(
       createRootReducer( history ),
-      //, preloadedState
+      preloadedState,
       storeEnhancer
     );
 }

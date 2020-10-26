@@ -4,7 +4,6 @@ import { Provider as ReduxProvider } from "react-redux";
 import { StaticRouter } from "react-router";
 import http from "http";
 import mainPage from "./Template";
-import url from "url";
 import express from "express";
 import dbg from "debug";
 import bodyParser from "body-parser";
@@ -45,25 +44,45 @@ app.use(( req, res, next ) => {
   next();
 });
 
-app.delete( API_VER + "/projects/:id", async ( req, res ) => {
-  return res.send( await projectModel.remove( req.params.id ) );
+app.delete( API_VER + "/projects/:id", async ( req, res, next ) => {
+  try {
+    return res.send( await projectModel.remove( req.params.id ) );
+  } catch ( err ) {
+    next( err );
+  }
 });
 
-app.put( API_VER + "/projects/:id", async ( req, res ) => {
-  return res.send( await projectModel.update( req.params.id, req.body ) );
+app.put( API_VER + "/projects/:id", async ( req, res, next ) => {
+  try {
+    return res.send( await projectModel.update( req.params.id, req.body ) );
+  } catch ( err ) {
+    next( err );
+  }
 });
 
-app.post( API_VER + "/projects", async ( req, res ) => {
-  return res.send( await projectModel.add( req.body ) );
+app.post( API_VER + "/projects", async ( req, res, next ) => {
+  try {
+    return res.send( await projectModel.add( req.body ) );
+  } catch ( err ) {
+    next( err );
+  }
 });
 
 
-app.get( API_VER + "/projects/:id", async ( req, res ) => {
-  return res.send( await projectModel.find( req.params.id ) );
+app.get( API_VER + "/projects/:id", async ( req, res, next ) => {
+  try {
+    return res.send( await projectModel.find( req.params.id ) );
+  } catch ( err ) {
+    next( err );
+  }
 });
 
-app.get( API_VER + "/projects", async ( req, res ) => {
-  return res.send( await projectModel.findAll( req.query ) );
+app.get( API_VER + "/projects", async ( req, res, next ) => {
+  try {
+    return res.send( await projectModel.findAll( req.query ) );
+  } catch ( err ) {
+    next( err );
+  }
 });
 
 app.get(/.*/, async ( req, res ) => {
@@ -89,21 +108,26 @@ app.get(/.*/, async ( req, res ) => {
 });
 
 
-// Handling exception thrown during execution
-app.use(( err, req, res, next ) => {
-  dbg( "ERROR" )( `${err.message}` );
-  res
-    .status( 500 )
-    .send({ message: err.message });
-});
-
 // Handling 404 errors
-app.use(( req, res, next ) => {
+app.use( ( req, res ) => {
   const { method, url } = req,
         message = `Cannot find ${method} ${url}`;
   dbg( "ERROR" )( message );
-  res.status( 404 ).send({ message });
+  return res.status( 404 ).send({ message });
 });
+
+// Handling exception thrown during execution
+function errorHandler ( err, req, res, next ) {
+  if ( res.headersSent ) {
+    return next( err );
+  }
+  dbg( "ERROR" )( `Error handler: ${err.message}` );
+  return res
+    .status( 500 )
+    .send({ message: err.message });
+}
+
+app.use( errorHandler );
 
 // Starting the server
 server.listen( process.env.DEMO_NODE_SERVER_PORT, process.env.DEMO_NODE_SERVER_HOST, () => {

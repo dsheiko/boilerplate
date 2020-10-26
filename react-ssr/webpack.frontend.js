@@ -77,23 +77,24 @@ module.exports = {
             loader: "babel-loader",
             options: {
               presets: [
-                "react",
-                [ "env", {
+                "@babel/preset-react",
+                [ "@babel/preset-env", {
                   "targets": {
                     "browsers": [
                       ">1%",
                       "last 2 versions",
                       "Firefox ESR"
                     ]
-                  }
+                  },
+                  loose: true
                 }]
               ],
-              plugins: [
-                "transform-class-properties",
-                "transform-object-rest-spread",
-                "babel-plugin-syntax-dynamic-import",
-                "transform-runtime",
-                "transform-decorators-legacy"
+              "plugins": [                
+                ["@babel/plugin-proposal-decorators", { "legacy": true }],
+                "@babel/plugin-proposal-class-properties",
+                [
+                  "@babel/plugin-transform-runtime", { "regenerator": true }
+                ]
               ]
             }
           }]

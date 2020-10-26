@@ -50,6 +50,7 @@ npm start
   - `mini-css-extract-plugin` - [Webpack plugin](https://www.npmjs.com/package/mini-css-extract-plugin) to minify & optimize CSS
   - `node-sass` - [node-sass](https://www.npmjs.com/package/node-sass) to compile SASS into CSS
   - `dotenv-webpack` - [dotenv-webpack](https://www.npmjs.com/package/dotenv-webpack)  to read env variables from .env when none in process.env available
+  - [webpack-node-externals](https://www.npmjs.com/package/webpack-node-externals) - ignore node-modules during Webpack build (https://github.com/webpack/webpack/issues/1576)
 
 - `react` - [React Library](https://github.com/facebook/react)
   - `react-redux` - [Utility](https://github.com/reactjs/react-redux) to connect React components to the Redux store
@@ -72,3 +73,9 @@ npm start
 
 - `antd` - [Ant.Design](https://ant.design/docs/react/introduce) design system and React component library
 - `axios` - [axios](https://www.npmjs.com/package/axios) Promise based HTTP client for the browser and node.js
+
+
+# A Process Control System
+
+- http://www.supervisord.org/running.html
+- https://www.digitalocean.com/community/tutorials/how-to-install-and-manage-supervisor-on-ubuntu-and-debian-vps

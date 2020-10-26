@@ -9,10 +9,8 @@ import If from "Components/If";
 /*eslint no-useless-escape: 0*/
 
 const FormItem = Form.Item,
-      connectForm = Form.create(),
       Option = Select.Option;
 
-@connectForm
 export default class SettingsProjectEditModal extends AbstractEditModal {
 
   static displayName = "SettingsProjectEditModal";
@@ -31,20 +29,19 @@ export default class SettingsProjectEditModal extends AbstractEditModal {
     };
   }
 
+  
 
   render() {
-    const { errorMessage, loading, entity } = this.state,
-          { store, history } = this.props,
-          { getFieldDecorator, getFieldsError } = this.props.form;
+    const { errorMessage, loading, entity, disabled } = this.state;
 
     return (
       <ErrorBoundary>
         <Modal
           title={ this.getWindowTitle() }
           visible={ true }
-          disabled={ this.hasErrors( getFieldsError() )  }
+          disabled={ disabled }
           closable
-          onCancel={this.onClickCancel}
+          onCancel={ this.onClickCancel }
           footer={[
             ( <Button
               autoFocus={ true }
@@ -56,7 +53,17 @@ export default class SettingsProjectEditModal extends AbstractEditModal {
             </Button> ) ]}
         >
           <Spin spinning={ loading } size="large">
-          <Form>
+          <Form ref={this.formRef} 
+            initialValues={{
+              name: entity.name,
+              env: entity.env
+            }}
+            onFinish={ ( values ) => { 
+              this.setState({ disabled: false });
+              this.submit( this.props.pk, values ); 
+            }}
+            onFinishFailed={ ({ errorFields }) => this.setState({ disabled: true })  }
+          >
             <If exp={ errorMessage }>
               <Alert
                  message="Error"
@@ -65,33 +72,21 @@ export default class SettingsProjectEditModal extends AbstractEditModal {
                />
             </If>
 
-            <FormItem  label="User name">
-              { getFieldDecorator( "name", {
-                initialValue: entity.name,
-                rules: [{
-                  required: true,
-                  message: "Field is required"
-                }]
-              })(
+            <FormItem  label="User name"  name="name" rules={[{ required: true,
+        message: "Field is required" }]}>
                 <Input
                   onKeyPress={ ( e ) => this.onKeyPress( e, this.onClickOk ) } />
-              )}
             </FormItem>
 
-            <FormItem  label="Environment">
-              { getFieldDecorator( "env", {
-                initialValue: entity.env,
-                rules: [{
-                  required: true,
-                  message: "Field is required"
-                }]
-              })(
+            <FormItem  label="Environment" name="env" rules={[{
+        required: true,
+        message: "Field is required"
+      }]}>
             <Select>
               <Option key="test">test</Option>
               <Option key="stage">stage</Option>
               <Option key="live">live</Option>
             </Select>
-              )}
             </FormItem>
 
           </Form>

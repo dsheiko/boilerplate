@@ -8,7 +8,7 @@ import Sidebar from "./Sidebar/Sidebar";
 import SettingsProjectTable from "Components/Main/Settings/Project/SettingsProjectTable";
 import SettingsProjectEditModal from "Components/Main/Settings/Project/SettingsProjectEditModal";
 
-import { Spin, Layout, Icon } from "antd";
+import { Spin, Layout } from "antd";
 
 const { Content } = Layout;
 
