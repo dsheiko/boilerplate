@@ -15,12 +15,12 @@ import { DEFAULT_STATE } from "Reducers";
 
 import configureStore from "./configureStore";
 import config from "./Config";
+import router from "./Router/index";
 import Connector from "./Model/Connector";
 import ProjectModel from "./Model/Project";
 import pkg from "../package.json";
 
-const app = express(),
-      API_VER = "/api/v1",
+const app = express(),      
       connector = new Connector( config.mysql ),
       projectModel = new ProjectModel( connector ),
 
@@ -44,47 +44,7 @@ app.use(( req, res, next ) => {
   next();
 });
 
-
-app.delete( API_VER + "/projects/:id", async ( req, res ) => {
-  try {
-    return res.send( await projectModel.remove( req.params.id ) );
-  } catch ( err ) {
-    next( err );
-  }
-});
-
-app.put( API_VER + "/projects/:id", async ( req, res ) => {
-  try {
-    return res.send( await projectModel.update( req.params.id, req.body ) );
-  } catch ( err ) {
-    next( err );
-  }
-});
-
-app.post( API_VER + "/projects", async ( req, res ) => {
-  try {
-    return res.send( await projectModel.add( req.body ) );
-  } catch ( err ) {
-    next( err );
-  }
-});
-
-
-app.get( API_VER + "/projects/:id", async ( req, res ) => {
-  try {
-    return res.send( await projectModel.find( req.params.id ) );
-  } catch ( err ) {
-    next( err );
-  }
-});
-
-app.get( API_VER + "/projects", async ( req, res ) => {
-  try {
-    return res.send( await projectModel.findAll( req.query ) );
-  } catch ( err ) {
-    next( err );
-  }
-});
+app.use( router({ projectModel }) );
 
 async function getProjects() {
   const data = await projectModel.findAll({ 
