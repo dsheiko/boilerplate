@@ -3,6 +3,7 @@ import projectsRoutes from "./projects"
 import versionRoutes from "./version"
 import healthRoutes from "./health"
 import notFoundRoutes from "./notFound";
+import renderRoutes from "./Render";
 
 export default function ( models ) {
     const router = Router();
@@ -10,5 +11,6 @@ export default function ( models ) {
     healthRoutes( router );
     versionRoutes( router );
     notFoundRoutes( router );
+    renderRoutes( router, models );
     return router;
 }
