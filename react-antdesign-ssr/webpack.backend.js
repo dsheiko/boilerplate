@@ -3,6 +3,7 @@ const { join } = require( "path" ),
       nodeExternals = require( "webpack-node-externals" ),
       { CleanWebpackPlugin } = require('clean-webpack-plugin'),
       MiniCssExtractPlugin = require( "mini-css-extract-plugin" ),
+      LoadablePlugin = require( "@loadable/webpack-plugin" ),
       Dotenv = require( "dotenv-webpack" ),
       FRONT_FULL_PATH = join( __dirname, "./frontend/src/" ),
       SRC_FULL_PATH = join( __dirname, "./backend/" ),
@@ -45,7 +46,8 @@ module.exports = {
     },
 
     plugins: [
-      new Dotenv()
+      new Dotenv(),
+      new LoadablePlugin()
     ],
 
     module: {

@@ -16,6 +16,7 @@
   },
   "license": "ISC",
   "dependencies": {
+    "@loadable/component": "^5.16.4",
     "@loadable/server": "^5.16.5",
     "antd": "^4.19.3",
     "axios": "^0.26.1",
@@ -50,6 +51,8 @@
     "@babel/plugin-proposal-decorators": "^7.17.8",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
+    "@loadable/babel-plugin": "^5.16.1",
+    "@loadable/webpack-plugin": "^5.15.2",
     "babel-cli": "^6.26.0",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.4",

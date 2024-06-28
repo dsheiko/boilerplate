@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href="/build/index.css" rel="stylesheet" type="text/css"/>
 
+    {{__LINK_TAGS__}}
+
     <style>
     .ant-avatar-image img {
       width: 32px;
