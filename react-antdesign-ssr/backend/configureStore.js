@@ -3,7 +3,7 @@ import thunkMiddleware from "redux-thunk"; // Support for asynchronous actions
 import { createMemoryHistory } from "history";
 import { applyMiddleware, compose, createStore } from "redux";
 import { routerMiddleware } from "connected-react-router";
-import createRootReducer from "Reducers";
+import createRootReducer from "~/Reducers";
 
 
 export let history;

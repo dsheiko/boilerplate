@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import AbstractTable  from "Components/AbstractTable";
-import { api } from "Api/Project";
+import AbstractTable  from "~/Components/AbstractTable";
+import { api } from "~/Api/Project";
 
 export default class SettingsProjectTable extends AbstractTable {
 

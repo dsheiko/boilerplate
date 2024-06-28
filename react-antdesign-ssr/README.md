@@ -96,7 +96,7 @@ npm start
 
 ### Data Table
 
-- `this.api` - table API (e.g. imported from "Api/Project")
+- `this.api` - table API (e.g. imported from "~/Api/Project")
 - `this.state.columns` - table column schema (as described [here](https://ant.design/components/table/))
 
 [See example](./frontend/src/Components/Main/Settings/Project/SettingsProjectTable.jsx)

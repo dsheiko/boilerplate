@@ -26,15 +26,13 @@ module.exports = {
       publicPath: PUBLIC_PATH
     },
 
-    // JavaScript (*.js) module paths to be resolved relatively to node_modules and SRC_FULL_PATH
-    // e.g. if we have `import "mymodule"`
-    // Webpack looks up in node_modules/mymodule/ according to Node.js module loading convention
-    // https://nodejs.org/api/modules.html
-    // and checks SRC_FULL_PATH/mymodule.js
     resolve: {
+       // Create aliases to import or require
+       alias: {
+        "~": SRC_FULL_PATH
+       }, 
        modules: [
-        "node_modules",
-        SRC_FULL_PATH
+        "node_modules"
       ],
       extensions: [ ".js", ".jsx" ]
     },

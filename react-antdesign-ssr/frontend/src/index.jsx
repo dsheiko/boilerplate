@@ -5,7 +5,7 @@ import App from "./Containers/App.jsx";
 import { ConnectedRouter } from "connected-react-router";
 import configureStore, { history } from "./configureStore";
 import "antd/dist/antd.css";
-import "Sass/index.scss";
+import "~/Sass/index.scss";
 
 // Grab the state from a global variable injected into the server-generated HTML
 const preloadedState = window.__PRELOADED_STATE__,

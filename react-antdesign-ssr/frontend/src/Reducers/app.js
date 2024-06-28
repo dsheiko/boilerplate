@@ -1,6 +1,6 @@
 import update from "immutability-helper";
-import { constants as _ } from "Actions/app";
-import SettingsProjectTable from "Components/Main/Settings/Project/SettingsProjectTable";
+import { constants as _ } from "~/Actions/app";
+import SettingsProjectTable from "~/Components/Main/Settings/Project/SettingsProjectTable";
 
 const TABLE_OPTS = {
   rows: [],

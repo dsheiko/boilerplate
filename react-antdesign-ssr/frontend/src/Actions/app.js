@@ -1,4 +1,4 @@
-import { createConstants } from "Util";
+import { createConstants } from "~/Util";
 
 export const constants = createConstants([
   "SET_APP",

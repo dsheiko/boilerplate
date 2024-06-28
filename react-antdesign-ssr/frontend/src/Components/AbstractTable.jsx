@@ -1,5 +1,5 @@
 import React from "react";
-import ErrorBoundary  from "Components/ErrorBoundary";
+import ErrorBoundary  from "~/Components/ErrorBoundary";
 import { Link } from "react-router-dom";
 import { Table, Divider, Alert, Popconfirm } from "antd";
 

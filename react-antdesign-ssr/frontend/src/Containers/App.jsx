@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import AppLayout from "../Components/AppLayout";
-import actions from "Actions";
+import actions from "~/Actions";
 
 // Mapping state to the props
 const mapStateToProps = ( state ) => ({ store: state }),

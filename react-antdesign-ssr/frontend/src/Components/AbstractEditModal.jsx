@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import AbstractForm from "Components/AbstractForm";
+import AbstractForm from "~/Components/AbstractForm";
 
 /*eslint no-useless-escape: 0*/
 

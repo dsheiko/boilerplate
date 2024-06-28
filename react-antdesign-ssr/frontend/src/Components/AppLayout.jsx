@@ -4,8 +4,8 @@ import ErrorBoundary  from "./ErrorBoundary";
 import { Route, Switch } from "react-router-dom"
 import Head  from "./Head/Head";
 import Sidebar from "./Sidebar/Sidebar";
-import SettingsProjectTable from "Components/Main/Settings/Project/SettingsProjectTable";
-import SettingsProjectEditModal from "Components/Main/Settings/Project/SettingsProjectEditModal";
+import SettingsProjectTable from "~/Components/Main/Settings/Project/SettingsProjectTable";
+import SettingsProjectEditModal from "~/Components/Main/Settings/Project/SettingsProjectEditModal";
 
 import { Spin, Layout } from "antd";
 
