@@ -3,7 +3,6 @@ import thunkMiddleware from "redux-thunk"; // Support for asynchronous actions
 import { createBrowserHistory } from "history";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { applyMiddleware, createStore } from "redux";
-import { routerMiddleware } from "connected-react-router";
 import createRootReducer from "./Reducers";
 
 export const history = createBrowserHistory();
@@ -13,8 +12,7 @@ export default function configureStore( preloadedState ) {
 const storeEnhancer = composeWithDevTools(
         applyMiddleware(
           thunkMiddleware,
-          promiseMiddleware,
-          routerMiddleware( history )
+          promiseMiddleware
         )
       );
 

@@ -7,6 +7,7 @@ export default class AbstractTable extends React.Component {
 
   constructor( props ) {
     super( props );
+     
     this.state = {
       pagination: {
         current: 1,
@@ -19,6 +20,7 @@ export default class AbstractTable extends React.Component {
     }
     this.url = this.props.baseUrl;
     this.table = this.constructor.displayName;
+    console.log( props.tables, this.table );
     this.addButtonText = `New record`;
   }
 
@@ -99,7 +101,7 @@ export default class AbstractTable extends React.Component {
   }
 
   async componentDidMount() {
-    const { preloaded } = this.props.store.app.tables[ this.table ];
+    const { preloaded } = this.props.tables[ this.table ];
     if ( preloaded ) {
       return;
     }
@@ -111,7 +113,7 @@ export default class AbstractTable extends React.Component {
   }
 
   render() {
-    const { rows, total, loading, errorMessage } = this.props.store.app.tables[ this.table ];
+    const { rows, total, loading, errorMessage } = this.props.tables[ this.table ];
 
     return (<ErrorBoundary>
 

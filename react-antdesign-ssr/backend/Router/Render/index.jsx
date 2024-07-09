@@ -4,7 +4,7 @@ import path from "path";
 import { ChunkExtractor, ChunkExtractorManager } from '@loadable/server'
 import { renderToString } from "react-dom/server";
 import { Provider as ReduxProvider } from "react-redux";
-import { StaticRouter } from "react-router";
+import { StaticRouter } from "react-router-dom/server";
 import App from "~/Containers/App";
 import * as actions from "~/Actions/app";
 import SettingsProjectTable from "~/Components/Main/Settings/Project/SettingsProjectTable";

@@ -2,15 +2,14 @@ import React from "react";
 import PropTypes from "prop-types";
 import loadable from "@loadable/component"
 import ErrorBoundary  from "./ErrorBoundary";
-import { Route, Switch } from "react-router-dom"
+import { Route, Routes, useParams, useNavigate } from "react-router-dom"
 import { Spin, Layout } from "antd";
+import SettingsProjectEditModal from "~/Components/Main/Settings/Project/SettingsProjectEditModal";
 
 const { Content } = Layout,
       Head = loadable(() => import( "./Head/Head" )),
       Sidebar = loadable(() => import( "./Sidebar/Sidebar" )),
-      SettingsProjectTable = loadable(() => import( "~/Components/Main/Settings/Project/SettingsProjectTable" )),
-      SettingsProjectEditModal = loadable(() => import( "~/Components/Main/Settings/Project/SettingsProjectEditModal" ));
-
+      SettingsProjectTable = loadable(() => import( "~/Components/Main/Settings/Project/SettingsProjectTable" ));
 
 export default class AppLayout extends React.Component {
 
@@ -22,7 +21,7 @@ export default class AppLayout extends React.Component {
   }
 
   render() {
-    const { actions, store, selectors } = this.props;
+    const { actions, store } = this.props;
 
     return (
       <ErrorBoundary>
@@ -34,27 +33,30 @@ export default class AppLayout extends React.Component {
               <Sidebar store={ store } />
               <Layout className="container-main">
                 <Content  className="container-main__content">
-                <Switch>
+                <Routes>
 
-                    <Route path="/" exact render={() => (
-                      <SettingsProjectTable actions={ actions } store={ store } baseUrl="/settings/project" />
+                  
+                    <Route index path="/" element={(
+                      <SettingsProjectTable baseUrl="/settings/project" />
                     )} />
 
 
-                    <Route path="/settings/project/:pk" render={({ history, match }) => (
-                      <SettingsProjectEditModal
+                    <Route path="/settings/project/:pk" Component={() => {
+                      const { pk } = useParams(),
+                            navigate = useNavigate();                       
+                      return (<SettingsProjectEditModal
                           table={ SettingsProjectTable.displayName }
-                          pk={ parseInt( match.params.pk, 10 ) }
+                          pk={ parseInt( pk, 10 ) }
                           baseUrl="/settings/project"
-                          history={ history }
-                          actions={ actions }
-                          store={ store }  />
+                          navigate={ navigate }  />)
+                    }} />
+
+
+                    <Route path="/settings/project" element={(
+                      <SettingsProjectTable baseUrl="/settings/project" />
                     )} />
 
-                    <Route path="/settings/project" render={() => (
-                      <SettingsProjectTable actions={ actions } store={ store } baseUrl="/settings/project" />
-                    )} />
-                </Switch>
+                </Routes>
                 </Content>
               </Layout>
             </Layout>

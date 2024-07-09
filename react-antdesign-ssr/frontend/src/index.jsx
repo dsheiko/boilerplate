@@ -1,10 +1,10 @@
-import React from "react";
+import React, { StrictMode } from "react";
 import { hydrate } from "react-dom";
 import { Provider } from "react-redux";
 import { loadableReady } from "@loadable/component";
+import { BrowserRouter } from "react-router-dom";
 import App from "./Containers/App.jsx";
-import { ConnectedRouter } from "connected-react-router";
-import configureStore, { history } from "./configureStore";
+import configureStore from "./configureStore";
 import "antd/dist/antd.css";
 import "~/Sass/index.scss";
 
@@ -15,10 +15,12 @@ const preloadedState = window.__PRELOADED_STATE__,
 delete window.__PRELOADED_STATE__;
 
 loadableReady(() => {
-  hydrate( <Provider store={ store }>
-  <ConnectedRouter history={ history }>
-    <App />
-  </ConnectedRouter>
-  </Provider>, document.querySelector( "root" ) );
+  hydrate( <StrictMode>
+    <Provider store={ store }>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </Provider>
+  </StrictMode>, document.querySelector( "root" ) );
 });
 

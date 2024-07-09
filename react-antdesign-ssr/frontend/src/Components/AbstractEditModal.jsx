@@ -52,9 +52,7 @@ export default class AbstractEditModal extends AbstractForm {
     }
   }
 
-  close() {
-    this.props.history.push( this.url );
-  }
+  
 
   onClickCancel = ( e ) => {
     e.preventDefault();
