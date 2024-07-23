@@ -27,9 +27,7 @@
     
   </head>
   <body>
-    <root>    
-      {{ROOT}}
-    </root>   
+    <root>{{ROOT}}</root>   
     <script src="/build/index.js" type="text/javascript"></script>
   </body>
 </html>

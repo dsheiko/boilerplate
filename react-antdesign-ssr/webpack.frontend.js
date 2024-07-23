@@ -2,7 +2,9 @@ const { join } = require( "path" ),
       pkg = require( "./package.json" ),
       { CleanWebpackPlugin } = require('clean-webpack-plugin'),
       MiniCssExtractPlugin = require( "mini-css-extract-plugin" ),
+      LoadablePlugin = require( "@loadable/webpack-plugin" ),
       SRC_FULL_PATH = join( __dirname, "./frontend/src/" ),
+      SRC_BACK_PATH = join( __dirname, "./backend/" ),
       PUBLIC_PATH = "./build/",
       PUBLIC_FULL_PATH = join( __dirname, "public", PUBLIC_PATH );
 
@@ -18,6 +20,7 @@ module.exports = {
     entry: {
       // script alias : path
       index : join( SRC_FULL_PATH, "index.jsx" )
+      //server : join( SRC_BACK_PATH, "server.jsx" )
     },
     // Output configuration for Webpack
     output: {
@@ -45,7 +48,8 @@ module.exports = {
             // both options are optional
             filename: "[name].css",
             chunkFilename: "[id].css"
-        })
+        }),
+      new LoadablePlugin()
     ],
 
     module: {

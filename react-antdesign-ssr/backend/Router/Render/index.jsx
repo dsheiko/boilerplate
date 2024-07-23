@@ -4,8 +4,12 @@ import path from "path";
 import { ChunkExtractor, ChunkExtractorManager } from '@loadable/server'
 import { renderToString } from "react-dom/server";
 import { Provider as ReduxProvider } from "react-redux";
-import { StaticRouter } from "react-router-dom/server";
-import App from "~/Containers/App";
+import { 
+    createStaticHandler,
+    createStaticRouter, 
+    StaticRouterProvider } from "react-router-dom/server";
+import { routes } from "~/Containers/App";
+import createFetchRequest from "./request-adapter";
 import * as actions from "~/Actions/app";
 import SettingsProjectTable from "~/Components/Main/Settings/Project/SettingsProjectTable";
 import { DEFAULT_STATE } from "~/Reducers";
@@ -16,20 +20,30 @@ import pkg from "../../../package.json";
 // Prefetching wiht Loadable
 // @see https://loadable-components.com/docs/server-side-rendering/
 const statsFile = path.join( __dirname,  "../build/loadable-stats.json" ),
-      extractor = new ChunkExtractor({ statsFile, entrypoints: [ "server" ] })
+      extractor = new ChunkExtractor({ statsFile, entrypoints: [ "server" ] }),
+      handler = createStaticHandler( routes );
 
 export default function renderRoutes( router, { projectModel } ) {
 	
     router.get(/.*/, async ( req, res ) => {
         const store = configureStore( DEFAULT_STATE, req.url );
 
+        let fetchRequest = createFetchRequest( req, res );
+        let context = await handler.query( fetchRequest );
+        let router = createStaticRouter(
+            handler.dataRoutes,
+            context
+        );
+
         await store.dispatch( actions.setTable( SettingsProjectTable.displayName, await getProjects( projectModel ) ) );
 
 
         const jsx = extractor.collectChunks( <ReduxProvider store={ store }>
-                <StaticRouter context={ DEFAULT_STATE } location={ req.url }>
-                    <App />
-                </StaticRouter>
+                <StaticRouterProvider
+                    router={router}
+                    context={context}
+                    nonce="the-nonce"
+                />
             </ReduxProvider> ),
             tpl = fs.readFileSync( path.join( __dirname, "..", "Template", "index.tpl" ), "utf8" ),
             html = tpl
