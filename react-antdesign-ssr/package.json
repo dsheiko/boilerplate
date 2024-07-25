@@ -18,7 +18,7 @@
   "dependencies": {
     "@loadable/component": "^5.16.4",
     "@loadable/server": "^5.16.5",
-    "antd": "^4.19.3",
+    "antd": "^5.19.3",
     "axios": "^1.7.2",
     "body-parser": "^1.19.2",
     "bycontract": "^2.0.11",
@@ -43,7 +43,8 @@
     "redux-actions": "^2.6.5",
     "redux-promise": "^0.6.0",
     "redux-thunk": "^2.4.1",
-    "sass-loader": "^12.6.0"
+    "sass-loader": "^12.6.0",
+    "throttle-debounce": "^5.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.17.8",

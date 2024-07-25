@@ -1,63 +1,34 @@
 import React from "react";
-import PropTypes from "prop-types";
-import AbstractTable  from "~/Components/AbstractTable";
+import UiTable  from "~/Components/UiTable";
 import { api } from "~/Api/Project";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import actions from "~/Actions";
+import { useSelector } from "react-redux";
 
-// Mapping state to the props
-const mapStateToProps = ( state ) => ({ tables: state.app.tables }),
-      // Mapping actions to the props
-      mapDispatchToProps = ( dispatch ) => ({
-        actions: bindActionCreators( actions, dispatch )
-      });
-
-// Using store connect as a decorator
-@connect( mapStateToProps, mapDispatchToProps )
-export default class SettingsProjectTable extends AbstractTable {
-
-  static propTypes = {
-    actions: PropTypes.object.isRequired,
-    baseUrl: PropTypes.string.isRequired
-  };
-
-  constructor( props ) {
-    super( props );
-   
-    this.api = api;
-    this.table =  "SettingsProjectTable";
-    
-    this.state = {
-      columns: [{
-        title: "Name",
-        dataIndex: "name",
-        sorter: true
-      },
-      {
-        title: "Environment",
-        dataIndex: "env",
-        sorter: true,
-        filters: [
-          {
-            text: 'test',
-            value: 'test',
-          },
-          {
-            text: 'live',
-            value: 'live',
-          }
-        ]
-      },
-      {
-        title: "Actions",
-        key: "action",
-        width: "120px",
-        render: this.renderActions
-      }]
+export default () => {
+  const { rows, total } = useSelector( ( state ) => state.app.tables.SettingsProjectTable );
+  
+  const columns = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      sorter: true
+    },
+    {
+      title: "Environment",
+      dataIndex: "env",
+      sorter: true,
+      filters: [
+        {
+          text: 'test',
+          value: 'test',
+        },
+        {
+          text: 'live',
+          value: 'live',
+        }
+      ]
     }
-  }
+  ];
+
+  return ( <UiTable columns={ columns } api={ api } /> );
 
 };
-// Need it available even before class props parsed because it's used as table ID
-SettingsProjectTable.displayName = "SettingsProjectTable";

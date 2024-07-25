@@ -27,6 +27,7 @@ export default class AbstractRestApi {
     const res = await this.client.get( this.collection, { params } );
     return this.transformList( res.data );
   }
+  
   async get( id ) {
     return await this.client.get( `${ this.collection }/${ id }` );
   }

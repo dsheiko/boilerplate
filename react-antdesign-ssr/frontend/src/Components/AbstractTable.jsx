@@ -20,7 +20,6 @@ export default class AbstractTable extends React.Component {
     }
     this.url = this.props.baseUrl;
     this.table = this.constructor.displayName;
-    console.log( props.tables, this.table );
     this.addButtonText = `New record`;
   }
 
@@ -114,7 +113,10 @@ export default class AbstractTable extends React.Component {
 
   render() {
     const { rows, total, loading, errorMessage } = this.props.tables[ this.table ];
-
+console.log( rows, {
+        ...this.state.pagination,
+        total
+      } );
     return (<ErrorBoundary>
 
     { errorMessage ? <Alert

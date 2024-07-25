@@ -35,7 +35,7 @@ export default function renderRoutes( router, { projectModel } ) {
             context
         );
 
-        await store.dispatch( actions.setTable( SettingsProjectTable.displayName, await getProjects( projectModel ) ) );
+        await store.dispatch( actions.setTable( "SettingsProjectTable", await getProjects( projectModel ) ) );
 
 
         const jsx = extractor.collectChunks( <ReduxProvider store={ store }>

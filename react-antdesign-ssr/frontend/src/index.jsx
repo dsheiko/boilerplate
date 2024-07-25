@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 import { loadableReady } from "@loadable/component";
 import { routes } from "./Containers/App.jsx";
 import configureStore from "./configureStore";
-import "antd/dist/antd.css";
+
 import "~/Sass/index.scss";
 import {
   createBrowserRouter,
