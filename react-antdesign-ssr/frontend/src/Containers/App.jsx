@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import loadable from "@loadable/component";
 import { Outlet, Route, Routes, useParams, useNavigate } from "react-router-dom"
 import { Spin, Layout } from "antd";
-
 import Fallback from "~/Components/Fallback";
 import Head from "~/Components/Head/Head";
 import Sidebar from "~/Components/Sidebar/Sidebar";
@@ -28,12 +27,13 @@ export const routes = [
     children: [
       {
         index: true,
-        element:  <SettingsProjectTable baseUrl="/settings/project" />,
-        //lazy: () => loadable(() => import( "~/Components/Main/Settings/Project/SettingsProjectTable" ))
+        element:  <SettingsProjectTable />,
+        //lazy: () => import( "~/Components/Main/Settings/Project/SettingsProjectTable" )
+        
       },
       {
         path: "/settings/project",
-        element:  <SettingsProjectTable baseUrl="/settings/project" />,
+        element:  <SettingsProjectTable />,
         //lazy: () => loadable(() => import( "~/Components/Main/Settings/Project/SettingsProjectTable" ))
       },
       {
@@ -42,7 +42,7 @@ export const routes = [
             const { pk } = useParams(),
                   navigate = useNavigate();                       
             return (<SettingsProjectEditModal
-                table={ SettingsProjectTable.displayName }
+                table={ "SettingsProjectTable" }
                 pk={ parseInt( pk, 10 ) }
                 baseUrl="/settings/project"
                 navigate={ navigate }  />)

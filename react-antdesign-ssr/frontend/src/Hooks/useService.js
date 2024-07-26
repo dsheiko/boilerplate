@@ -8,14 +8,15 @@ function isTableData( data ) {
     return "total" in data && "rows" in data;
 }
 
-export default function useService( url ) {
+export default function useService( url, preFetch ) {
   const [ loading, setLoading ] = useState( false );
   const [ error, setError ] = useState();
-  const [ data, setData ] = useState();
+  const [ data, setData ] = useState( preFetch?.rows );
   const [ tableParams, setTableParams ] = useState({
     pagination: {
       current: 1,
       pageSize: 10,
+      total: preFetch?.total
     },
   });
 
@@ -23,8 +24,8 @@ export default function useService( url ) {
     try {
       setLoading( true );
       const res = await client.get( url, { params } );
-      console.log( "FETCH", res.data );
-      setData( res.data );
+      
+      setData( res.data?.rows );
       if ( isTableData( res.data ) ) {
         setTableParams({
             ...tableParams,

@@ -16,6 +16,7 @@
   },
   "license": "ISC",
   "dependencies": {
+    "@ant-design/static-style-extract": "^1.0.2",
     "@loadable/component": "^5.16.4",
     "@loadable/server": "^5.16.5",
     "antd": "^5.19.3",

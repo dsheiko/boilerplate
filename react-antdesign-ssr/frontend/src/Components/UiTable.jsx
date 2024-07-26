@@ -3,6 +3,7 @@ import useService from "~/Hooks/useService";
 import ErrorBoundary  from "~/Components/ErrorBoundary";
 import { Link } from "react-router-dom";
 import { Table, Divider, Alert, Popconfirm } from "antd";
+import { useSelector } from "react-redux";
 
 function cleanFetchParams( params ) {
     const data = { ...params };
@@ -11,7 +12,7 @@ function cleanFetchParams( params ) {
     return JSON.stringify( data );
 }
 
-export default function UiTable( props ) {
+export default function UiTable({ columns, api, table }) {
 
     const {
         loading,
@@ -20,11 +21,12 @@ export default function UiTable( props ) {
         tableParams,
         setTableParams,
         fetchData,
-    } = useService( props.api.collection );
+    } = useService( api.collection, useSelector( ( state ) => state.app.tables[ table ] ) );
    
+  
     const renderActions = ( text, record ) => (
         <span>
-            <Link to={ `${ props.api.collection }/${ record.id }` }>Edit</Link>
+            <Link to={ `${ api.collection }/${ record.id }` }>Edit</Link>
             <Divider type="vertical" />
             <Popconfirm placement="topRight" title="Are you sure to delete this record?"
                 onConfirm={ () => removeRecord( record.id ) } okText="Yes" cancelText="No">
@@ -33,7 +35,7 @@ export default function UiTable( props ) {
         </span>
     );
 
-     let columns = [ ...props.columns, {
+     let columnsExt = [ ...columns, {
         title: "Actions",
         key: "action",
         width: "120px",
@@ -68,9 +70,9 @@ export default function UiTable( props ) {
         /> : null } 
 
         <Table
-            columns={ columns }
+            columns={ columnsExt }
             rowKey={ record => record.id }
-            dataSource={ data?.rows }
+            dataSource={ data }
             pagination={ tableParams.pagination }
             loading={ loading }
             onChange={ handleTableChange }

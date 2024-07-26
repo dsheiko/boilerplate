@@ -1,11 +1,8 @@
 import React from "react";
 import UiTable  from "~/Components/UiTable";
 import { api } from "~/Api/Project";
-import { useSelector } from "react-redux";
+export default function SettingsProjectTable() {
 
-export default () => {
-  const { rows, total } = useSelector( ( state ) => state.app.tables.SettingsProjectTable );
-  
   const columns = [
     {
       title: "Name",
@@ -29,6 +26,6 @@ export default () => {
     }
   ];
 
-  return ( <UiTable columns={ columns } api={ api } /> );
+  return ( <UiTable columns={ columns } api={ api } table="SettingsProjectTable" /> );
 
 };
