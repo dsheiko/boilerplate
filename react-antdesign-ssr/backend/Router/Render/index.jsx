@@ -7,7 +7,7 @@ import {
     createStaticHandler,
     createStaticRouter, 
     StaticRouterProvider } from "react-router-dom/server";
-import { routes } from "~/Containers/App";
+import { makeReactRoutes } from "~/Containers/App";
 import createFetchRequest from "./request-adapter";
 import * as actions from "~/Actions/app";
 import { DEFAULT_STATE } from "~/Reducers";
@@ -26,8 +26,7 @@ try {
 
 export default function renderRoutes( router, { projectModel } ) {
 
-    // routes[ 0 ].children[ 0 ].loader = async () => await getProjects( projectModel );
-    const handler = createStaticHandler( routes );
+    const handler = createStaticHandler( makeReactRoutes({ getProjects: async () => await getProjects( projectModel ) }) );
 	
     router.get(/.*/, async ( req, res ) => {
         const store = configureStore( DEFAULT_STATE, req.url );
@@ -38,8 +37,6 @@ export default function renderRoutes( router, { projectModel } ) {
             handler.dataRoutes,
             context
         );
-
-        await store.dispatch( actions.setTable( "SettingsProjectTable", await getProjects( projectModel ) ) );
 
         const jsx = ( <ReduxProvider store={ store }>
                 <StaticRouterProvider

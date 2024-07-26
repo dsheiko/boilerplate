@@ -72,7 +72,8 @@ export default class AbstractEditModal extends AbstractForm {
       } else {
         await this.api.add( data );
       }
-      this.props.actions.loadTable( this.table, this.api );
+      //this.props.actions.loadTable( this.table, this.api );
+      this.props.fetchData();
       this.close();
     } catch ( err ) {
       console.log( "Error", err );

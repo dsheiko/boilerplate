@@ -4,24 +4,11 @@ import AbstractEditModal from "~/Components/AbstractEditModal";
 import { Form, Modal, Button, Input, Alert, Spin, Select } from "antd";
 import ErrorBoundary from "~/Components/ErrorBoundary";
 import { api } from "~/Api/Project";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import actions from "~/Actions";
-
-// Mapping state to the props
-const mapStateToProps = ( state ) => ({}),
-      // Mapping actions to the props
-      mapDispatchToProps = ( dispatch ) => ({
-        actions: bindActionCreators( actions, dispatch )
-      });
-
 /*eslint no-useless-escape: 0*/
 
 const FormItem = Form.Item,
       Option = Select.Option;
 
-// Using store connect as a decorator
-@connect( mapStateToProps, mapDispatchToProps )
 export default class SettingsProjectEditModal extends AbstractEditModal {
 
   static displayName = "SettingsProjectEditModal";
@@ -41,7 +28,7 @@ export default class SettingsProjectEditModal extends AbstractEditModal {
   }
 
   close() {
-   this.props.navigate( this.url );
+    this.props.navigate( this.url );
   }
 
   render() {
@@ -51,7 +38,7 @@ export default class SettingsProjectEditModal extends AbstractEditModal {
       <ErrorBoundary>
         <Modal
           title={ this.getWindowTitle() }
-          open={ true }
+          open={ this.props.open }
           disabled={ disabled }
           closable
           onCancel={ this.onClickCancel }

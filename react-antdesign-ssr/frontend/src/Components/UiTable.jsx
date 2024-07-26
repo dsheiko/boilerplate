@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import useService from "~/Hooks/useService";
 import ErrorBoundary  from "~/Components/ErrorBoundary";
-import { Link } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { Table, Divider, Alert, Popconfirm } from "antd";
-import { useSelector } from "react-redux";
+import SettingsProjectEditModal from "~/Components/Main/Settings/Project/SettingsProjectEditModal";
 
 function cleanFetchParams( params ) {
     const data = { ...params };
@@ -12,7 +12,7 @@ function cleanFetchParams( params ) {
     return JSON.stringify( data );
 }
 
-export default function UiTable({ columns, api, table }) {
+export default function UiTable({ columns, api, table, baseUrl, prefetchedData }) {
 
     const {
         loading,
@@ -21,12 +21,15 @@ export default function UiTable({ columns, api, table }) {
         tableParams,
         setTableParams,
         fetchData,
-    } = useService( api.collection, useSelector( ( state ) => state.app.tables[ table ] ) );
-   
+    } = useService( api.collection, prefetchedData );
+
+    const { pk } = useParams(),
+          navigate = useNavigate();
+
   
     const renderActions = ( text, record ) => (
         <span>
-            <Link to={ `${ api.collection }/${ record.id }` }>Edit</Link>
+            <Link to={ `${ baseUrl }/${ record.id }` }>Edit</Link>
             <Divider type="vertical" />
             <Popconfirm placement="topRight" title="Are you sure to delete this record?"
                 onConfirm={ () => removeRecord( record.id ) } okText="Yes" cancelText="No">
@@ -61,6 +64,7 @@ export default function UiTable({ columns, api, table }) {
         fetchData();
     }, [ cleanFetchParams( tableParams ) ]);
 
+
     return ( <ErrorBoundary>
 
         { error ? <Alert
@@ -77,5 +81,14 @@ export default function UiTable({ columns, api, table }) {
             loading={ loading }
             onChange={ handleTableChange }
         />
+
+        <SettingsProjectEditModal
+            table={ table }
+            open={ !!pk }
+            pk={ parseInt( pk, 10 ) }
+            baseUrl={ baseUrl }
+            fetchData={ fetchData }
+            navigate={ navigate }  /> 
+
     </ErrorBoundary> );
 }; 
