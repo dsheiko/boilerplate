@@ -1,13 +1,11 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React from "react";
 import loadable from "@loadable/component";
-import { Outlet, Route, Routes, useParams, useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { Spin, Layout } from "antd";
 import Fallback from "~/Components/Fallback";
 import Head from "~/Components/Head/Head";
 import Sidebar from "~/Components/Sidebar/Sidebar";
 import SettingsProjectTable from "~/Components/Main/Settings/Project/SettingsProjectTable";
-import SettingsProjectEditModal from "~/Components/Main/Settings/Project/SettingsProjectEditModal";
 
 const { Content } = Layout;
       // Head = loadable(() => import( "~/Components/Head/Head" ));

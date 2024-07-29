@@ -1,6 +1,4 @@
-import React from "react";
-import PropTypes from "prop-types";
-import AbstractEditModal from "~/Components/AbstractEditModal";
+import React, { useState, useRef, useEffect } from "react";
 import { Form, Modal, Button, Input, Alert, Spin, Select } from "antd";
 import ErrorBoundary from "~/Components/ErrorBoundary";
 import { api } from "~/Api/Project";
@@ -9,60 +7,112 @@ import { api } from "~/Api/Project";
 const FormItem = Form.Item,
       Option = Select.Option;
 
-export default class SettingsProjectEditModal extends AbstractEditModal {
+export default function SettingsProjectEditModal({ pk, baseUrl, navigate, open, fetchTableData }) {
+  
+  const [ form ] = Form.useForm(),
 
-  static displayName = "SettingsProjectEditModal";
+        [ loading, setLoading ] = useState( false ),
+        [ errorMessage, setErrorMessage ] = useState( `` ),
+        [ entity, setEntity ] = useState( {} ),
+        [ disabled, setDisabled ] = useState( false ),
+        
+        getWindowTitle = () => pk ? `Edit record` : `New record`,
 
-  static propTypes = {
-    navigate: PropTypes.func,
-    pk: PropTypes.number
-  }
+        onClickOk = ( e ) => {
+          e.preventDefault();    
+          form.submit();
+        },
 
-  constructor( props ) {
-    super( props );
-    this.api = api;
-    this.state.entity = {
-      name: "",
-      env: ""
-    };
-  }
+        onKeyDown = ( e, cb ) => {
+          switch ( e.key ){
+            case "Enter":
+              cb( e );
+              return;
+          }
+        },
 
-  close() {
-    this.props.navigate( this.url );
-  }
+        onClickCancel = ( e ) => {
+          e.preventDefault();
+          close();
+        },
 
-  render() {
-    const { errorMessage, loading, entity, disabled } = this.state;
+        close = () => {
+          navigate( baseUrl );
+        },
+        
+        submit = async ( pk, values ) => {
+          const data = values;
+          setErrorMessage( "" );
+          setLoading( true );
+          
+          try {
+            if ( pk ) {
+              await api.update( pk, data );
+            } else {
+              await api.add( data );
+            }
+            
+            fetchTableData();
+            setLoading( false );
+            close();
+          } catch ( err ) {
+            console.log( "Error", err );
+            setErrorMessage(  `Internal server error: ${ err.message }` );
+            setLoading( false );
+          }  
+        };
 
-    return (
-      <ErrorBoundary>
+  // componentDidMount
+  useEffect(() => {
+    if ( !pk ) {
+      return;
+    }
+    
+    async function fetchData() {
+      try {
+     
+        setLoading( true );
+
+        const rsp = await api.get( pk );
+        if ( rsp.status !== 200 ) {
+          throw new Error( `Server status code ${ rsp.status }` );
+        }
+        form.setFieldsValue( rsp.data );
+      } catch ( err ) {
+        setErrorMessage( `Internal error: ${ err.message }` );
+      } finally {
+        setLoading( false );
+      }
+    }
+
+    fetchData();
+
+
+  }, [ pk ]);
+
+  return (<ErrorBoundary>
         <Modal
-          title={ this.getWindowTitle() }
-          open={ this.props.open }
+          title={ getWindowTitle() }
+          open={ open }
           disabled={ disabled }
           closable
-          onCancel={ this.onClickCancel }
+          onCancel={ onClickCancel }
           footer={[
             ( <Button
               autoFocus={ true }
-
               key="submit"
               type="primary"
-              onClick={this.onClickOk}>
+              onClick={ onClickOk }>
               Save
             </Button> ) ]}
         >
           <Spin spinning={ loading } size="large">
-          <Form ref={this.formRef} 
-            initialValues={{
-              name: entity.name,
-              env: entity.env
-            }}
+          <Form form={ form }
             onFinish={ ( values ) => { 
-              this.setState({ disabled: false });
-              this.submit( this.props.pk, values ); 
+              setLoading( false );
+              submit( pk, values ); 
             }}
-            onFinishFailed={ ({ errorFields }) => this.setState({ disabled: true })  }
+            onFinishFailed={ () => setDisabled( true )  }
           >
             { errorMessage ? <Alert
                  message="Error"
@@ -73,7 +123,7 @@ export default class SettingsProjectEditModal extends AbstractEditModal {
             <FormItem  label="User name"  name="name" rules={[{ required: true,
         message: "Field is required" }]}>
                 <Input
-                  onKeyPress={ ( e ) => this.onKeyPress( e, this.onClickOk ) } />
+                  onKeyDown={ ( e ) => onKeyDown( e, onClickOk ) } />
             </FormItem>
 
             <FormItem  label="Environment" name="env" rules={[{
@@ -91,8 +141,5 @@ export default class SettingsProjectEditModal extends AbstractEditModal {
           </Spin>
 
         </Modal>
-      </ErrorBoundary>
-    );
-  }
+      </ErrorBoundary>);
 };
-

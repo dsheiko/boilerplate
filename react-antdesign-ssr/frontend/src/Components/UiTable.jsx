@@ -64,7 +64,6 @@ export default function UiTable({ columns, api, table, baseUrl, prefetchedData }
         fetchData();
     }, [ cleanFetchParams( tableParams ) ]);
 
-
     return ( <ErrorBoundary>
 
         { error ? <Alert
@@ -85,9 +84,9 @@ export default function UiTable({ columns, api, table, baseUrl, prefetchedData }
         <SettingsProjectEditModal
             table={ table }
             open={ !!pk }
-            pk={ parseInt( pk, 10 ) }
+            pk={ pk ? parseInt( pk, 10 ) : 0 }
             baseUrl={ baseUrl }
-            fetchData={ fetchData }
+            fetchTableData={ fetchData }
             navigate={ navigate }  /> 
 
     </ErrorBoundary> );
