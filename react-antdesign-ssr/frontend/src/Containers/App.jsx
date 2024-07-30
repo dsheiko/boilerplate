@@ -1,21 +1,17 @@
 import React from "react";
-import loadable from "@loadable/component";
 import { Outlet } from "react-router-dom";
 import { Spin, Layout } from "antd";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 import Fallback from "~/Components/Fallback";
 import Head from "~/Components/Head/Head";
 import Sidebar from "~/Components/Sidebar/Sidebar";
 import SettingsProjectTable from "~/Components/Main/Settings/Project/SettingsProjectTable";
-import { Helmet, HelmetProvider } from "react-helmet-async";
+import NotFound from "~/Components/NotFound";
 
 const { Content } = Layout;
-      // Head = loadable(() => import( "~/Components/Head/Head" ));
-      // Sidebar = loadable(() => import( "~/Components/Sidebar/Sidebar" )),
-      // SettingsProjectTable = loadable(() => import( "~/Components/Main/Settings/Project/SettingsProjectTable" ));
 
-function NotFound() {
-  return <p>Not Found</p>;
-}
+// Describe routes for React Router v6+. On both server and client sides the routes will be supplied
+// to *RouterProvider and resolve in <App> where the <Routes> section will be generated in the place of <Outlet />  
 export function makeReactRoutes({ getProjects } = {}) {
   return [
     {
@@ -37,17 +33,6 @@ export function makeReactRoutes({ getProjects } = {}) {
         {
           path: "/settings/project/:pk",
           element:  <SettingsProjectTable />
-          // 
-          // Component: () => {
-          //     const { pk } = useParams(),
-          //           navigate = useNavigate();                 
-          //     return (<SettingsProjectEditModal
-          //         table={ "SettingsProjectTable" }
-          //         pk={ parseInt( pk, 10 ) }
-          //         baseUrl="/settings/project"
-          //         navigate={ navigate }  />)
-          //   },
-          //lazy: () => loadable(() => import( "~/Components/Sidebar/Sidebar" ))       
         },
         {
           path: "*",
@@ -72,8 +57,14 @@ export default function App()  {
               <Layout style={ { "flexDirection": "row" } }>
 
                 <Sidebar  />
-                <Layout className="container-main">
-                  <Content  className="container-main__content">
+                <Layout style={{
+                    padding: '0 24px 24px',
+                  }}>
+                  <Content  style={{
+                      padding: 24,
+                      margin: 0,
+                      minHeight: 280
+                    }} >
                   <Outlet />
                   </Content>
                 </Layout>

@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Form, Input, Select } from "antd";
 import UiModalForm from "~/Components/UiModalForm";
 import { api } from "~/Api/Project";
@@ -38,3 +39,13 @@ export default function SettingsProjectEditModal({ pk, baseUrl, navigate, fetchT
 
     </UiModalForm> );
 };
+
+SettingsProjectEditModal.propTypes = {
+  pk: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ]),
+  baseUrl: PropTypes.string,
+  navigate: PropTypes.func,
+  fetchTableData: PropTypes.func
+}; 

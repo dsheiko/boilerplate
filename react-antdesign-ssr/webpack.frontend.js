@@ -4,7 +4,6 @@ const { join } = require( "path" ),
       MiniCssExtractPlugin = require( "mini-css-extract-plugin" ),
       LoadablePlugin = require( "@loadable/webpack-plugin" ),
       SRC_FULL_PATH = join( __dirname, "./frontend/src/" ),
-      SRC_BACK_PATH = join( __dirname, "./backend/" ),
       PUBLIC_PATH = "./build/",
       PUBLIC_FULL_PATH = join( __dirname, "public", PUBLIC_PATH );
 
@@ -17,16 +16,12 @@ module.exports = {
     },
 
     // Application entry scripts
-    entry: {
-      // script alias : path
-      index : join( SRC_FULL_PATH, "index.jsx" )
-      //server : join( SRC_BACK_PATH, "server.jsx" )
-    },
+    entry: [ join( SRC_FULL_PATH, "index.jsx" ) ],
     // Output configuration for Webpack
     output: {
 			path: PUBLIC_FULL_PATH,
 			filename: `[name].js`,
-      publicPath: PUBLIC_PATH
+      publicPath: "/build/"
     },
 
     resolve: {

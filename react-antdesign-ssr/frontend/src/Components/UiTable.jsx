@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
+import PropTypes from "prop-types";
 import useService from "~/Hooks/useService";
 import ErrorBoundary  from "~/Components/ErrorBoundary";
 import { Link, useParams, useNavigate } from "react-router-dom";
@@ -90,4 +91,12 @@ export default function UiTable({ columns, api, table, baseUrl, prefetchedData }
             navigate={ navigate }  /> 
 
     </ErrorBoundary> );
+}; 
+
+UiTable.propTypes = {
+  columns: PropTypes.array, 
+  api: PropTypes.object,
+  table: PropTypes.string,
+  baseUrl: PropTypes.string,
+  fetchData: PropTypes.func
 }; 

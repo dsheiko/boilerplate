@@ -22,7 +22,7 @@ delete window.__PRELOADED_STATE__;
 loadableReady(() => {
    let router = createBrowserRouter( makeReactRoutes() );
    hydrateRoot(
-      document.querySelector( "root" ),
+      document.querySelector( "#root" ),
       <React.StrictMode>
         <Provider store={ store }>
           <RouterProvider router={router} fallbackElement={null} />

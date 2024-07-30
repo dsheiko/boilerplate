@@ -7,6 +7,7 @@ import {
     createStaticHandler,
     createStaticRouter, 
     StaticRouterProvider } from "react-router-dom/server";
+import { ChunkExtractor } from '@loadable/server'
 import { makeReactRoutes } from "~/Containers/App";
 import createFetchRequest from "./request-adapter";
 import { HelmetProvider, Helmet } from "react-helmet-async";
@@ -17,7 +18,9 @@ import pkg from "../../../package.json";
 import { extractStyle } from '@ant-design/static-style-extract';
 
 
-const ANTD_CSS_FILE = path.join( __dirname, "..", "..", "public", "build", "antd.min.css" );
+const PUBLIC_PATCH = path.resolve( __dirname + "/../../public/build" ),
+      ANTD_CSS_FILE = path.join( PUBLIC_PATCH, "antd.min.css" ),
+      extractor = new ChunkExtractor({ statsFile: path.join( PUBLIC_PATCH, "loadable-stats.json" ) });
 
 // generate Ant Design static CSS file if none found
 try {
@@ -39,7 +42,7 @@ export default function renderRoutes( router, { projectModel } ) {
             context
         );
 
-        const jsx = (<ReduxProvider store={ store }>
+        const jsx = extractor.collectChunks(<ReduxProvider store={ store }>
                    <HelmetProvider context={ helmetContext }>
                     <StaticRouterProvider
                         router={router}
@@ -51,7 +54,8 @@ export default function renderRoutes( router, { projectModel } ) {
              ),            
             bodyHtml =  renderToString( jsx ),
             { helmet } = helmetContext,
-            html =  `<!DOCTYPE html>
+            html =  `
+<!doctype html>
 <html ${ helmet.htmlAttributes.toString() }>
   <head>
     
@@ -60,11 +64,18 @@ export default function renderRoutes( router, { projectModel } ) {
     ${ helmet.link.toString() }
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href="/build/index.css" rel="stylesheet" type="text/css"/>
     <link href="/build/antd.min.css" rel="stylesheet" type="text/css"/>
 
     <style>
-    .ant-avatar-image img {
+    body {
+        margin: 0;
+    }
+    .ant-layout-header > .logo {
+        display: flex;
+        align-items: center;
+        height: 100%;
+    }
+    .ant-layout-header > .logo svg {
       width: 32px;
       height: 32px;
     }
@@ -79,16 +90,19 @@ export default function renderRoutes( router, { projectModel } ) {
       console.info( "Rev: ${ pkg.version }" )
     </script>
 
+    ${ extractor.getLinkTags() }
+    ${ extractor.getStyleTags() }
+    ${ extractor.getScriptTags() }
     
   </head>
   <body ${ helmet.bodyAttributes.toString() }>
-    <root>${ bodyHtml }</root>   
-    <script src="/build/index.js" type="text/javascript"></script>
+    <div id="root">${ bodyHtml }</div>   
+    
   </body>
 </html>
 `;
 
         res.writeHead( 200, { "Content-Type": "text/html" } );
         res.end( html );
-        });
+    });
 }
