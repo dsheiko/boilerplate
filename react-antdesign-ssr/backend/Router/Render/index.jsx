@@ -9,7 +9,7 @@ import {
     StaticRouterProvider } from "react-router-dom/server";
 import { makeReactRoutes } from "~/Containers/App";
 import createFetchRequest from "./request-adapter";
-import * as actions from "~/Actions/app";
+import { HelmetProvider, Helmet } from "react-helmet-async";
 import { DEFAULT_STATE } from "~/Reducers";
 import configureStore from "../../configureStore";
 import { getProjects } from "./selectors";
@@ -29,7 +29,8 @@ export default function renderRoutes( router, { projectModel } ) {
     const handler = createStaticHandler( makeReactRoutes({ getProjects: async () => await getProjects( projectModel ) }) );
 	
     router.get(/.*/, async ( req, res ) => {
-        const store = configureStore( DEFAULT_STATE, req.url );
+        const store = configureStore( DEFAULT_STATE, req.url ),
+              helmetContext = { helmet: {} };
 
         let fetchRequest = createFetchRequest( req, res );
         let context = await handler.query( fetchRequest );
@@ -38,26 +39,54 @@ export default function renderRoutes( router, { projectModel } ) {
             context
         );
 
-        const jsx = ( <ReduxProvider store={ store }>
-                <StaticRouterProvider
-                    router={router}
-                    context={context}
-                    nonce="the-nonce"
-                />
-            </ReduxProvider> ),
-            tpl = fs.readFileSync( path.join( __dirname, "..", "Template", "index.tpl" ), "utf8" ),
-            html = tpl
-                .replace( `{{ROOT}}`, renderToString( jsx ) )
-                // WARNING: See the following for security issues around embedding JSON in HTML:
-                // https://redux.js.org/recipes/server-rendering/#security-considerations
-                .replace( `{{__PRELOADED_STATE__}}`, JSON.stringify( store.getState() ).replace(
-                    /</g,
-                    "\\u003c"
-                ) )
-                .replace(`{{DEMO_NODE_SERVER_HOST}}`, process.env.DEMO_NODE_SERVER_HOST)
-                .replace(`{{DEMO_NODE_SERVER_PORT}}`, process.env.DEMO_NODE_SERVER_PORT)
-                .replace( `{{JS}}`, `console.info( "Rev: ${ pkg.version }" )` );
+        const jsx = (<ReduxProvider store={ store }>
+                   <HelmetProvider context={ helmetContext }>
+                    <StaticRouterProvider
+                        router={router}
+                        context={context}
+                        nonce="the-nonce"
+                    />
+                    </HelmetProvider>
+                </ReduxProvider>
+             ),            
+            bodyHtml =  renderToString( jsx ),
+            { helmet } = helmetContext,
+            html =  `<!DOCTYPE html>
+<html ${ helmet.htmlAttributes.toString() }>
+  <head>
+    
+    ${ helmet.title.toString() }
+    ${ helmet.meta.toString() }
+    ${ helmet.link.toString() }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="/build/index.css" rel="stylesheet" type="text/css"/>
+    <link href="/build/antd.min.css" rel="stylesheet" type="text/css"/>
 
+    <style>
+    .ant-avatar-image img {
+      width: 32px;
+      height: 32px;
+    }
+    </style>
+
+    <script>
+      window.config = {
+        DEMO_NODE_SERVER_HOST: "${ process.env.DEMO_NODE_SERVER_HOST }",
+        DEMO_NODE_SERVER_PORT: "${ process.env.DEMO_NODE_SERVER_PORT }"
+      };
+      window.__PRELOADED_STATE__ = ${  JSON.stringify( store.getState() ).replace(/</g, "\\u003c" ) };
+      console.info( "Rev: ${ pkg.version }" )
+    </script>
+
+    
+  </head>
+  <body ${ helmet.bodyAttributes.toString() }>
+    <root>${ bodyHtml }</root>   
+    <script src="/build/index.js" type="text/javascript"></script>
+  </body>
+</html>
+`;
 
         res.writeHead( 200, { "Content-Type": "text/html" } );
         res.end( html );

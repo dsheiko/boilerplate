@@ -70,6 +70,11 @@ module.exports = {
             ]
         },
         {
+            test: /.jsx?$/,
+            enforce: "pre",
+            use: ["source-map-loader"],
+        },
+        {
           test: /.jsx?$/,
           exclude: /node_modules/,
           use: [{

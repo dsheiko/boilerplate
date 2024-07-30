@@ -2,6 +2,7 @@ import React from "react";
 import UiTable  from "~/Components/UiTable";
 import { api } from "~/Api/Project";
 import { useLoaderData } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 export default function SettingsProjectTable( props ) {
   let prefetchedData = useLoaderData();
@@ -28,7 +29,13 @@ export default function SettingsProjectTable( props ) {
     }
   ];
 
-  return ( <UiTable columns={ columns } api={ api } table="SettingsProjectTable" baseUrl="/settings/project" 
-    prefetchedData={ prefetchedData } { ...props } /> );
+  return ( <>
+     <Helmet>
+        <title>Demo // Projects </title>
+        <meta name="description" content="Managing the list of projects" />
+    </Helmet>
+    <UiTable columns={ columns } api={ api } table="SettingsProjectTable" baseUrl="/settings/project" 
+    prefetchedData={ prefetchedData } { ...props } />
+    </> );
 
 };

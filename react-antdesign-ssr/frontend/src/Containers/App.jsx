@@ -6,6 +6,7 @@ import Fallback from "~/Components/Fallback";
 import Head from "~/Components/Head/Head";
 import Sidebar from "~/Components/Sidebar/Sidebar";
 import SettingsProjectTable from "~/Components/Main/Settings/Project/SettingsProjectTable";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 const { Content } = Layout;
       // Head = loadable(() => import( "~/Components/Head/Head" ));
@@ -60,20 +61,26 @@ export function makeReactRoutes({ getProjects } = {}) {
 export default function App()  {
     return (
       <React.StrictMode>
-        <Spin spinning={ false } size="large">
-           <Layout className="container-root">
-            <Head />
-            <Layout style={ { "flexDirection": "row" } }>
+        <HelmetProvider>
+          <Helmet>
+              <title>Demo </title>
+              <meta name="description" content="Demo app" />
+          </Helmet>
+          <Spin spinning={ false } size="large">
+            <Layout className="container-root">
+              <Head />
+              <Layout style={ { "flexDirection": "row" } }>
 
-              <Sidebar  />
-              <Layout className="container-main">
-                <Content  className="container-main__content">
-                 <Outlet />
-                </Content>
+                <Sidebar  />
+                <Layout className="container-main">
+                  <Content  className="container-main__content">
+                  <Outlet />
+                  </Content>
+                </Layout>
               </Layout>
             </Layout>
-          </Layout>
-        </Spin>
+          </Spin>
+        </HelmetProvider>
       </React.StrictMode>
     );
 };

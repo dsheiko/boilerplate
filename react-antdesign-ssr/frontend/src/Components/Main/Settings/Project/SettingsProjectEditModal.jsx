@@ -1,6 +1,6 @@
 import React from "react";
-import { Form, Modal, Button, Input, Alert, Spin, Select } from "antd";
-import UIModalForm from "~/Components/UIModalForm";
+import { Form, Input, Select } from "antd";
+import UiModalForm from "~/Components/UiModalForm";
 import { api } from "~/Api/Project";
 /*eslint no-useless-escape: 0*/
 
@@ -10,8 +10,9 @@ const FormItem = Form.Item,
 
 export default function SettingsProjectEditModal({ pk, baseUrl, navigate, fetchTableData }) {
 
-  return (<UIModalForm
+  return (<UiModalForm
             pk={ pk }
+            api={ api }
             baseUrl={ baseUrl }
             fetchTableData={ fetchTableData }
             navigate={ navigate } > 
@@ -35,5 +36,5 @@ export default function SettingsProjectEditModal({ pk, baseUrl, navigate, fetchT
         </FormItem> 
       </>)}         
 
-    </UIModalForm> );
+    </UiModalForm> );
 };
