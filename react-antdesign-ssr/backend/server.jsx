@@ -47,7 +47,7 @@ app.use(( req, res, next ) => {
 // Handling exception thrown during execution
 function errorHandler ( err, req, res, next ) {
   if ( res.headersSent ) {
-    return next( err );
+    return next && next( err );
   }
   dbg( "ERROR" )( `Error handler: ${err.message}` );
   return res

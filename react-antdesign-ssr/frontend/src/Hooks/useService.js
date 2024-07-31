@@ -8,6 +8,17 @@ function isTableData( data ) {
     return "total" in data && "rows" in data;
 }
 
+function flatten( params ) {
+  if ( !params || !"pagination" in params ) {
+    return params || [];
+  }
+  // get rid of the reference
+  const newparams = structuredClone( params );
+  const { current, pageSize } = newparams.pagination;
+  delete newparams.pagination;
+  return { ...newparams, current, pageSize };
+}
+
 export default function useService( url, preFetch ) {
   const [ loading, setLoading ] = useState( false );
   const [ error, setError ] = useState();
@@ -19,21 +30,23 @@ export default function useService( url, preFetch ) {
       total: preFetch?.total
     },
   });
-
+  
   const fetchData = debounce( 300, async ( params ) => {
+  
     try {
       setLoading( true );
-      const res = await client.get( url, { params } );
+      const res = await client.get( url, { params: flatten( params ) } );
       
       setData( res.data?.rows );
-      if ( isTableData( res.data ) ) {
+      if ( isTableData( res.data ) ) {      
         setTableParams({
-            ...tableParams,
+            ...params,
             pagination: {
-                ...tableParams.pagination,
+                ...params.pagination,
                 total: res.data.total
             }
         });
+
       }
     } catch ( e ) {
       setError( e );
@@ -41,11 +54,12 @@ export default function useService( url, preFetch ) {
       setLoading( false );
     }
   });
-
+  
   return {
     loading,
     error,
     data,
+    setData,
     tableParams,
     setTableParams,
     fetchData,

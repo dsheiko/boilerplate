@@ -7,9 +7,9 @@ import { Table, Divider, Alert, Popconfirm } from "antd";
 import SettingsProjectEditModal from "~/Components/Main/Settings/Project/SettingsProjectEditModal";
 
 function cleanFetchParams( params ) {
-    const data = { ...params };
+    const data = structuredClone( params );
     // total changes on the first fetch and causes second fetch
-    data.pagination.total = null;
+    delete data.pagination.total;
     return JSON.stringify( data );
 }
 
@@ -19,6 +19,7 @@ export default function UiTable({ columns, api, table, baseUrl, prefetchedData }
         loading,
         error,
         data,
+        setData,
         tableParams,
         setTableParams,
         fetchData,
@@ -48,23 +49,28 @@ export default function UiTable({ columns, api, table, baseUrl, prefetchedData }
 
 
     const removeRecord = ( id ) => {
-        props?.removeRecord();
-        this.api.remove( id );
+        api.remove( id );
         fetchData( tableParams );
     };
 
     const handleTableChange = ( pagination, filters, sorter ) => {
         setTableParams({
-            pagination,
-            filters,
-            ...sorter,
+        pagination,
+        filters,
+        sortOrder: Array.isArray(sorter) ? undefined : sorter.order,
+        sortField: Array.isArray(sorter) ? undefined : sorter.field,
         });
+
+        // `dataSource` is useless since `pageSize` changed
+        if ( pagination.pageSize !== tableParams.pagination?.pageSize ) {
+        setData([]);
+        }
     };
 
     useEffect(() => {
-        fetchData();
+        fetchData( tableParams );
     }, [ cleanFetchParams( tableParams ) ]);
-
+    
     return ( <ErrorBoundary>
 
         { error ? <Alert
