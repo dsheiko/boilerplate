@@ -3,7 +3,7 @@
 The bundle represents a manageable data table UI (sorting/filtering and pagination) based on React + Ant.Design
 provided with backend driven by Express.js + MySQL
 
-![Template in action](https://github.com/dsheiko/boilerplate/raw/master/react-antdesign/docs/data-table-demo.gif)
+![Template in action](./docs/data-table-demo.gif)
 
 ## Set up
 1) Clone this repo
@@ -27,8 +27,13 @@ npm start
 
 ## Available Automation Commands
 - `npm run build` - build app
-- `npm run watch` - watch for updates in the code base
+- `npm run watch` - start and watch for updates in the code base
 - `npm start` - start app
 - `npm run migrate:up` - run all available migrations up to the latest one
 - `npm run migrate:down` - rollback migration
 
+# Examples
+- Redux from client-side `./frontend/src/Components/Head/Head.jsx`
+- Redux from server-side `./backend/Router/Render/index.jsx`
+- Prefetching a component `./frontend/src/Containers/App.jsx`
+- Configure routes for both server and client sides `./frontend/src/Containers/App.jsx`

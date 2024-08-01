@@ -2,11 +2,16 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import { Spin, Layout } from "antd";
 import { Helmet, HelmetProvider } from "react-helmet-async";
+import loadable from "@loadable/component";
 import Fallback from "~/Components/Fallback";
 import Head from "~/Components/Head/Head";
-import Sidebar from "~/Components/Sidebar/Sidebar";
 import SettingsProjectTable from "~/Components/Main/Settings/Project/SettingsProjectTable";
 import NotFound from "~/Components/NotFound";
+
+// Example of prefetching https://loadable-components.com/docs/prefetching/ 
+const Sidebar = loadable(() =>
+  import(/* webpackPrefetch: true */ "~/Components/Sidebar/Sidebar" )
+)
 
 const { Content } = Layout;
 
@@ -58,7 +63,7 @@ export default function App()  {
 
                 <Sidebar  />
                 <Layout style={{
-                    padding: '0 24px 24px',
+                    padding: "0 24px 24px",
                   }}>
                   <Content  style={{
                       padding: 24,

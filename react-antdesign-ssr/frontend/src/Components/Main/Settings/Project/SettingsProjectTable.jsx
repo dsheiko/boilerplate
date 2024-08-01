@@ -18,12 +18,12 @@ export default function SettingsProjectTable( props ) {
       sorter: true,
       filters: [
         {
-          text: 'test',
-          value: 'test',
+          text: "test",
+          value: "test",
         },
         {
-          text: 'live',
-          value: 'live',
+          text: "live",
+          value: "live",
         }
       ]
     }

@@ -2,25 +2,31 @@ import React from "react";
 import fs from "node:fs";
 import path from "node:path";
 import { renderToString } from "react-dom/server";
-import { Provider as ReduxProvider } from "react-redux";
 import { 
     createStaticHandler,
     createStaticRouter, 
     StaticRouterProvider } from "react-router-dom/server";
-import { ChunkExtractor } from '@loadable/server'
+import { ChunkExtractor } from "@loadable/server"
 import { makeReactRoutes } from "~/Containers/App";
 import createFetchRequest from "./request-adapter";
 import { HelmetProvider, Helmet } from "react-helmet-async";
-import { DEFAULT_STATE } from "~/Reducers";
-import configureStore from "../../configureStore";
+// import { DEFAULT_STATE } from "~/Reducers";
+// import configureStore from "../../configureStore";
 import { getProjects } from "./selectors";
 import pkg from "../../../package.json";
-import { extractStyle } from '@ant-design/static-style-extract';
+import { extractStyle } from "@ant-design/static-style-extract";
+
+import { Provider as ReduxProvider } from "react-redux"
+import { configureStore } from "@reduxjs/toolkit";
+import appReducer, { login } from "~/Store/app";
 
 
 const PUBLIC_PATCH = path.resolve( __dirname + "/../../public/build" ),
       ANTD_CSS_FILE = path.join( PUBLIC_PATCH, "antd.min.css" ),
-      extractor = new ChunkExtractor({ statsFile: path.join( PUBLIC_PATCH, "loadable-stats.json" ) });
+      extractor = new ChunkExtractor({ statsFile: path.join( PUBLIC_PATCH, "loadable-stats.json" ) }),
+      store = configureStore({
+        reducer: { app: appReducer }
+      });
 
 // generate Ant Design static CSS file if none found
 try {
@@ -32,8 +38,7 @@ export default function renderRoutes( router, { projectModel } ) {
     const handler = createStaticHandler( makeReactRoutes({ getProjects: async () => await getProjects( projectModel ) }) );
 	
     router.get(/.*/, async ( req, res ) => {
-        const store = configureStore( DEFAULT_STATE, req.url ),
-              helmetContext = { helmet: {} };
+        const helmetContext = { helmet: {} };
 
         let fetchRequest = createFetchRequest( req, res );
         let context = await handler.query( fetchRequest );
@@ -41,6 +46,9 @@ export default function renderRoutes( router, { projectModel } ) {
             handler.dataRoutes,
             context
         );
+
+        // Example of setting store state on server-side
+        store.dispatch( login( "Jon Doe" ) )
 
         const jsx = extractor.collectChunks(<ReduxProvider store={ store }>
                    <HelmetProvider context={ helmetContext }>
