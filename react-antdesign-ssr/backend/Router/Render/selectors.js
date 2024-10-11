@@ -2,7 +2,7 @@ export async function getProjects( projectModel ) {
   const data = await projectModel.findAll({ 
             pageSize: 50,
             current: 1,
-            sortField: "name",
+            sortField: "id",
             sortOrder: "DESC"
           }),
           rawRows = data.rows,

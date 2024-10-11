@@ -3,7 +3,7 @@ const isEmpty = obj => Object.keys( obj ).length === 0,
       DEFAULT_SEARCH_PARAMS = {
         pageSize: 10,
         current: 1,
-        sortField: "name",
+        sortField: "id",
         sortOrder: "DESC",
         filter: {}
       };

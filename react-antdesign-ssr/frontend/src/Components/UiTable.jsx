@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import useService from "~/Hooks/useService";
 import ErrorBoundary  from "~/Components/ErrorBoundary";
-import { Link, useParams, useNavigate } from "react-router-dom";
-import { Table, Divider, Alert, Popconfirm } from "antd";
-import SettingsProjectEditModal from "~/Components/Main/Settings/Project/SettingsProjectEditModal";
+import { Link, useNavigate } from "react-router-dom";
+import { Table, Divider, Alert, Popconfirm, Button } from "antd";
+
 
 function cleanFetchParams( params ) {
     const data = structuredClone( params );
@@ -25,8 +25,7 @@ export default function UiTable({ columns, api, table, baseUrl, prefetchedData }
         fetchData,
     } = useService( api.collection, prefetchedData );
 
-    const { pk } = useParams(),
-          navigate = useNavigate();
+    const navigate = useNavigate();
 
     const renderActions = ( text, record ) => (
         <span>
@@ -46,6 +45,10 @@ export default function UiTable({ columns, api, table, baseUrl, prefetchedData }
         render: renderActions
     }];
 
+    const onAddRow = () => {
+        navigate( `${ baseUrl }/0` );
+    };
+
 
     const removeRecord = ( id ) => {
         api.remove( id );
@@ -54,10 +57,10 @@ export default function UiTable({ columns, api, table, baseUrl, prefetchedData }
 
     const handleTableChange = ( pagination, filters, sorter ) => {
         setTableParams({
-        pagination,
-        filters,
-        sortOrder: Array.isArray(sorter) ? undefined : sorter.order,
-        sortField: Array.isArray(sorter) ? undefined : sorter.field,
+            pagination,
+            filters,
+            sortOrder: Array.isArray(sorter) ? undefined : sorter.order,
+            sortField: Array.isArray(sorter) ? undefined : sorter.field,
         });
 
         // `dataSource` is useless since `pageSize` changed
@@ -78,6 +81,15 @@ export default function UiTable({ columns, api, table, baseUrl, prefetchedData }
             type="error"
         /> : null } 
 
+        <Button
+            onClick={ onAddRow }
+            type="primary"
+            style={{
+                marginBottom: 16,
+            }}
+        >
+        Add a row
+      </Button>
         <Table
             columns={ columnsExt }
             rowKey={ record => record.id }
@@ -86,14 +98,6 @@ export default function UiTable({ columns, api, table, baseUrl, prefetchedData }
             loading={ loading }
             onChange={ handleTableChange }
         />
-
-        <SettingsProjectEditModal
-            table={ table }
-            open={ typeof pk !== "undefined" }
-            pk={ pk ? parseInt( pk, 10 ) : 0 }
-            baseUrl={ baseUrl }
-            fetchTableData={ fetchData }
-            navigate={ navigate }  /> 
 
     </ErrorBoundary> );
 }; 

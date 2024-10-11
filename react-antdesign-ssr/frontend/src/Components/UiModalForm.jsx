@@ -5,7 +5,7 @@ import ErrorBoundary from "~/Components/ErrorBoundary";
 
 
 export default function UiModalForm({ 
-    pk, open, api, baseUrl, navigate, fetchTableData, children, 
+    pk, api, baseUrl, navigate, fetchTableData, children, 
     componentDidMount = false, // boolean
     width = 520, // number
     transformInitialValues = null, // function
@@ -62,7 +62,7 @@ export default function UiModalForm({
               await api.add( values );
             }
             
-            fetchTableData && fetchTableData();
+            // on change route the table updates anyway
             setLoading( false );
             close();
           } catch ( err ) {
@@ -97,7 +97,7 @@ export default function UiModalForm({
   return (<ErrorBoundary>
         <Modal
           title={ getWindowTitle() }
-          open={ open }
+          open={ true }
           disabled={ disabled }
           closable
           onCancel={ onClickCancel }          

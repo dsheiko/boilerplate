@@ -3,20 +3,23 @@ import PropTypes from "prop-types";
 import { Form, Input, Select } from "antd";
 import UiModalForm from "~/Components/UiModalForm";
 import { api } from "~/Api/Project";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 /*eslint no-useless-escape: 0*/
 
 const FormItem = Form.Item,
       Option = Select.Option;
       
 
-export default function SettingsProjectEditModal({ pk, open, baseUrl, navigate, fetchTableData }) {
+export default function SettingsProjectEditModal() {
+
+  const { pk } = useParams(),
+          navigate = useNavigate(),
+          location = useLocation();
 
   return (<UiModalForm
             pk={ pk }
             api={ api }
-            open={ open }
-            baseUrl={ baseUrl }
-            fetchTableData={ fetchTableData }
+            baseUrl={ location.pathname.split( "/" ).slice( 0, -1 ).join( "/" ) }
             navigate={ navigate } > 
            
      {({ onKeyDown }) => ( <>

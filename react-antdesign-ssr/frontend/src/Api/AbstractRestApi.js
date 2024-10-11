@@ -29,7 +29,7 @@ export default class AbstractRestApi {
   }
   
   async get( id ) {
-    return await this.client.get( `${ this.collection }/${ id }` );
+    return ( await this.client.get( `${ this.collection }/${ id }` ) ).data;
   }
   async remove( id ) {
     return await this.client.delete( `${ this.collection }/${ id }` );
