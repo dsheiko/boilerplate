@@ -9,11 +9,12 @@ const FormItem = Form.Item,
       Option = Select.Option;
       
 
-export default function SettingsProjectEditModal({ pk, baseUrl, navigate, fetchTableData }) {
+export default function SettingsProjectEditModal({ pk, open, baseUrl, navigate, fetchTableData }) {
 
   return (<UiModalForm
             pk={ pk }
             api={ api }
+            open={ open }
             baseUrl={ baseUrl }
             fetchTableData={ fetchTableData }
             navigate={ navigate } > 

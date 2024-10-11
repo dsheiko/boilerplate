@@ -28,7 +28,6 @@ export default function UiTable({ columns, api, table, baseUrl, prefetchedData }
     const { pk } = useParams(),
           navigate = useNavigate();
 
-  
     const renderActions = ( text, record ) => (
         <span>
             <Link to={ `${ baseUrl }/${ record.id }` }>Edit</Link>
@@ -90,7 +89,7 @@ export default function UiTable({ columns, api, table, baseUrl, prefetchedData }
 
         <SettingsProjectEditModal
             table={ table }
-            open={ !!pk }
+            open={ typeof pk !== "undefined" }
             pk={ pk ? parseInt( pk, 10 ) : 0 }
             baseUrl={ baseUrl }
             fetchTableData={ fetchData }
