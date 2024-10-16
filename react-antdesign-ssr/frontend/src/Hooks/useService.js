@@ -1,60 +1,77 @@
 import { useState } from "react";
-import { getAxiosClient } from "~/Util";
-import { debounce } from "throttle-debounce";
-
-const client = getAxiosClient();
+import debounce from "lodash.debounce";
 
 function isTableData( data ) {
-    return "total" in data && "rows" in data;
+  return "total" in data && "rows" in data;
+}
+
+function normalizeOrder( txt = "" ) {
+  // with DEFAULT is desc
+  return txt.toLowerCase().startsWith( "asc" ) ? "ASC" : "DESC";
+}
+
+function normalizeFilters( filters ) {
+  return filters ? Object.entries( filters ).reduce( ( carry, [ key, val ]) => {
+    if ( Array.isArray( val ) && val.length ) {
+      carry[ key ]=  val.shift();
+    }
+    return carry;
+  }, {}) : {};
 }
 
 function flatten( params ) {
-  if ( !params || !"pagination" in params ) {
-    return params || [];
+
+  if ( !params || !( "pagination" in params ) ) {
+    return params || {};
   }
-  // get rid of the reference
-  const newparams = structuredClone( params );
-  const { current, pageSize } = newparams.pagination;
-  delete newparams.pagination;
-  return { ...newparams, current, pageSize };
+  const { filters, sortField, sortOrder } = params,
+        { current, pageSize } = params.pagination;
+
+  return {
+    filter: JSON.stringify( normalizeFilters( filters ) ),
+    current,
+    pageSize,
+    sortField,
+    sortOrder: ( sortOrder && sortField ) ? normalizeOrder( sortOrder ) : undefined
+  };
 }
 
-export default function useService( url, preFetch ) {
-  const [ loading, setLoading ] = useState( false );
-  const [ error, setError ] = useState();
-  const [ data, setData ] = useState( preFetch?.rows );
-  const [ tableParams, setTableParams ] = useState({
-    pagination: {
-      current: 1,
-      pageSize: 10,
-      total: preFetch?.total
-    },
-  });
-  
-  const fetchData = debounce( 300, async ( params ) => {
-  
-    try {
-      setLoading( true );
-      const res = await client.get( url, { params: flatten( params ) } );
-      
-      setData( res.data?.rows );
-      if ( isTableData( res.data ) ) {      
-        setTableParams({
-            ...params,
-            pagination: {
-                ...params.pagination,
-                total: res.data.total
-            }
-        });
+export default function useService( api, preFetch ) {
+  const [ loading, setLoading ] = useState( false ),
+        [ error, setError ] = useState( null ),
+        [ data, setData ] = useState( preFetch?.rows ),
+        [ tableParams, setTableParams ] = useState({
+          pagination: {
+            current: 1,
+            pageSize: 10,
+            total: preFetch?.total
+          }
+        }),
 
-      }
-    } catch ( e ) {
-      setError( e );
-    } finally {
-      setLoading( false );
-    }
-  });
-  
+        fetchData = debounce( async ( params ) => {
+
+          try {
+            setLoading( true );
+            const data = await api.getList( flatten( structuredClone( params ) ) );
+            setData( data?.rows );
+            if ( isTableData( data ) ) {
+              setTableParams({
+                ...params,
+                pagination: {
+                  ...params.pagination,
+                  total: data.total
+                }
+              });
+
+            }
+          } catch ( e ) {
+            console.error( e );
+            setError( e );
+          } finally {
+            setLoading( false );
+          }
+        }, 300 );
+
   return {
     loading,
     error,
@@ -63,5 +80,7 @@ export default function useService( url, preFetch ) {
     tableParams,
     setTableParams,
     fetchData,
+    setLoading,
+    setError
   };
 }

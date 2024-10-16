@@ -79,6 +79,11 @@
   display: flex;
 }
 
+.admin-table .ant-table-footer {
+  position: sticky;
+  bottom: 0;
+}
+
 .table-operations {
   margin-bottom: 16px;
   .ant-select {

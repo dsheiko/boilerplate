@@ -4,8 +4,7 @@ const isEmpty = obj => Object.keys( obj ).length === 0,
         pageSize: 10,
         current: 1,
         sortField: "id",
-        sortOrder: "DESC",
-        filter: {}
+        sortOrder: "DESC"
       };
 
 
@@ -28,13 +27,15 @@ export default class AbstractModel {
   async findAll( rawParams ){
     const params = { ...DEFAULT_SEARCH_PARAMS, ...rawParams },
           orderLimit = AbstractModel.buildOrderLimitQuery( params ),
-          [ fetch ] = typeof( params.filters ) !== "object" || isEmpty( params.filters )
-            ? await this.query( `SELECT COUNT(*) as total FROM \`${ this.table }\`` )
-            : await this.query( `SELECT COUNT(*) as total FROM \`${ this.table }\` WHERE ${ AbstractModel.filtersToSql( params.filters ) }` ),
+          filters = rawParams.filter ? JSON.parse( rawParams.filter ) : {};
 
-          rows = typeof( params.filters ) !== "object" || isEmpty( params.filters )
+    const [ fetch ] = typeof( filters ) !== "object" || isEmpty( filters )
+            ? await this.query( `SELECT COUNT(*) as total FROM \`${ this.table }\`` )
+            : await this.query( `SELECT COUNT(*) as total FROM \`${ this.table }\` WHERE ${ AbstractModel.filtersToSql( filters ) }` ),
+
+          rows = typeof( filters ) !== "object" || isEmpty( filters )
             ? await this.query( `SELECT * FROM \`${ this.table }\` ${ orderLimit }` )
-            : await this.query( `SELECT * FROM \`${ this.table }\` WHERE ${ AbstractModel.filtersToSql( params.filters ) } ${ orderLimit }` );
+            : await this.query( `SELECT * FROM \`${ this.table }\` WHERE ${ AbstractModel.filtersToSql( filters ) } ${ orderLimit }` );
 
     return {
       total: fetch.total,
@@ -53,11 +54,7 @@ export default class AbstractModel {
 
   static filtersToSql( filters ) {  
     return Object.keys( filters ).reduce(( carry, key ) => {
-      const vals = filters[ key ].reduce(( c, val ) => {
-        c.push( `"${ val }"` );
-        return c;
-      }, []).join( ", ");
-      carry.push( `\`${  key }\` in (${ vals })` );
+      carry.push( `\`${  key }\` = "${ filters[ key ] }"` );
       return carry;
     }, [] ).join( ", " );
   }

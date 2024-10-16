@@ -1,10 +1,9 @@
-import React, { useEffect } from "react";
-import PropTypes from "prop-types";
+import React, { useState, useEffect } from "react";
 import useService from "~/Hooks/useService";
 import ErrorBoundary  from "~/Components/ErrorBoundary";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Table, Divider, Alert, Popconfirm, Button } from "antd";
-
+import { PlusOutlined } from '@ant-design/icons';
 
 function cleanFetchParams( params ) {
     const data = structuredClone( params );
@@ -13,7 +12,12 @@ function cleanFetchParams( params ) {
     return JSON.stringify( data );
 }
 
-export default function UiTable({ columns, api, table, baseUrl, prefetchedData }) {
+export default function UiTable({ columns, api, baseUrl, prefetchedData, 
+    getColumnSearchProps = null, 
+    enableSelection = false, 
+    footer = null,
+    actionsBaseUrl = null
+}) {
 
     const {
         loading,
@@ -23,51 +27,110 @@ export default function UiTable({ columns, api, table, baseUrl, prefetchedData }
         tableParams,
         setTableParams,
         fetchData,
-    } = useService( api.collection, prefetchedData );
+        setLoading
+    } = useService( api, prefetchedData ),
 
-    const navigate = useNavigate();
+        [ selectedRowKeys, setSelectedRowKeys ] = useState( [] ),
 
-    const renderActions = ( text, record ) => (
-        <span>
-            <Link to={ `${ baseUrl }/${ record.id }` }>Edit</Link>
-            <Divider type="vertical" />
-            <Popconfirm placement="topRight" title="Are you sure to delete this record?"
-                onConfirm={ () => removeRecord( record.id ) } okText="Yes" cancelText="No">
-            <a href="#">Delete</a>
-            </Popconfirm>
-        </span>
-    );
-
-     let columnsExt = [ ...columns, {
-        title: "Actions",
-        key: "action",
-        width: "120px",
-        render: renderActions
-    }];
-
-    const onAddRow = () => {
-        navigate( `${ baseUrl }/0` );
-    };
+        _actionsBaseUrl = actionsBaseUrl ?? baseUrl,
 
 
-    const removeRecord = ( id ) => {
-        api.remove( id );
-        fetchData( tableParams );
-    };
+        renderActions = {              
+            EditDelete: ( text, record ) => (
+                <span>
+                    <Link to={ `${ _actionsBaseUrl }/${ record.id }` }>Edit</Link>
+                    <Divider type="vertical" />
+                    <Popconfirm placement="topRight" title="Are you sure to delete this record?"
+                        onConfirm={ () => removeRecord( record.id ) } okText="Yes" cancelText="No">
+                    <a href="#">Delete</a>
+                    </Popconfirm>
+                </span>
+            ),
 
-    const handleTableChange = ( pagination, filters, sorter ) => {
-        setTableParams({
-            pagination,
-            filters,
-            sortOrder: Array.isArray(sorter) ? undefined : sorter.order,
-            sortField: Array.isArray(sorter) ? undefined : sorter.field,
-        });
+            Delete: ( text, record ) => (
+                <span>
+                    <Popconfirm placement="topRight" title="Are you sure to delete this record?"
+                        onConfirm={ () => removeRecord( record.id ) } okText="Yes" cancelText="No">
+                    <a href="#">Delete</a>
+                    </Popconfirm>
+                </span>
+            ),
 
-        // `dataSource` is useless since `pageSize` changed
-        if ( pagination.pageSize !== tableParams.pagination?.pageSize ) {
-        setData([]);
+            View: ( text, record ) => (
+                <span>
+                    <Link to={ `${ _actionsBaseUrl }/${ record.id }` }>View</Link>                
+                </span>
+            ),
+        }, 
+
+        rowClassName = ( record ) => ( "active" in record ) ? ( record.active ? "" : "is-demoted" ) : "",
+
+        removeRecord = ( id ) => {
+            api.remove( id );
+            fetchData( tableParams );
+        },
+
+        removeSelected = async () => {
+            try {
+                setLoading( true );
+                await api.removeSelected( selectedRowKeys );                
+                setSelectedRowKeys([]);
+                fetchData( tableParams );
+            } catch ( err ) {
+                console.error( err );
+                throw err.exception === "Doctrine\\DBAL\\Exception\\ForeignKeyConstraintViolationException" ? err 
+                    : new Error(  "You cannot delete this record" );
+            } finally {
+                setLoading( false );
+            }
+        },
+
+        toolbar = () => {
+            return (
+                <div className="table-footer-btns">
+                <Link to={ `${ _actionsBaseUrl }/0` }><Button><PlusOutlined /> Add record</Button></Link>
+                { ( selectedRowKeys && selectedRowKeys.length ) ? <Button onClick={ () => removeSelected() } disabled={ loading } >
+                    Delete { selectedRowKeys.length } selected
+                </Button> : null }
+                </div>
+            );
+        },
+
+        onTableChange = ( pagination, filters, sorter ) => {
+            setTableParams({
+                pagination,
+                filters,
+                sortOrder: Array.isArray(sorter) ? undefined : sorter.order,
+                sortField: Array.isArray(sorter) ? undefined : sorter.field,
+            });
+
+            // `dataSource` is useless since `pageSize` changed
+            if ( pagination.pageSize !== tableParams.pagination?.pageSize ) {
+            setData([]);
+            }
+        },
+        rowSelection = enableSelection ? {
+            rowSelection: {
+              selectedRowKeys,
+              onChange: selectedRowKeys => setSelectedRowKeys( selectedRowKeys ),
+          }}: {};
+
+    // Animate columns
+    let columnsExt = columns.map( c => {
+        // define like { title: "Actions", key: "action", actions: "EditDelete" } without render
+        if ( typeof c.actions !==  "undefined" && typeof c.render === "undefined" ) {
+            if ( !( c.actions in renderActions ) ) {
+                throw new Error( `Cannot find action "${ c.actions }"` );
+            }
+            c.render = renderActions[ c.actions ];
+        }      
+        
+        // defined like { getColumnSearchProps: "slug" }
+        if ( c.getColumnSearchProps && typeof c.getColumnSearchProps !== "function" ) {
+            c = Object.assign( c, getColumnSearchProps( c.getColumnSearchProps ));
         }
-    };
+        return c;
+    });
 
     useEffect(() => {
         fetchData( tableParams );
@@ -81,31 +144,22 @@ export default function UiTable({ columns, api, table, baseUrl, prefetchedData }
             type="error"
         /> : null } 
 
-        <Button
-            onClick={ onAddRow }
-            type="primary"
-            style={{
-                marginBottom: 16,
-            }}
-        >
-        Add a row
-      </Button>
         <Table
+            sticky={ true }
             columns={ columnsExt }
+            { ...rowSelection }
             rowKey={ record => record.id }
             dataSource={ data }
             pagination={ tableParams.pagination }
             loading={ loading }
-            onChange={ handleTableChange }
+            onChange={ onTableChange }
+            footer={ footer ?? toolbar }
+            rowClassName={ rowClassName }
+            className="admin-table"
+            tableLayout="auto"
         />
 
     </ErrorBoundary> );
 }; 
 
-UiTable.propTypes = {
-  columns: PropTypes.array, 
-  api: PropTypes.object,
-  table: PropTypes.string,
-  baseUrl: PropTypes.string,
-  fetchData: PropTypes.func
-}; 
+UiTable.displayName = "UiTable";
