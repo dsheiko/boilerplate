@@ -56,7 +56,7 @@ export default class AbstractModel {
     return Object.keys( filters ).reduce(( carry, key ) => {
       carry.push( `${  key } = "${ filters[ key ] }"` );
       return carry;
-    }, [] ).join( ", " );
+    }, [] ).join( " AND " );
   }
 
 }

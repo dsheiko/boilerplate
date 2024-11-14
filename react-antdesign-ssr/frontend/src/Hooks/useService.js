@@ -10,9 +10,12 @@ function normalizeOrder( txt = "" ) {
   return txt.toLowerCase().startsWith( "asc" ) ? "ASC" : "DESC";
 }
 
-function normalizeFilters( filters ) {
+export function normalizeFilters( filters ) {
   return filters ? Object.entries( filters ).reduce( ( carry, [ key, val ]) => {
-    if ( Array.isArray( val ) && val.length ) {
+    if ( typeof val === "string" ) {
+      carry[ key ]=  val;
+    }
+    else if ( Array.isArray( val ) && val.length ) {
       carry[ key ]=  val.shift();
     }
     return carry;
@@ -36,16 +39,17 @@ function flatten( params ) {
   };
 }
 
-export default function useService( api, preFetch ) {
+export default function useService({ api, prefetchedData, defaultTableParams }) {
   const [ loading, setLoading ] = useState( false ),
         [ error, setError ] = useState( null ),
-        [ data, setData ] = useState( preFetch?.rows ),
+        [ data, setData ] = useState( prefetchedData?.rows ),
         [ tableParams, setTableParams ] = useState({
           pagination: {
             current: 1,
             pageSize: 10,
-            total: preFetch?.total
-          }
+            total: prefetchedData?.total
+          },
+          ...defaultTableParams
         }),
 
         fetchData = debounce( async ( params ) => {

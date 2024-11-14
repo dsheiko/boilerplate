@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import useService from "~/Hooks/useService";
+import React, { useState, useEffect, forwardRef, useImperativeHandle } from "react";
+import useService, { normalizeFilters } from "~/Hooks/useService";
 import ErrorBoundary  from "~/Components/ErrorBoundary";
 import { Link } from "react-router-dom";
 import { Table, Divider, Alert, Popconfirm, Button } from "antd";
@@ -12,12 +12,14 @@ function cleanFetchParams( params ) {
     return JSON.stringify( data );
 }
 
-export default function UiTable({ columns, api, baseUrl, prefetchedData, 
+const UiTable = forwardRef(({ columns, api, baseUrl, prefetchedData, 
     getColumnSearchProps = null, 
     enableSelection = false, 
     footer = null,
-    actionsBaseUrl = null
-}) {
+    actionsBaseUrl = null,
+    // use when table needs to be filtered regardless of user choice
+    defaultTableParams = {} // e.g. { filters: { "DATE(createdAt)": dayjs( new Date() ).format( "YYYY-MM-DD" ) } }
+}) => {
 
     const {
         loading,
@@ -28,7 +30,7 @@ export default function UiTable({ columns, api, baseUrl, prefetchedData,
         setTableParams,
         fetchData,
         setLoading
-    } = useService( api, prefetchedData ),
+    } = useService({ api, prefetchedData, defaultTableParams }),
 
         [ selectedRowKeys, setSelectedRowKeys ] = useState( [] ),
 
@@ -99,14 +101,14 @@ export default function UiTable({ columns, api, baseUrl, prefetchedData,
         onTableChange = ( pagination, filters, sorter ) => {
             setTableParams({
                 pagination,
-                filters,
+                filters: Object.assign( defaultTableParams.filters ?? {}, normalizeFilters( filters ) ?? {} ),
                 sortOrder: Array.isArray(sorter) ? undefined : sorter.order,
                 sortField: Array.isArray(sorter) ? undefined : sorter.field,
             });
 
             // `dataSource` is useless since `pageSize` changed
             if ( pagination.pageSize !== tableParams.pagination?.pageSize ) {
-            setData([]);
+                setData([]);
             }
         },
         rowSelection = enableSelection ? {
@@ -131,6 +133,23 @@ export default function UiTable({ columns, api, baseUrl, prefetchedData,
         }
         return c;
     });
+
+    // Expose method to the the parent component
+    useImperativeHandle( ref, () => {
+        return {
+            // param to merge with existing table params    
+            setTableParams: ( params = {} ) => {            
+                setTableParams({ ...{
+                        pagination: tableParams.pagination,                    
+                        sortOrder: tableParams.sortOrder,
+                        sortField: tableParams.sortField,
+                        ...params
+                    },
+                    filters: Object.assign( defaultTableParams.filters ?? {}, tableParams.filters ?? {}, params.filters ?? {} )
+                });
+            }
+        };
+    }, []);
 
     useEffect(() => {
         fetchData( tableParams );
@@ -160,6 +179,7 @@ export default function UiTable({ columns, api, baseUrl, prefetchedData,
         />
 
     </ErrorBoundary> );
-}; 
+}); 
 
 UiTable.displayName = "UiTable";
+export default UiTable;
