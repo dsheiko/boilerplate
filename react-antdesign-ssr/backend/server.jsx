@@ -35,13 +35,7 @@ app.use(( req, res, next ) => {
 app.use( router({ projectModel }) );
 
 
-// Handling 404 errors
-app.use(( req, res, next ) => {
-  const { method, url } = req,
-        message = `Cannot find ${method} ${url}`;
-  dbg( "ERROR" )( message );
-  res.status( 404 ).send({ message });
-});
+
 
 
 // Handling exception thrown during execution
