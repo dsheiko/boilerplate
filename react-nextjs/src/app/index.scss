@@ -1,0 +1,121 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+.container-root {
+  min-height: 100vh !important;
+  & > .ant-layout-header {
+    flex-flow: row nowrap;
+    align-items: center;
+    display: flex;
+    padding-left: 32px;
+    padding-right: 32px;
+    justify-content: space-between;
+    .menu__left {
+      display: flex;
+      margin-right: 16px;
+      align-items: center;
+      
+      .menu__admin {
+        margin-left: 8px;
+        .ant-divider-vertical {
+          border-left-color: white;
+        }
+        a + a {
+          margin-left: 8px;
+        }
+        a.active, a:visited.active {
+          color: white;
+        }
+      }
+    }
+    & .logo {
+      display: flex;
+      
+      color: #fff;
+      &:hover {
+        color: #fff;
+      }
+      svg {
+        fill: white;
+        width: 32px;
+        height: 32px;
+      }
+    }
+  }
+}
+
+
+.is-demoted {
+  opacity: 0.6;
+}
+
+.is-transparent {
+  opacity: 0 !important;
+}
+
+.anticon {
+  &.is-ok {
+    color: green;
+  }
+  &.is-fail {
+    color: red;
+  }
+}
+
+.container-main {
+  padding: 0 24px 24px;
+}
+
+.container-main__content {
+  background: #fff;
+  padding: 24px;
+  margin: 0;
+  min-height: 280px;
+}
+
+.breadcrumbs {
+  margin: 16px 0;
+}
+
+
+.ant-form-item-children .quill .ql-snow .ql-picker-label {
+  display: flex;
+}
+
+.admin-table .ant-table-footer {
+  position: sticky;
+  bottom: 0;
+}
+
+.table-operations {
+  margin-bottom: 16px;
+  .ant-select {
+    margin-right: 8px;
+    margin-left: 4px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .container-root {
+    > .ant-layout-header {
+      padding: 0 16px;
+    }
+    .container-main {
+      padding: 0;
+      .container-centered-panel {
+        padding: 0 16px;
+      }
+    }
+    .ant-layout-footer {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+    .ant-form {
+      .ant-col-offset-8 {
+        margin-left: 0;
+      }
+      
+    }
+  }
+}
