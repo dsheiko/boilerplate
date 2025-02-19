@@ -11,7 +11,7 @@ import "./index.scss";
 
 export const metadata: Metadata = {
   title: "Projects Demo App",
-  description: "An example app",
+  description: "Add built on Next.js 15 + Ant.Design v5 + React Query v5",
 };
 
 export default function RootLayout({
@@ -21,29 +21,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <link rel="icon" href="/icon?<generated>" type="image/png" sizes="32x32" />
-      </head>
       <body>
         <React.StrictMode>
           <ReactQueryProvider>
               <AntdRegistry>        
               
-                  <Layout className="container-root">          
-                    
+                  <Layout className="container-root">                    
                     <Navbar />
-
-                      <Layout style={ { "flexDirection": "row" } }>
-
+                      <Layout className="container-main">
                         <Sidebar  />
-                        <Layout style={{
-                              padding: "0 24px 24px",
-                            }}>
-                            <Content  style={{
-                                padding: 24,
-                                margin: 0,
-                                minHeight: 280
-                              }} >
+                        <Layout className="container-content">
+                            <Content className="content" >
                               { children }
                             </Content>
                         </Layout>

@@ -12,7 +12,7 @@ function cleanFetchParams( params ) {
     return JSON.stringify( data );
 }
 
-const UiTable = forwardRef(({ columns, api, baseUrl, prefetchedData, 
+const UiTable = forwardRef(({ ref, columns, api, baseUrl, prefetchedData, 
     getColumnSearchProps = null, 
     enableSelection = false, 
     footer = null,

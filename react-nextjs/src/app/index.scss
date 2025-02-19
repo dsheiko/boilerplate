@@ -4,6 +4,17 @@ body {
 }
 .container-root {
   min-height: 100vh !important;
+  .container-main {
+    flex-direction: row;    
+  }
+  .container-content {
+    padding: 0 24px 24px; 
+  }
+  .content {
+      padding: 24px;
+      margin: 0;
+      min-height: 280px;
+  }
   & > .ant-layout-header {
     flex-flow: row nowrap;
     align-items: center;

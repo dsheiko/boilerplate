@@ -25,6 +25,13 @@ npm run build
 npm start
 ```
 
+## Running in dev mode
+
+```
+npm run watch
+```
+The n you can see the changes at `http://127.0.0.1:9100/`
+
 ## Available Automation Commands
 - `npm run build` - build app
 - `npm run watch` - start and watch for updates in the code base

@@ -6,7 +6,7 @@
   "scripts": {
     "start": "DEBUG=HTTP,ERROR,INFO node index.js",
     "build": "webpack --config webpack.backend.js && webpack --config webpack.frontend.js",
-    "watch": "npm-run-all --parallel watch:server build:server build:client",
+    "watch": "echo '*************' && echo 'Node.js server listening on http://127.0.0.1:9100/' && echo '*************' && npm-run-all --parallel watch:server build:server build:client",
     "watch:server": "nodemon --inspect ./index.js 9100",
     "build:client": "webpack --watch --config webpack.frontend.js",
     "build:server": "webpack --watch --config webpack.backend.js",

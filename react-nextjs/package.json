@@ -6,7 +6,9 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "migrate:up": "db-migrate up",
+    "migrate:down": "db-migrate down"
   },
   "dependencies": {
     "@ant-design/cssinjs": "^1.23.0",
@@ -14,15 +16,19 @@
     "@ant-design/nextjs-registry": "^1.0.2",
     "@tanstack/react-query": "^5.66.7",
     "antd": "^5.24.1",
+    "dotenv": "^16.4.7",
+    "mysql2": "^3.12.0",
     "next": "15.1.7",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "@types/node": "^20",
+    "@types/node": "^20.17.19",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "db-migrate": "^0.11.14",
+    "db-migrate-mysql": "^3.0.0",
     "eslint": "^9",
     "eslint-config-next": "15.1.7",
     "sass": "^1.85.0",
