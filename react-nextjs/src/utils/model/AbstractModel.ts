@@ -1,26 +1,12 @@
 import { RowDataPacket } from "mysql2/promise";
-import { query } from "@/utils/model/connector";
-
-export type SearchParams = {
-        pageSize: number,
-        current: number,
-        sortField: string,
-        sortOrder: string,
-        filter?: string
-      };
-
-export type TableData = {
-  total: number,
-  rows: any[]
-};
+import { query } from "@/utils/model/db";
+import { TableData, SearchParams } from "@/utils/type";
 
 const isEmpty = ( obj: object ): boolean => Object.keys( obj ).length === 0,
 
       DEFAULT_SEARCH_PARAMS: SearchParams = {
         pageSize: 10,
-        current: 1,
-        sortField: "id",
-        sortOrder: "DESC"
+        current: 1
       };
 
 
@@ -44,7 +30,7 @@ export default class AbstractModel {
     return Array.isArray( res ) ? res.shift() : null;
   }
 
-  async findAll( rawParams: SearchParams = DEFAULT_SEARCH_PARAMS ): Promise<TableData> {
+  async findAll( rawParams: SearchParams = DEFAULT_SEARCH_PARAMS ): Promise<TableData> {  
     const params = { ...DEFAULT_SEARCH_PARAMS, ...rawParams },
           orderLimit = AbstractModel.buildOrderLimitQuery( params ),
           filters = rawParams.filter ? JSON.parse( rawParams.filter ) : {};
@@ -68,7 +54,9 @@ export default class AbstractModel {
     if ( params.sortField ) {
       chunks.push( ` ORDER by \`${ params.sortField }\` ${ params.sortOrder === "DESC" ? "DESC" : "ASC" }` );
     }
-    chunks.push( ` LIMIT ${ ( params.current - 1 ) * params.pageSize }, ${ params.pageSize }` );
+    if ( params.current !== undefined && params.pageSize !== undefined ) {
+      chunks.push( ` LIMIT ${ ( params.current - 1 ) * params.pageSize }, ${ params.pageSize }` );
+    }
     return chunks.join( " " );
   }
 

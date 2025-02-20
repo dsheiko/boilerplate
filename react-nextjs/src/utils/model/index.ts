@@ -1,6 +1,6 @@
 
 import config from "@/utils/config/index";
-import { connect, query } from "@/utils/model/connector";
+import { connect, query } from "@/utils/model/db";
 import ProjectModel from "@/utils/model/Project";
 
 await connect( config.mysql );
