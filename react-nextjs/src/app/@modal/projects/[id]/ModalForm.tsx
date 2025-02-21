@@ -31,7 +31,7 @@ const ModalForm = ({ projectId }: { projectId: number | undefined }) => {
         footer={ null }
         forceRender={ true }>
         <Suspense fallback={ <Spin size="large" /> }>
-            <EditForm projectId={ projectId } />
+            <EditForm projectId={ projectId } onClose={ onClose } />
         </Suspense>
       </Modal>
     </>

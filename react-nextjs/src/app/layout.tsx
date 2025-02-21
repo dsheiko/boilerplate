@@ -11,8 +11,8 @@ import { Content } from "antd/lib/layout/layout";
 import "./index.scss";
 
 export const metadata: Metadata = {
-  title: "Projects Demo App",
-  description: "Add built on Next.js 15 + Ant.Design v5 + React Query v5",
+  title: "Projects",
+  description: "Demo app built with Next.js 15, Ant Design v5, and React Query v5.",
 };
 
 export default function RootLayout({

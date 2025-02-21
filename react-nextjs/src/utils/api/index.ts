@@ -11,6 +11,9 @@ export async function getList( collection: string, params: AnyObject = {} ) {
 }
 
 export async function get( collection: string , id: number ) {
+  if ( !id ) {
+    return {};
+  }
   return ( await client.get( `${ collection }/${ id }` ) ).data;
 }
 export async function remove( collection: string, id: number ) {

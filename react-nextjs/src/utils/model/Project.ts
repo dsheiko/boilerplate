@@ -14,7 +14,7 @@ export default class ProjectModel extends AbstractModel {
 
   async add({ name, env }: { name: string, env: string }) {
     return await this.query( `REPLACE INTO \`${ this.table }\` ` 
-      + ` (\`name\`, \`env\`, \`createdAt\`) VALUES (?, ?, ?)`, [ name, env, String(new Date()) ] );
+      + ` (\`name\`, \`env\`, \`createdAt\`) VALUES (?, ?, NOW())`, [ name, env ] );
   }
 
   async update( id: number, { name, env }: { name: string, env: string }) {

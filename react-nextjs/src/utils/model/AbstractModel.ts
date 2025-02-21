@@ -51,9 +51,11 @@ export default class AbstractModel {
 
   static buildOrderLimitQuery( params: SearchParams ) {
     const chunks = [];
-    if ( params.sortField ) {
-      chunks.push( ` ORDER by \`${ params.sortField }\` ${ params.sortOrder === "DESC" ? "DESC" : "ASC" }` );
-    }
+
+    chunks.push( params.sortField 
+        ? ` ORDER by \`${ params.sortField }\` ${ params.sortOrder === "DESC" ? "DESC" : "ASC" }`
+        : ` ORDER by \`id\` DESC` );
+
     if ( params.current !== undefined && params.pageSize !== undefined ) {
       chunks.push( ` LIMIT ${ ( params.current - 1 ) * params.pageSize }, ${ params.pageSize }` );
     }

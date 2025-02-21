@@ -1,5 +1,5 @@
 import React from "react";
-import { Layout, Divider } from "antd";
+import { Divider } from "antd";
 import { Header } from "antd/lib/layout/layout";
 import { DesktopOutlined } from "@ant-design/icons";
 
@@ -10,8 +10,11 @@ const AppHeader: React.FC = () => (<Header style={{
     <a className="logo">
       <DesktopOutlined />
     </a>
-    <div style={{ color: "white" }}>
-      log in
+    <div style={{ color: "white" }}>      
+        John Doe
+        <Divider type="vertical" />
+        <a>logout</a>
+      
     </div>
   </Header>);
 

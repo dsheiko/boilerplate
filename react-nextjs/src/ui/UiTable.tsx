@@ -6,7 +6,6 @@ import { useQuery } from "@tanstack/react-query";
 import { AnyObject, TableData } from "@/utils/type";
 import { getList } from "@/utils/api";
 import Link from "next/link"
-import { removeNullProps } from "@/utils/utils";
 import queryString from "query-string";
 
 
@@ -34,7 +33,8 @@ const UiTable = <RecordType extends AnyObject = AnyObject>(
 
     const { data, isLoading, error, refetch } = useQuery<TableData>({
                 queryKey: [ "projects" ],
-                queryFn: () => getList( "projects" + getQuery )
+                queryFn: () => getList( "projects" + getQuery ),
+                staleTime: 1000 * 3
         });
 
 
