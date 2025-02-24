@@ -25,13 +25,15 @@ export async function GET( request: NextRequest ) {
 }
 
 export async function DELETE( req: Request, { params }: { params: { id: string } } ) {  
-  await projectModel.remove( parseInt( params.id, 10 ) );
+  const { id } = await params;
+  await projectModel.remove( parseInt( id, 10 ) );
   return Response.json( {} );
 }
 
 export async function PUT( req: Request, { params }: { params: { id: string } } ) {
   const json = await req.json();
-  await projectModel.update( parseInt( params.id, 10 ), json );       
+  const { id } = await params;
+  await projectModel.update( parseInt( id, 10 ), json );       
   return Response.json( {} );
 }
 

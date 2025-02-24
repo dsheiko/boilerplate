@@ -71,7 +71,7 @@ const UiTable = <RecordType extends AnyObject = AnyObject>(
 
     const footer = () => (
         <div className="table-footer-btns">
-            <Link href={ `projects/0` }><Button><PlusOutlined /> Add record</Button></Link>
+            <Link href={ `projects/0` } prefetch={ true }><Button><PlusOutlined /> Add record</Button></Link>
         </div>
     );    
 
