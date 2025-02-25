@@ -24,13 +24,15 @@ export async function GET( request: NextRequest ) {
   return Response.json( dataSource );
 }
 
-export async function DELETE( req: Request, { params }: { params: { id: string } } ) {  
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function DELETE( req: Request, { params }: any ) {  
   const { id } = await params;
   await projectModel.remove( parseInt( id, 10 ) );
   return Response.json( {} );
 }
 
-export async function PUT( req: Request, { params }: { params: { id: string } } ) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function PUT( req: NextRequest, { params }: any ) {
   const json = await req.json();
   const { id } = await params;
   await projectModel.update( parseInt( id, 10 ), json );       

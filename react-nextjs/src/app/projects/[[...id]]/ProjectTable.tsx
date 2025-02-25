@@ -3,7 +3,6 @@ import React from "react";
 import { Popconfirm, Divider } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import Link from "next/link"
-import type { TableProps } from "antd";
 import { ProjectData } from "@/utils/model/Project";
 import UiTable from "@/ui/UiTable";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -35,7 +34,7 @@ const ProjectTable = () => {
         {
             title: "Action",
             key: "action",
-            render: ( _: any, { id }: ProjectData ) => (
+            render: ( _, { id }: ProjectData ) => (
                 <span>
                     <Link href={ `/projects/${ id }` }>Edit</Link>
                     <Divider type="vertical" />

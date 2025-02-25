@@ -50,7 +50,7 @@ export default class AbstractModel {
   }
 
   static buildOrderLimitQuery( params: SearchParams ) {
-    const chunks = [];
+    const chunks: string[] = [];
 
     chunks.push( params.sortField 
         ? ` ORDER by \`${ params.sortField }\` ${ params.sortOrder === "DESC" ? "DESC" : "ASC" }`

@@ -21,6 +21,8 @@ const mysql: ConnectionOptions = {
   database: DEMO_DB_NAME
 }
 
-export default {
+const config = {
   mysql
 };
+
+export default config;

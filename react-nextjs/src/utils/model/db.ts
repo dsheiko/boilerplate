@@ -1,4 +1,4 @@
-import mysql, { ConnectionOptions, QueryResult, Connection, RowDataPacket } from "mysql2/promise";
+import mysql, { ConnectionOptions, Connection, RowDataPacket } from "mysql2/promise";
 
 let conn: Connection | null = null;
 

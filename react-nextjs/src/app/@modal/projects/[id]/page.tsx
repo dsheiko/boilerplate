@@ -13,10 +13,12 @@ export default async function ProjectsModal({
   const projectId = parseInt( (await params).id, 10 ),
         queryClient = new QueryClient();
   
-    await queryClient.prefetchQuery({
-      queryKey: [ PAGE_PROJECTS, projectId ],
-      queryFn:  () => projectModel.find( projectId )
-    });
+    if ( projectId ) {
+      await queryClient.prefetchQuery({
+        queryKey: [ PAGE_PROJECTS, projectId ],
+        queryFn:  () => projectModel.find( projectId )
+      });
+    }
 
   return <HydrationBoundary state={ dehydrate( queryClient ) }>
       <ModalForm projectId={ projectId }/>

@@ -1,14 +1,14 @@
 "use client"
-import React, { useState, useEffect, Suspense } from "react";
-import { Modal, Spin } from "antd";
+import React, { useState, Suspense } from "react";
+import { ConfigProvider, Modal, Spin } from "antd";
 import { useRouter } from "next/navigation";
+import { createPortal } from "react-dom";
 
 const EditForm = React.lazy(() => import( "./EditForm" ));
 
 
 const ModalForm = ({ projectId }: { projectId: number | undefined }) => {
-  const [ domLoaded, setDomLoaded ] = useState( false ),
-        [ isModalOpen, setIsModalOpen ] = useState( true );
+  const [ isModalOpen, setIsModalOpen ] = useState( true );
 
   const router = useRouter(),
 
@@ -17,25 +17,21 @@ const ModalForm = ({ projectId }: { projectId: number | undefined }) => {
             router.push( "/projects" );
         };
 
-    useEffect(() => {
-        setDomLoaded(true);
-    }, []);
-
-
-  return domLoaded && (
-    <>
+  return createPortal((
+    <ConfigProvider theme={{ token: { motion: false }}}>
       <Modal title={ projectId  ? `Edit record` : `New record` }
         closable={ true } 
         open={ isModalOpen } 
         onCancel={ onClose } 
         footer={ null }
+        destroyOnClose={ false }
         forceRender={ true }>
         <Suspense fallback={ <Spin size="large" /> }>
             <EditForm projectId={ projectId } onClose={ onClose } />
         </Suspense>
       </Modal>
-    </>
-  );
+    </ConfigProvider>
+  ), document.getElementById( "modal-root")! );
 };
 
 export default ModalForm;

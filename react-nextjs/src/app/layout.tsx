@@ -1,4 +1,5 @@
 
+// @see https://ant.design/docs/react/v5-for-19
 import "@ant-design/v5-patch-for-react-19";
 import React from "react";
 import type { Metadata } from "next";
@@ -41,7 +42,7 @@ export default function RootLayout({
                       </Layout>
                       
                   </Layout>
-              
+              <div id="modal-root" />
               </AntdRegistry>
           </ReactQueryProvider>
         </React.StrictMode>

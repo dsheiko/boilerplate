@@ -8,7 +8,6 @@ import { getList } from "@/utils/api";
 import Link from "next/link"
 import queryString from "query-string";
 
-
 interface TablePagination {
     current: number; 
     pageSize: number; 
@@ -76,11 +75,15 @@ const UiTable = <RecordType extends AnyObject = AnyObject>(
     );    
 
     useEffect(() => {     
-        getQuery && refetch();
+        if ( getQuery ) { 
+            refetch();
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [ getQuery ]);
 
     useEffect(() => {     
         setPagination({ ...pagination, total: data?.total });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [ JSON.stringify( data ) ]);
 
 

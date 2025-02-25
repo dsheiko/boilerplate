@@ -15,7 +15,11 @@ const EditForm = ({ projectId, onClose }: { projectId: number | undefined, onClo
     const queryClient = useQueryClient(),
           mutation = useMutation({
             mutationFn: async ( values: FieldType ) => {
-                projectId ? await update( PAGE_PROJECTS, projectId, values ) : await add( PAGE_PROJECTS, values );
+                if ( projectId ) {
+                    await update( PAGE_PROJECTS, projectId, values )
+                } else {
+                    await add( PAGE_PROJECTS, values );
+                }
             },
             onSuccess: () => {
                 return queryClient.invalidateQueries({ queryKey: [ PAGE_PROJECTS ] });
