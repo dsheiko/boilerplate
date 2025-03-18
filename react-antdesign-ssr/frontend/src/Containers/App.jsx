@@ -7,6 +7,7 @@ import Fallback from "~/Components/Fallback";
 import Head from "~/Components/Head/Head";
 import SettingsProjectTable from "~/Components/Main/Settings/Project/SettingsProjectTable";
 import SettingsProjectEditModal from "~/Components/Main/Settings/Project/SettingsProjectEditModal";
+import LoginModal from "~/Components/Main/Login/LoginModal";
 import NotFound from "~/Components/NotFound";
 
 // Example of prefetching https://loadable-components.com/docs/prefetching/ 
@@ -40,6 +41,10 @@ export function makeReactRoutes({ getProjects } = {}) {
           path: "/settings/project/:pk",
           element:  <SettingsProjectEditModal /> 
         },
+        {
+          path: "/login",
+          element:  <LoginModal /> 
+        },        
         {
           path: "*",
           element:  <NotFound />

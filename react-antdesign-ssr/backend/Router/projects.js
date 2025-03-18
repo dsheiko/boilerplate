@@ -2,7 +2,7 @@ import { API_VER } from "../Util/constants";
 
 export default function projectsRoutes( router, { projectModel } ) {
 	
-    router.delete( API_VER + "/projects/:id", async ( req, res , next ) => {
+    router.delete( API_VER + "/projects/:id", async ( req, res, next ) => {
         try {
             return res.send( await projectModel.remove( req.params.id ) );
         } catch ( err ) {
@@ -10,7 +10,7 @@ export default function projectsRoutes( router, { projectModel } ) {
         }
         });
 
-    router.put( API_VER + "/projects/:id", async ( req, res , next ) => {
+    router.put( API_VER + "/projects/:id", async ( req, res, next ) => {
         try {
             return res.send( await projectModel.update( req.params.id, req.body ) );
         } catch ( err ) {
@@ -18,7 +18,7 @@ export default function projectsRoutes( router, { projectModel } ) {
         }
     });
 
-    router.post( API_VER + "/projects", async ( req, res , next ) => {
+    router.post( API_VER + "/projects", async ( req, res, next ) => {
         try {
             return res.send( await projectModel.add( req.body ) );
         } catch ( err ) {
@@ -27,7 +27,7 @@ export default function projectsRoutes( router, { projectModel } ) {
     });
 
 
-    router.get( API_VER + "/projects/:id", async ( req, res , next ) => {
+    router.get( API_VER + "/projects/:id", async ( req, res, next ) => {
         try {
             return res.send( await projectModel.find( req.params.id ) );
         } catch ( err ) {
@@ -35,7 +35,7 @@ export default function projectsRoutes( router, { projectModel } ) {
         }
     });
 
-    router.get( API_VER + "/projects", async ( req, res , next ) => {
+    router.get( API_VER + "/projects", async ( req, res, next ) => {
         try {
             return res.send( await projectModel.findAll( req.query ) );
         } catch ( err ) {
