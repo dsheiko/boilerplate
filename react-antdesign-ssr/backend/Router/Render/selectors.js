@@ -1,6 +1,6 @@
 export async function getProjects( projectModel ) {
   const data = await projectModel.findAll({ 
-            pageSize: 50,
+            pageSize: 10,
             current: 1,
             sortField: "id",
             sortOrder: "DESC"

@@ -13,14 +13,14 @@ function cleanFetchParams( params ) {
     return JSON.stringify( data );
 }
 
-const UiTable = forwardRef(({ ref, columns, api, baseUrl, prefetchedData, 
+const UiTable = forwardRef(({ columns, api, baseUrl, prefetchedData, 
     getColumnSearchProps = null, 
     enableSelection = false, 
     footer = null,
     actionsBaseUrl = null,
     // use when table needs to be filtered regardless of user choice
     defaultTableParams = {} // e.g. { filters: { "DATE(createdAt)": dayjs( new Date() ).format( "YYYY-MM-DD" ) } }
-}) => {
+}, ref ) => {
 
     const {
         loading,

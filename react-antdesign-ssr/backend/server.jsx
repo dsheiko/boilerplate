@@ -1,6 +1,7 @@
 import http from "http";
 import { join } from "path";
 import express from "express";
+import cors from "cors";
 import dbg from "debug";
 import bodyParser from "body-parser";
 import config from "./Config";
@@ -17,6 +18,7 @@ const app = express(),
 
 app.disable( "x-powered-by" );
 
+app.use( cors() ); 
 app.use( express.static( join( __dirname, "..", "..", "public" ) ) );
 
 // Applying middleware
@@ -54,5 +56,5 @@ app.use( errorHandler );
 // Starting the server
 server.listen( process.env.DEMO_NODE_SERVER_PORT, process.env.DEMO_NODE_SERVER_HOST, () => {
   const { address, port } = server.address();
-  dbg( "INFO" )( `Node.js server listening on ${ address }:${ port }` );
+  dbg( "INFO" )( `🚀 Node.js server listening on ${ address }:${ port }\n\n` );
 });
