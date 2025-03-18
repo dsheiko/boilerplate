@@ -54,7 +54,7 @@ export default function App()  {
       <React.StrictMode>
         <HelmetProvider>
           <Helmet>
-              <title>Demo </title>
+              <title>Demo App</title>
               <meta name="description" content="Demo app" />
           </Helmet>
           <Spin spinning={ false } size="large">

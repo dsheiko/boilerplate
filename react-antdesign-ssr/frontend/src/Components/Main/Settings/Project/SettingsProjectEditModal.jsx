@@ -23,7 +23,7 @@ export default function SettingsProjectEditModal() {
             navigate={ navigate } > 
            
      {({ onKeyDown }) => ( <>
-      <FormItem  label="User name!"  name="name" rules={[{ required: true,
+      <FormItem  label="Project"  name="name" rules={[{ required: true,
         message: "Field is required" }]}>
           <Input
             onKeyDown={ onKeyDown } />
