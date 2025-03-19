@@ -14,7 +14,6 @@ export default function LoginModal({
         [ loading, setLoading ] = useState( false ),
         [ errorMessage, setErrorMessage ] = useState( `` ),
         [ infoMessage, setInfoMessage ] = useState( `` ),
-        [ disabled, setDisabled ] = useState( false ),
         
         onSubmit = ( e ) => {
           e.preventDefault();    
@@ -49,7 +48,7 @@ export default function LoginModal({
         <Modal
           title="Login"
           open={ true }
-          disabled={ disabled }
+          disabled={ loading }
           closable={ false }
           width={ width }
           footer={[
@@ -57,7 +56,7 @@ export default function LoginModal({
               autoFocus={ true }
               key="submit"
               type="primary"
-              disabled={ disabled }
+              disabled={ loading }
               onClick={ onSubmit }>
               Login
             </Button> ) ]}
@@ -69,7 +68,6 @@ export default function LoginModal({
               setLoading( false );
               submit( values ); 
             }}
-            onFinishFailed={ () => setDisabled( true )  }
           >
             <p>Mock credentials: john.doe@acme.com / Password1</p>
             { errorMessage ? <Alert
