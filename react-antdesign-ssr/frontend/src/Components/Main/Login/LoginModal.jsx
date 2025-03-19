@@ -29,6 +29,7 @@ export default function LoginModal({
         },
         
         submit = async ( values ) => {
+          setInfoMessage( "" );
           setErrorMessage( "" );
           setLoading( true );          
           try {
