@@ -1,4 +1,4 @@
-Collection of Front End Developer Boilerplates
+A collection of customizable frontend starter templates for developers. It includes various setups with tools like Webpack, React, TypeScript, and SASS, designed to kickstart your projects with essential configurations. These templates aim to streamline your development process, offering a robust foundation for building modern web applications efficiently.
 
 * [Starter template for Webpack and Babel](./webpack-babel)
 * [Starter template for React + Redux](./react-redux)
