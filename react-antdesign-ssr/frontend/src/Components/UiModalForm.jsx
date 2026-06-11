@@ -122,7 +122,7 @@ export default function UiModalForm({
             onFinishFailed={ () => setDisabled( true )  }
           >
             { errorMessage ? <Alert
-                 description={ errorMessage }
+                 message={ errorMessage }
                  type="error"
                /> : null }
 

@@ -71,10 +71,10 @@ export default function LoginModal({
           >
             <p>Mock credentials: john.doe@acme.com / Password1</p>
             { errorMessage ? <Alert
-                description={ errorMessage } style={{ margin: "12px 0" }} type="error" /> : null }
+                message={ errorMessage } style={{ margin: "12px 0" }} type="error" /> : null }
 
             { infoMessage ? <Alert
-                description={ infoMessage } style={{ margin: "12px 0" }} type="success" /> : null }
+                message={ infoMessage } style={{ margin: "12px 0" }} type="success" /> : null }
             
           <Form.Item label="Email" name="email" rules={[{ required: true,
             message: "Field is required" }]}>

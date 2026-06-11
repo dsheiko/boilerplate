@@ -15,15 +15,15 @@
   },
   "keywords": [],
   "engines": {
-    "node": ">=16"
+    "node": ">=18"
   },
   "license": "ISC",
   "dependencies": {
-    "@ant-design/static-style-extract": "^1.0.2",
+    "@ant-design/static-style-extract": "^2.1.0",
     "@loadable/component": "^5.16.4",
     "@loadable/server": "^5.16.5",
     "@reduxjs/toolkit": "^2.2.7",
-    "antd": "^5.19.3",
+    "antd": "^6.4.3",
     "axios": "^1.7.2",
     "body-parser": "^1.19.2",
     "cors": "^2.8.5",
@@ -62,7 +62,7 @@
     "mini-css-extract-plugin": "^2.6.0",
     "nodemon": "^3.1.4",
     "npm-run-all": "^4.1.5",
-    "sass-loader": "^12.6.0",
+    "sass-loader": "^17.0.0",
     "source-map-loader": "^5.0.0",
     "webpack": "^5.70.0",
     "webpack-cli": "^4.9.2",

@@ -1,10 +1,8 @@
 import React from "react";
 
-// rc-virtual-list and rc-tree (antd internals) use useLayoutEffect which is
-// not valid on the server. Alias it to useEffect for the SSR pass.
-if ( typeof window === "undefined" ) {
-  React.useLayoutEffect = React.useEffect;
-}
+// @rc-component packages use React.useLayoutEffect directly.
+// Alias it to useEffect so SSR renderToString does not emit warnings.
+React.useLayoutEffect = React.useEffect;
 import fs from "node:fs";
 import path from "node:path";
 import { renderToString } from "react-dom/server";
@@ -34,9 +32,23 @@ const PUBLIC_PATCH = path.resolve( __dirname + "/../../public/build" ),
         reducer: { app: appReducer }
       });
 
-// generate Ant Design static CSS file if none found
+// generate Ant Design static CSS file if none found.
+// @ant-design/static-style-extract renders every antd component to collect styles,
+// including ones deprecated in v6 (Input.Group, List). Suppress those warnings
+// for this call only — they are internal to the package and not actionable.
 try {
-    fs.existsSync( ANTD_CSS_FILE ) || fs.writeFileSync( ANTD_CSS_FILE, extractStyle() );
+    if ( !fs.existsSync( ANTD_CSS_FILE ) ) {
+        const _error = console.error.bind( console );
+        console.error = ( ...args ) => {
+            if ( typeof args[ 0 ] === "string" && /\[antd:|useLayoutEffect/.test( args[ 0 ] ) ) return;
+            _error( ...args );
+        };
+        try {
+            fs.writeFileSync( ANTD_CSS_FILE, extractStyle() );
+        } finally {
+            console.error = _error;
+        }
+    }
 } catch {}
 
 export default function renderRoutes( router, { projectModel } ) {
