@@ -33,6 +33,10 @@ module.exports = {
         test: /\.tsx?$/,
         use: "ts-loader",
         exclude: /node_modules/
+      },
+      {
+        test: /\.m?js$/,
+        resolve: { fullySpecified: false }
       }
     ]
   }

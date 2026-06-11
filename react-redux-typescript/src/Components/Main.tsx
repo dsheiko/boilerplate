@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Table, TableBody, TableCell, TableHead, TableRow, Paper } from "@mui/material";
-import { RootState, AppDispatch } from "../store";
+import type { RootState, AppDispatch } from "../store";
 import { fetchPeople } from "../store/peopleSlice";
 import Row from "./Row";
 import Header from "./Header";

@@ -1,23 +1,23 @@
 # Starter template: React + Redux + TypeScript
 
-React 16 / Redux application using TypeScript 4, Webpack 4, and Material UI v1 beta components. Demonstrates core React and Redux patterns with static typing.
+React 19 + Redux Toolkit application using TypeScript 6, Webpack 5, and MUI 9. Demonstrates async data fetching with RTK, typed Redux store, and functional components with hooks.
 
 ## Prerequisites
 
-- Node.js >= 14
+- Node.js >= 18
 
 ## Stack
 
 | Tool | Purpose |
 |---|---|
-| React 16 | UI library |
-| Redux 3 | State container |
-| react-redux | Connect React components to the Redux store |
-| Material UI v1 beta | UI component library |
-| TypeScript 4 | Static typing |
-| Webpack 4 | Module bundler |
+| React 19 | UI library |
+| Redux Toolkit 2 | State management (slices, async thunks) |
+| react-redux 9 | Connect React components to the Redux store |
+| MUI 9 | UI component library |
+| TypeScript 6 | Static typing |
+| Webpack 5 | Module bundler |
 | ts-loader | TypeScript loader for Webpack |
-| ESLint + @typescript-eslint | TypeScript-aware linting |
+| ESLint 10 + typescript-eslint | TypeScript-aware linting (flat config) |
 
 ## Usage
 
@@ -33,34 +33,31 @@ npm run lint     # lint src/ with ESLint
 
 | File | Pattern |
 |---|---|
-| `src/Components/Header.tsx` | Functional component with typed props |
-| `src/Components/Main.tsx` | Class component with typed state and lifecycle |
-| `src/Components/Row.tsx` | Typed prop interfaces |
-| `src/Containers/App.tsx` | Connect store as a decorator, typed dispatch |
-| `src/Actions/index.ts` | Typed async actions (redux-thunk + redux-promise) |
-| `src/Reducers/index.ts` | Typed reducers |
-| `src/Interfaces/index.ts` | Shared TypeScript interfaces |
-| `src/Constants/index.ts` | Action type constants |
+| `src/store/peopleSlice.ts` | RTK slice with `createAsyncThunk` for data fetching |
+| `src/store/index.ts` | Typed `RootState` and `AppDispatch` exports |
+| `src/Components/Main.tsx` | `useSelector` / `useDispatch` with typed store |
+| `src/Components/Row.tsx` | Typed prop interface, `import type` for type-only imports |
+| `src/Containers/App.tsx` | Root container component |
+| `src/index.tsx` | App entry point with Redux `Provider` |
 
 ## Configuration
 
-- `tsconfig.json` - TypeScript options (`target: es6`, `noImplicitAny: true`, `skipLibCheck: true`)
-- `.eslintrc.js` - ESLint with `@typescript-eslint/recommended`
-- `webpack.config.js` - Webpack 4 with `ts-loader`
+| File | Purpose |
+|---|---|
+| `tsconfig.json` | `target: ES2022`, `strict: true`, `verbatimModuleSyntax: true`, `moduleResolution: bundler` |
+| `eslint.config.mjs` | ESLint 10 flat config with `typescript-eslint` recommended rules |
+| `webpack.config.js` | Webpack 5 with `ts-loader`; `fullySpecified: false` for MUI ESM compatibility |
 
-## package.json dependencies
+## Dependencies
 
 | Package | Purpose |
 |---|---|
 | `react`, `react-dom` | UI library |
-| `redux` | State container |
+| `@reduxjs/toolkit` | Redux slice and async thunk utilities |
 | `react-redux` | React bindings for Redux |
-| `redux-thunk` | Middleware for async action creators |
-| `redux-promise` | Middleware to handle promise-returning actions |
-| `redux-actions` | Helpers for action creators and reducers |
-| `material-ui` | UI components (v1.0.0-beta) |
-| `prop-types` | Runtime prop type checking |
-| `typescript` | TypeScript 4 compiler |
+| `@mui/material` | UI components |
+| `@emotion/react`, `@emotion/styled` | CSS-in-JS engine required by MUI |
+| `typescript` | TypeScript 6 compiler |
 | `ts-loader` | Compile TypeScript in Webpack |
 | `webpack`, `webpack-cli` | Module bundler |
-| `eslint`, `@typescript-eslint/*` | TypeScript-aware linting |
+| `eslint`, `typescript-eslint` | TypeScript-aware linting |

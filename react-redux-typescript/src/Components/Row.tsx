@@ -1,6 +1,5 @@
-import React from "react";
 import { TableCell, TableRow } from "@mui/material";
-import { IPerson } from "../store/peopleSlice";
+import type { IPerson } from "../store/peopleSlice";
 
 interface IProps {
   person: IPerson;
