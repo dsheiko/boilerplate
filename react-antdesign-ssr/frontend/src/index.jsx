@@ -26,7 +26,7 @@ delete window.__PRELOADED_STATE__;
 
 
 loadableReady(() => {
-   let router = createBrowserRouter( makeReactRoutes() );
+   let router = createBrowserRouter( makeReactRoutes(), { future: { v7_startTransition: true } } );
    hydrateRoot(
       document.querySelector( "#root" ),
       <React.StrictMode>

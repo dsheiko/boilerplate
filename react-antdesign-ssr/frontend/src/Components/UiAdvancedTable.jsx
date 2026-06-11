@@ -86,10 +86,12 @@ export default function UiAdvancedTable( props ) {
     onFilter: ( value, record ) =>
       record[ dataIndex ].toString().toLowerCase().includes( value.toLowerCase() ),
 
-    onFilterDropdownOpenChange: ( visible ) => {
-      if (visible) {
-        setTimeout(() => searchInput.current?.select(), 100);
-      }
+    filterDropdownProps: {
+      onOpenChange: ( visible ) => {
+        if ( visible ) {
+          setTimeout( () => searchInput.current?.select(), 100 );
+        }
+      },
     },
     render: ( text ) =>
       searchedColumn === dataIndex ? (

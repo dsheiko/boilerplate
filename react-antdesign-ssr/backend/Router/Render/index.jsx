@@ -1,4 +1,10 @@
 import React from "react";
+
+// rc-virtual-list and rc-tree (antd internals) use useLayoutEffect which is
+// not valid on the server. Alias it to useEffect for the SSR pass.
+if ( typeof window === "undefined" ) {
+  React.useLayoutEffect = React.useEffect;
+}
 import fs from "node:fs";
 import path from "node:path";
 import { renderToString } from "react-dom/server";
