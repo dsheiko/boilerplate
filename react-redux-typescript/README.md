@@ -1,26 +1,66 @@
-# Starter template for React + Redux + TypeScript
+# Starter template: React + Redux + TypeScript
 
-The bundle contains React/Redux sample application, made of TypeScript modules and ready-made components of [Material UI Next](https://material-ui-next.com).
-The application represents the fundamental patterns of React 16.
+React 16 / Redux application using TypeScript 4, Webpack 4, and Material UI v1 beta components. Demonstrates core React and Redux patterns with static typing.
 
-## Available Automation Commands
-- `npm run build` - build app
-- `npm run watch` - watch for updates in the code base
-- `npm start` - start app
-- `npm run lint` - ensure the code follows the code style conventions (see [tslint](./tslint))
+## Prerequisites
 
-## package.json
+- Node.js >= 14
 
-- `ts-loader` - [TypeScript loader](https://github.com/TypeStrong/ts-loader) for Webpack
-- `tslint` - [TypeScript code linter](https://github.com/palantir/tslint)
-- `typescript` - [TypeScript](https://www.typescriptlang.org/)
-- `http-server` - [Command-line http server](https://github.com/indexzero/http-server)
-- `webpack` - [Webpack bundler](https://github.com/webpack/webpack)
-- `material-ui` - [Material UI Next](https://material-ui-next.com) for ready-made UI components
-- `prop-types` - [React Type Checker](https://github.com/facebook/prop-types)
-- `react` - [React Library](https://github.com/facebook/react)
-- `react-redux` - [Utility](https://github.com/reactjs/react-redux) to connect React components to the Redux store
-- `redux` - [Redux State Container](https://redux.js.org/)
-- `redux-actions` - [Helper](https://github.com/reduxactions/redux-actions) to create actions and reducers
-- `redux-promise` - [Redux Store Middleware](https://github.com/acdlite/redux-promise) to handle promisable actions
-- `redux-thunk` - [Redux Store Middleware](https://github.com/gaearon/redux-thunk) to handle async actions
+## Stack
+
+| Tool | Purpose |
+|---|---|
+| React 16 | UI library |
+| Redux 3 | State container |
+| react-redux | Connect React components to the Redux store |
+| Material UI v1 beta | UI component library |
+| TypeScript 4 | Static typing |
+| Webpack 4 | Module bundler |
+| ts-loader | TypeScript loader for Webpack |
+| ESLint + @typescript-eslint | TypeScript-aware linting |
+
+## Usage
+
+```bash
+npm install
+npm run build    # compile TypeScript and bundle to build/
+npm start        # serve at http://localhost:8080
+npm run watch    # rebuild on file changes
+npm run lint     # lint src/ with ESLint
+```
+
+## Code examples
+
+| File | Pattern |
+|---|---|
+| `src/Components/Header.tsx` | Functional component with typed props |
+| `src/Components/Main.tsx` | Class component with typed state and lifecycle |
+| `src/Components/Row.tsx` | Typed prop interfaces |
+| `src/Containers/App.tsx` | Connect store as a decorator, typed dispatch |
+| `src/Actions/index.ts` | Typed async actions (redux-thunk + redux-promise) |
+| `src/Reducers/index.ts` | Typed reducers |
+| `src/Interfaces/index.ts` | Shared TypeScript interfaces |
+| `src/Constants/index.ts` | Action type constants |
+
+## Configuration
+
+- `tsconfig.json` - TypeScript options (`target: es6`, `noImplicitAny: true`, `skipLibCheck: true`)
+- `.eslintrc.js` - ESLint with `@typescript-eslint/recommended`
+- `webpack.config.js` - Webpack 4 with `ts-loader`
+
+## package.json dependencies
+
+| Package | Purpose |
+|---|---|
+| `react`, `react-dom` | UI library |
+| `redux` | State container |
+| `react-redux` | React bindings for Redux |
+| `redux-thunk` | Middleware for async action creators |
+| `redux-promise` | Middleware to handle promise-returning actions |
+| `redux-actions` | Helpers for action creators and reducers |
+| `material-ui` | UI components (v1.0.0-beta) |
+| `prop-types` | Runtime prop type checking |
+| `typescript` | TypeScript 4 compiler |
+| `ts-loader` | Compile TypeScript in Webpack |
+| `webpack`, `webpack-cli` | Module bundler |
+| `eslint`, `@typescript-eslint/*` | TypeScript-aware linting |

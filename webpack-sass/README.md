@@ -1,22 +1,49 @@
 # Learning to bundle SASS with Webpack
 
-Webpack is configured to bundle in SASS requested from JavaScript. The sample application imports styles/fonts from NPM module `ionicons`
+Demonstrates importing SCSS from JavaScript and bundling styles into the page at runtime. Uses the `ionicons` npm package to show how npm-installed fonts and icons are resolved through the SASS pipeline.
 
+## Prerequisites
 
-## Available Commands
-- `npm run build` - build app
-- `npm start` - start app
+- Node.js >= 10
 
+## Stack
 
-## package.json
+| Tool | Purpose |
+|---|---|
+| Webpack 3 | Module bundler |
+| sass-loader | Compiles SCSS to CSS |
+| css-loader | Resolves CSS `@import` and `url()` |
+| style-loader | Injects CSS into the DOM at runtime |
+| url-loader | Inlines small fonts/images as base64 data URIs |
+| http-server | Local dev server |
 
-- `url-loader` - [Webpack loader](https://github.com/webpack-contrib/url-loader)
-- `style-loader` - [Webpack loader](https://github.com/webpack-contrib/style-loader)
-- `css-loader` - [Webpack loader](https://github.com/webpack-contrib/css-loader)
-- `sass-loader` - [Webpack loader](https://github.com/webpack-contrib/sass-loader)
-- `clean-webpack-plugin` - [Babel plugin](https://github.com/johnagan/clean-webpack-plugin) to clean up build directory before compilation
-- `http-server` - [Command-line http server](https://github.com/indexzero/http-server)
-- `webpack` - [Webpack bundler](https://github.com/webpack/webpack)
-- `ionicons` - [Icon font]http://ionicons.com/)
+## Usage
 
+```bash
+npm install
+npm run build   # bundle JS + styles to build/
+npm start       # open http://localhost:8080
+```
 
+## How it works
+
+`src/index.js` imports a SCSS file. Webpack processes it through the loader chain:
+
+```
+.scss -> sass-loader -> css-loader -> style-loader -> bundle.js
+```
+
+`style-loader` injects `<style>` tags into the page when the bundle runs. Fonts and icons imported inside SCSS are handled by `url-loader`: files under 10 kB are inlined as data URIs, larger ones are emitted as separate files.
+
+## package.json dependencies
+
+| Package | Purpose |
+|---|---|
+| `webpack` | Module bundler |
+| `sass-loader` | Compile SCSS |
+| `css-loader` | Resolve CSS imports and url() references |
+| `style-loader` | Inject compiled CSS into the DOM |
+| `url-loader` | Inline or emit font/image assets |
+| `clean-webpack-plugin` | Clear `build/` before each compilation |
+| `http-server` | Static file server for development |
+| `ionicons` | Icon font imported from npm |

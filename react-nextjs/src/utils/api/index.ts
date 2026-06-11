@@ -1,27 +1,42 @@
-import axios from "axios";
 import { AnyObject } from "@/utils/type";
 
-const client = axios.create({
-  baseURL: `/api/v1/`
-});
+const BASE = `/api/v1/`;
 
-export async function getList( collection: string, params: AnyObject = {} ) {
-  const res = await client.get( collection, { params } );
-  return res.data;
+async function request( url: string, options?: RequestInit ) {
+  const res = await fetch( url, options );
+  if ( !res.ok ) {
+    throw new Error( `${ res.status } ${ res.statusText }` );
+  }
+  return res.json();
 }
 
-export async function get( collection: string , id: number ) {
+export async function getList( collection: string ) {
+  return request( `${ BASE }${ collection }` );
+}
+
+export async function get( collection: string, id: number ) {
   if ( !id ) {
     return {};
   }
-  return ( await client.get( `${ collection }/${ id }` ) ).data;
+  return request( `${ BASE }${ collection }/${ id }` );
 }
+
 export async function remove( collection: string, id: number ) {
-  return await client.delete( `${ collection }/${ id }` );
+  return request( `${ BASE }${ collection }/${ id }`, { method: "DELETE" } );
 }
+
 export async function add( collection: string, data: AnyObject ) {
-  return await client.post( collection, data );
+  return request( `${ BASE }${ collection }`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify( data ),
+  } );
 }
+
 export async function update( collection: string, id: number, data: AnyObject ) {
-  return await client.put( `${ collection }/${ id }`, data );
+  return request( `${ BASE }${ collection }/${ id }`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify( data ),
+  } );
 }

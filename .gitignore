@@ -3,6 +3,9 @@ package-lock.json
 build
 express/doc
 
+CLAUDE.md
+.claude
+
 # Logs
 logs
 *.log

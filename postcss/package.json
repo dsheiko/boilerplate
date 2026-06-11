@@ -12,18 +12,20 @@
   ],
   "scripts": {
     "build": "npm run build:sass:compile && npm run build:sass:autoprefix",
-    "build:sass:compile": "node-sass sass/index.scss -o /tmp/",
-    "build:sass:autoprefix": "postcss /tmp/index.css -o ./index.css",
-    "watch": "nodemon --watch sass  -e scss -x \"npm run build:sass\"",
+    "build:sass:compile": "sass sass/index.scss ./tmp/index.css",
+    "build:sass:autoprefix": "postcss ./tmp/index.css -o ./index.css",
+    "watch": "nodemon --watch sass -e scss -x \"npm run build\"",
     "start": "http-server . -o -c-1"
   },
   "devDependencies": {
-    "autoprefixer": "^7.1.6",
+    "autoprefixer": "^10.4.0",
     "http-server": "^0.10.0",
-    "node-sass": "^4.7.1",
     "nodemon": "^1.12.1",
-    "postcss-cli": "^4.1.1"
+    "postcss": "^8.4.0",
+    "postcss-cli": "^11.0.0"
   },
   "license": "ISC",
-  "dependencies": {}
+  "dependencies": {
+    "sass": "^1.100.0"
+  }
 }

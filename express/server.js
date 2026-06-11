@@ -37,6 +37,8 @@ app.disable( "x-powered-by" ); // removing X-Powered-By
 // More options https://github.com/expressjs/cors
 app.use( cors() );
 
+app.use( express.static( "public" ) );
+
 // Reporting to the console what is going on
 app.use(( req, res, next ) => {
   const { method, url } = req;

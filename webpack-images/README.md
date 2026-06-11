@@ -1,18 +1,41 @@
 # Learning to bundle images with Webpack
 
-Webpack is configured to bundle in images requested from JavaScript. During bundling images transformed according to [configuration](./webpack.config). Here Webpack optimizes images with [ImageMin](https://github.com/imagemin/imagemin)
+Demonstrates importing images in JavaScript and optimizing them during the build with ImageMin. Bundles icons from the `ionicons` npm package.
 
+## Prerequisites
 
-## Available Commands
-- `npm run build` - build app
-- `npm start` - start app
+- Node.js >= 10
 
+## Stack
 
-## package.json
+| Tool | Purpose |
+|---|---|
+| Webpack 3 | Module bundler |
+| file-loader | Emits image files to the output directory |
+| image-webpack-loader | Optimizes images with ImageMin (PNG, JPEG, GIF, SVG) |
+| http-server | Local dev server |
 
-- `file-loader` - [Webpack loader](https://github.com/webpack-contrib/file-loader)
-- `image-webpack-loader` - [Webpack loader](https://github.com/tcoopman/image-webpack-loader)
-- `clean-webpack-plugin` - [Babel plugin](https://github.com/johnagan/clean-webpack-plugin) to clean up build directory before compilation
-- `http-server` - [Command-line http server](https://github.com/indexzero/http-server)
-- `webpack` - [Webpack bundler](https://github.com/webpack/webpack)
+## Usage
 
+```bash
+npm install
+npm run build   # optimized images emitted to build/
+npm start       # open http://localhost:8080
+```
+
+## How it works
+
+Images required from JavaScript (e.g. `import logo from "./logo.png"`) are processed by `image-webpack-loader`, which compresses them, then by `file-loader`, which writes the result to `build/`. The import resolves to the final file path in the bundle.
+
+Optimization settings are configured per-format in `webpack.config.js`.
+
+## package.json dependencies
+
+| Package | Purpose |
+|---|---|
+| `webpack` | Module bundler |
+| `file-loader` | Copies imported assets to the output directory |
+| `image-webpack-loader` | Compresses images via ImageMin |
+| `clean-webpack-plugin` | Clears `build/` before each compilation |
+| `http-server` | Static file server for development |
+| `ionicons` | Icon set used in the demo |

@@ -1,46 +1,38 @@
-const { join } = require( "path" ),
-      pkg = require( "./package.json" ),
-      CleanWebpackPlugin = require( "clean-webpack-plugin" ),
-      SRC_FULL_PATH = join( __dirname, "./src/" ),
+const { join } = require("path"),
+      SRC_FULL_PATH = join(__dirname, "./src/"),
       PUBLIC_PATH = "./build/",
-      PUBLIC_FULL_PATH = join( __dirname, PUBLIC_PATH );
+      PUBLIC_FULL_PATH = join(__dirname, PUBLIC_PATH);
 
 module.exports = {
-    // Application entry scripts
+    mode: "development",
+
     entry: {
-      // script alias : path
-      index : join( SRC_FULL_PATH, "index.ts" )
+      index: join(SRC_FULL_PATH, "index.ts")
     },
-    // Output configuration for Webpack
     output: {
-			path: PUBLIC_FULL_PATH,
-			filename: `[name].js`,
-      chunkFilename: `[name].v${pkg.version}.widget.js`,
-      publicPath: PUBLIC_PATH
+      path: PUBLIC_FULL_PATH,
+      filename: "[name].js",
+      chunkFilename: "[name].widget.js",
+      publicPath: PUBLIC_PATH,
+      clean: true
     },
 
     resolve: {
-       modules: [
+      modules: [
         "node_modules",
         SRC_FULL_PATH
       ],
-      extensions: [ ".ts" ]
+      extensions: [".ts", ".js"]
     },
 
-    plugins: [
-      // cleaning up the build directory prior to update
-      new CleanWebpackPlugin([ PUBLIC_PATH ])
-    ],
-
-    devtool: "source-map", // enum
+    devtool: "source-map",
     module: {
-			rules: [
-				{
-					// All files with a '.ts' or '.tsx' extension will be handled by 'ts-loader'.
-					test: /\.tsx?$/,
-					use: "ts-loader"
-				}
-
-			]
-		}
+      rules: [
+        {
+          test: /\.tsx?$/,
+          use: "ts-loader",
+          exclude: /node_modules/
+        }
+      ]
+    }
 };

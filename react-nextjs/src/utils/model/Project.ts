@@ -12,12 +12,12 @@ export default class ProjectModel extends AbstractModel {
 
   table = "project";
 
-  async add({ name, env }: { name: string, env: string }) {
+  async add( { name, env }: { name: string, env: string } ) {
     return await this.query( `REPLACE INTO \`${ this.table }\` ` 
       + ` (\`name\`, \`env\`, \`createdAt\`) VALUES (?, ?, NOW())`, [ name, env ] );
   }
 
-  async update( id: number, { name, env }: { name: string, env: string }) {
+  async update( id: number, { name, env }: { name: string, env: string } ) {
     return await this.query( `UPDATE \`${ this.table }\` SET \`name\`=?, \`env\`=? WHERE \`id\`=?`,
       [ name, env, id ] );
   }

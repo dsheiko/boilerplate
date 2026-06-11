@@ -1,56 +1,59 @@
-# Starter template for React + Redux
+# Starter template: React + Redux
 
-The bundle contains React/Redux sample application, made of ES modules and ready-made components of [Material UI Next](https://material-ui-next.com).
-The application represents the fundamental patterns of React 16.
+React 16 / Redux application using ES modules, Babel 6, Webpack 4, and Material UI v1 beta components. Demonstrates core React and Redux patterns.
 
-## Available Automation Commands
-- `npm run build` - build app
-- `npm run watch` - watch for updates in the code base
-- `npm start` - start app
-- `npm run lint:js` - ensure the code follows the code style conventions (see [.eslintrc.js](./.eslintrc.js))
-- `npm run lint:js:fix` - adjust the code automatically according to the code style conventions
+## Prerequisites
 
-## References
+- Node.js >= 10
 
-| Location  | Pattern |
-| ------------- | ------------- |
-| ./src/Components/Header.jsx | Functional component  |
-| ./src/Components/Main.jsx   | Class component  |
-| ./src/Components/Row.jsx    | Runtime type checking for React props  |
-| ./src/Components/Main.jsx   | Error Boundaries  |
-| -//-                        | Life-cycle methods  |
-| ./src/Containers/App.jsx    | Using store connect as a decorator  |
-| -//-                        | Mapping state and actions to the props  |
-| ./src/Actions/index.js      | Creating asynchronous promisable actions  |
-| ./src/Reducers/index.js     | Handling asynchronous promisable actions  |
-| ./src/index.jsx             | Store creation and enhancement  |
+## Stack
 
-## package.json
+| Tool | Purpose |
+|---|---|
+| React 16 | UI library |
+| Redux 4 | State container |
+| react-redux | Connect React components to the Redux store |
+| Material UI v1 beta | UI component library |
+| Webpack 4 | Module bundler |
+| Babel 6 | ES.Next transpiler |
+| ESLint | JavaScript linting |
 
-- `babel-cli` - [Babel CLI](https://babeljs.io/docs/usage/cli/)
-  - `babel-loader` - [Babel loader for Webpack](https://github.com/babel/babel-loader)
-  - `babel-preset-env` - [Babel env preset](https://github.com/babel/babel-preset-env) to include all the plugins required for target environment automatically
-  - `babel-plugin-transform-class-properties`  - [Babel plugin](https://babeljs.io/docs/plugins/transform-class-properties/) to unlock class properties of ES8
-  - `babel-plugin-transform-object-rest-spread` - [Babel plugin](https://babeljs.io/docs/plugins/transform-object-rest-spread/) to unlock desctructuring in objects
-  - `babel-plugin-transform-runtime` - [Runtime transform](https://babeljs.io/docs/plugins/transform-runtime/) to inject polyfills required according to `Babel env preset` configuration
-  - `babel-plugin-syntax-dynamic-import` - [Babel plugin](https://github.com/babel/babel/tree/master/packages/babel-plugin-syntax-dynamic-import) to unlock lazy-loading for modules
-  - `babel-plugin-transform-decorators-legacy` - [Babel plugin](https://github.com/loganfsmyth/babel-plugin-transform-decorators-legacy) to unlock decorators
-  - `babel-preset-react` - [Babel preset](https://github.com/loganfsmyth/babel-plugin-transform-decorators-legacy) for React
-- `clean-webpack-plugin` - [Babel plugin](https://github.com/johnagan/clean-webpack-plugin) to clean up build directory before compilation
-- `uglifyjs-webpack-plugin` - [Babel plugin](https://webpack.js.org/plugins/uglifyjs-webpack-plugin/) to minify & optimize built code
-- `webpack` - [Webpack bundler](https://github.com/webpack/webpack)
-- `http-server` - [Command-line http server](https://github.com/indexzero/http-server)
-- `material-ui` - [Material UI Next](https://material-ui-next.com) for ready-made UI components
-- `react` - [React Library](https://github.com/facebook/react)
-  - `react-redux` - [Utility](https://github.com/reactjs/react-redux) to connect React components to the Redux store
-  - `redux` - [Redux State Container](https://redux.js.org/)
-  - `redux-actions` - [Helper](https://github.com/reduxactions/redux-actions) to create actions and reducers
-  - `redux-promise` - [Redux Store Middleware](https://github.com/acdlite/redux-promise) to handle promisable actions
-  - `redux-thunk` - [Redux Store Middleware](https://github.com/gaearon/redux-thunk) to handle async actions
-  - `redux-devtools-extension` - [Redux DevTools extension](https://github.com/zalmoxisus/redux-devtools-extension)
-  - `prop-types` - [React Type Checker](https://github.com/facebook/prop-types)
-- `eslint` - [ESLint](https://eslint.org/) the pluggable linting utility for JavaScript and JSX
-  - `babel-eslint` - [babel-eslint](https://github.com/babel/babel-eslint) A wrapper for Babel's parser used for ESLint
-  - `eslint-plugin-import` - [eslint-plugin-import](https://github.com/benmosher/eslint-plugin-import) this plugin intends to support linting of ES2015+ (ES6+) import/export syntax, and prevent issues with misspelling of file paths and import names
-  - `eslint-plugin-react` - [eslint-plugin-react](https://github.com/yannickcr/eslint-plugin-react) React specific linting rules for ESLint
-  - `eslint-plugin-jsx-a11y` - [eslint-plugin-jsx-a11y](https://github.com/evcohen/eslint-plugin-jsx-a11y) Static AST checker for accessibility rules on JSX elements.
+## Usage
+
+```bash
+npm install
+npm run build    # bundle to build/
+npm start        # serve at http://localhost:8080
+npm run watch    # rebuild on file changes
+npm run lint     # lint src/
+npm run lint:fix # auto-fix lint issues
+```
+
+## Code examples
+
+| File | Pattern |
+|---|---|
+| `src/Components/Header.jsx` | Functional component |
+| `src/Components/Main.jsx` | Class component, error boundaries, lifecycle methods |
+| `src/Components/Row.jsx` | Runtime prop type checking |
+| `src/Containers/App.jsx` | Connect store as a decorator, map state and actions |
+| `src/Actions/index.js` | Async promisable actions (redux-thunk + redux-promise) |
+| `src/Reducers/index.js` | Handle async actions in reducers |
+| `src/index.jsx` | Store creation with middleware and DevTools |
+
+## package.json dependencies
+
+| Package | Purpose |
+|---|---|
+| `react`, `react-dom` | UI library |
+| `redux` | State container |
+| `react-redux` | React bindings for Redux |
+| `redux-thunk` | Middleware for async action creators |
+| `redux-promise` | Middleware to handle promise-returning actions |
+| `redux-actions` | Helpers to create action creators and reducers |
+| `redux-devtools-extension` | Redux DevTools browser extension support |
+| `material-ui` | UI components (v1.0.0-beta) |
+| `prop-types` | Runtime prop type checking |
+| `webpack`, `webpack-cli` | Module bundler |
+| `babel-cli`, `babel-loader` | Babel 6 transpiler |
+| `eslint`, `eslint-plugin-react` | JavaScript and JSX linting |

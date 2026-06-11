@@ -1,15 +1,41 @@
-# Starter template for RequireJS + Babel
+# Starter template: RequireJS + Babel
 
-The bundle contains sample SASS sources that are being transpiled in CSS and transformed with [Autoprefixer](https://github.com/postcss/autoprefixer) tool
+AMD module bundling with RequireJS and ES.Next syntax transpiled by Babel. SASS sources compile to CSS with Autoprefixer.
 
-## Available Automation Commands
-- `npm run build` - build app
-- `npm start` - start app
+## Prerequisites
 
-## package.json
+- Node.js >= 14
 
-- `babel-cli` - [Babel CLI](https://babeljs.io/docs/usage/cli/)
-- `babel-plugin-transform-es2015-modules-amd` - [Babel plugin](https://www.npmjs.com/package/babel-plugin-transform-es2015-modules-amd) to handle AMD
-- `babel-preset-env` - [Babel env preset](https://github.com/babel/babel-preset-env) to include all the plugins required for target environment automatically
-- `babel-plugin-transform-runtime` - [Runtime transform](https://babeljs.io/docs/plugins/transform-runtime/) to inject polyfills required according to `Babel env preset` configuration
-- `http-server` - [Command-line http server](https://github.com/indexzero/http-server)
+## Stack
+
+| Tool | Purpose |
+|---|---|
+| RequireJS | AMD module loader in the browser |
+| Babel 6 | Transpiles ES.Next and emits AMD module format |
+| SASS | CSS preprocessor |
+| http-server | Local dev server |
+
+## Usage
+
+```bash
+npm install
+npm run build   # transpile src/ to build/
+npm start       # open http://localhost:8080
+```
+
+## How it works
+
+Babel transpiles each file in `src/` to AMD format in `build/`. RequireJS loads them at runtime using `data-main` on the `<script>` tag in `index.html`. SASS compiles to `index.css`.
+
+The `.babelrc` targets browsers with >2% market share and the last 2 versions. Polyfills are injected via `babel-plugin-transform-runtime`.
+
+## package.json dependencies
+
+| Package | Purpose |
+|---|---|
+| `babel-cli` | Babel 6 CLI (`babel src -d build`) |
+| `babel-preset-env` | Transpile to target browser range |
+| `babel-plugin-transform-es2015-modules-amd` | Emit AMD module format |
+| `babel-plugin-transform-runtime` | Inject polyfills from `babel-runtime` |
+| `http-server` | Serve static files locally |
+| `babel-polyfill` | Full ES6+ polyfill for the runtime |

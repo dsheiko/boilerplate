@@ -1,7 +1,7 @@
 {
-  "name": "react-html5-form-demo-e2e",
-  "version": "1.0.0",
-  "description": "",
+  "name": "boilerplate-puppeteer-jest",
+  "version": "0.0.1",
+  "description": "E2E testing starter template with Puppeteer and Jest",
   "scripts": {
     "test": "URL=https://dsheiko.github.io/react-html5-form/ jest",
     "test:debug": "URL=https://dsheiko.github.io/react-html5-form/ DEBUG=true jest --detectOpenHandles"
@@ -12,8 +12,14 @@
       "**/*.spec.js"
     ]
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "puppeteer",
+    "jest",
+    "e2e",
+    "testing",
+    "boilerplate"
+  ],
+  "author": "Dmitry Sheiko (http://dsheiko.com)",
   "license": "ISC",
   "dependencies": {},
   "devDependencies": {

@@ -1,6 +1,3 @@
-
-// @see https://ant.design/docs/react/v5-for-19
-import "@ant-design/v5-patch-for-react-19";
 import React from "react";
 import type { Metadata } from "next";
 import { Layout } from "antd";
@@ -13,37 +10,32 @@ import "./index.scss";
 
 export const metadata: Metadata = {
   title: "Projects",
-  description: "Demo app built with Next.js 15, Ant Design v5, and React Query v5.",
+  description: "Demo app built with Next.js 16, Ant Design v5, and React Query v5.",
 };
 
-export default function RootLayout({
-  children, modal
+export default function RootLayout( {
+  children,
 }: Readonly<{
   children: React.ReactNode;
-  modal: React.ReactNode;
-}>) {
+}> ) {
   return (
     <html lang="en">
       <body>
         <React.StrictMode>
           <ReactQueryProvider>
-              <AntdRegistry>        
-              
-                  <Layout className="container-root">                    
-                    <Navbar />
-                      <Layout className="container-main">
-                        <Sidebar  />
-                        <Layout className="container-content">
-                            <Content className="content" >
-                              { children }
-                              { modal }
-                            </Content>
-                        </Layout>
-                      </Layout>
-                      
+            <AntdRegistry>
+              <Layout className="container-root">
+                <Navbar />
+                <Layout className="container-main">
+                  <Sidebar />
+                  <Layout className="container-content">
+                    <Content className="content">
+                      { children }
+                    </Content>
                   </Layout>
-              <div id="modal-root" />
-              </AntdRegistry>
+                </Layout>
+              </Layout>
+            </AntdRegistry>
           </ReactQueryProvider>
         </React.StrictMode>
       </body>

@@ -1,3 +1,5 @@
+@use "../../base/index" as *;
+
 .btn {
   margin: $rhythm;
   padding: $rhythm $rhythm * 2;

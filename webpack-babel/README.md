@@ -1,70 +1,69 @@
-# Starter template for Webpack and Babel
+# Starter template: Webpack + Babel
 
-The bundle contains sample application, made of ES modules in ES.Next syntax.
-The application uses Webpack to bundle the modules. It shows how to to import static and dynamic ES modules, by relative and resolvable paths. It also demonstrates an optimization technic where we provide separate bundles for modern browsers and legacy ones. So when the application requested in ever-green browser it doesn't need to load all the polyfills required for outdated user-agents.
+ES modules application bundled with Webpack and transpiled by Babel 7. Shows static and dynamic imports, module resolution by path and name, and a dual-bundle strategy for modern vs. legacy browsers.
 
-## Building application
-* When building for dev environment we use [webpack.dev.js](./webpack.dev.js) configuration, which extends [webpack.common.js](./webpack.common.js). It transpiles source modules in JavaScript with the only support for modern user-agents [as specified in the configuration](./webpack.dev.js).
-* When building for production environment we use [webpack.prod.js](./webpack.prod.js) configuration, which extends [webpack.dev.js](./webpack.dev.js). It minifies the compiled JavaScript. Next we run [webpack.prod-legacy.js](./webpack.prod-legacy.js). It transpiles source modules in JavaScript with the support for legacy user-agents [as specified in the configuration](./webpack.prod-legacy.js).
-* From the [index.html](./index.html) (as stated [here](https://speakerdeck.com/addyosmani/fast-by-default-modern-loading-best-practices)) we load conditionally the generated bundle either for modern browsers `./build/index.js` or for legacy ones ./build/legacy/index.js
+## Prerequisites
 
-## Available Commands
-- `npm run build:dev` - build app for dev environment
-- `npm run build:prod` - build app for dev environment
-- `npm run watch` - watch for updates in the code base
-- `npm start` - start app
-- `npm run lint` - ensure the code follows the code style conventions
-- `npm run lint:fix` - adjust the code automatically according to the code style conventions
+- Node.js >= 10
 
-## package.json
+## Stack
 
-- `@babel/core`, `@babel/cli` - [Babel CLI](https://babeljs.io/docs/usage/cli/)
-- `babel-loader` - [Babel loader for Webpack](https://github.com/babel/babel-loader)
-- `@babel/preset-env` - [Babel env preset](https://github.com/babel/babel-preset-env) to include all the plugins required for target environment automatically
-- `@babel/plugin-proposal-class-properties`  - [Babel plugin](https://babeljs.io/docs/plugins/transform-class-properties/) to unlock class properties of ES8
-- `@babel/plugin-proposal-object-rest-spread` - [Babel plugin](https://babeljs.io/docs/plugins/transform-object-rest-spread/) to unlock desctructuring in objects
-- `@babel/plugin-transform-runtime` - [Runtime transform](https://babeljs.io/docs/plugins/transform-runtime/) to inject polyfills required according to `Babel env preset` configuration
-- `@babel/plugin-syntax-dynamic-import` - [Babel plugin](https://github.com/babel/babel/tree/master/packages/babel-plugin-syntax-dynamic-import) to unlock lazy-loading for modules
-- `clean-webpack-plugin` - [Webpack plugin](https://github.com/johnagan/clean-webpack-plugin) to clean up build directory before compilation
-- `terser-webpack-plugin` - [Webpack plugin](https://github.com/webpack-contrib/terser-webpack-plugin) to minify & optimize built code
-- `http-server` - [Command-line http server](https://github.com/indexzero/http-server)
-- `webpack` - [Webpack bundler](https://github.com/webpack/webpack)
-- `eslint` - [JavaScript linter](https://eslint.org/)
-- `eslint-plugin-import` - [ESLint plugin](https://www.npmjs.com/package/eslint-plugin-import) to support linting of ES2015+ (ES6+) import/export syntax
-- `babel-eslint` - [Webpack parser](https://github.com/babel/babel-eslint) used for ESLint
+| Tool | Purpose |
+|---|---|
+| Webpack 4 | Module bundler |
+| Babel 7 | ES.Next transpiler |
+| @babel/preset-env | Target browser range for transpilation |
+| terser-webpack-plugin | Minify production bundles |
+| ESLint | JavaScript linting |
+| http-server | Local dev server |
 
-## Webpack Configuration Overview
+## Usage
 
-```javascript
-module.exports = {
-    entry: <Path to the entry script(s). It accepts a string or an array of strings>
-    output: {
-			path: <Output directory>,
-			filename: <Bundle name>,
-      chunkFilename: <Name template for dynamically loaded chunks>,
-      publicPath: <Output directory by HTTP>
-    },
-
-    <Resolving...>
-    resolve: {
-      modules: <Directories considered as root for modules. It accepts an array of strings>,
-      extensions: [ ".js" ]
-    },
-
-    module: {
-			rules: [
-        {
-          test: <filename pattern to match>,
-          use: [<loader configuration>]
-        }
-			]
-		}
-};
+```bash
+npm install
+npm run build:dev    # development build
+npm run build:prod   # production build (modern + legacy bundles)
+npm run watch        # watch mode (dev config)
+npm start            # serve at http://localhost:8080
+npm run lint         # lint src/
+npm run lint:fix     # auto-fix lint issues
 ```
 
-## Webpack Environment-specific Configurations
+## Dual-bundle strategy
 
-- `webpack.common.js` - base configuration
-- `webpack.dev.js` - configuration for dev environment (extends `webpack.common.js`)
-- `webpack.prod.js` - configuration for production environment (extends `webpack.dev.js`, aims modern browsers)
-- `webpack.prod-legacy.js` - configuration for production environment (extends `webpack.dev.js`, aims legacy browsers)
+Production builds generate two bundles:
+
+- `build/index.js` - targets modern browsers, minimal transpilation and polyfills
+- `build/legacy/index.js` - targets legacy browsers, full polyfill set
+
+`index.html` uses `type="module"` / `nomodule` to load the appropriate bundle automatically:
+
+```html
+<script type="module" src="./build/index.js"></script>
+<script nomodule src="./build/legacy/index.js"></script>
+```
+
+Modern browsers load the lighter module bundle; legacy browsers load the polyfilled one.
+
+## Webpack configuration files
+
+| File | Purpose |
+|---|---|
+| `webpack.common.js` | Shared base configuration |
+| `webpack.dev.js` | Dev build (extends common, targets modern browsers) |
+| `webpack.prod.js` | Production build for modern browsers (extends dev, adds minification) |
+| `webpack.prod-legacy.js` | Production build for legacy browsers (extends dev, adds full polyfills) |
+
+## package.json dependencies
+
+| Package | Purpose |
+|---|---|
+| `@babel/core`, `@babel/cli` | Babel 7 core and CLI |
+| `babel-loader` | Babel loader for Webpack |
+| `@babel/preset-env` | Transpile to target browser range |
+| `@babel/plugin-transform-runtime` | Inject runtime polyfills |
+| `@babel/plugin-syntax-dynamic-import` | Enable `import()` lazy loading |
+| `terser-webpack-plugin` | Minify and optimize production output |
+| `eslint`, `eslint-plugin-import` | JavaScript linting |
+| `webpack`, `webpack-cli`, `webpack-merge` | Bundler and config merging |
+| `http-server` | Static file server for development |

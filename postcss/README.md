@@ -1,17 +1,64 @@
-# Starter template for SASS + PostCSS( Autoprefix )
+# Starter template: SASS + PostCSS
 
-The bundle contains sample application, made of AMD (RequireJS) modules in ES.Next syntax.
-The application uses Babel to transpile ES.Next syntax to JavaScript supported by user agents as specified in the configuration (see `.babelrc`)
+SASS compilation pipeline with PostCSS Autoprefixer. Compiles `.scss` to CSS, then applies vendor prefixes based on browser targets.
 
-## Available Automation Commands
-- `npm run build` - build app
-- `npm run watch` - watch for updates in the code base
-- `npm start` - start app
+## Prerequisites
 
-## package.json
+- Node.js >= 10
 
-- `node-sass` - [SASS compiler](https://github.com/sass/node-sass)
-- `postcss-cli` - [PostCSS processor](https://babeljs.io/docs/usage/cli/) to transform CSS
-- `autoprefixer` - [PostCSS plugin](https://github.com/postcss/autoprefixer) to extend CSS prefixes according to browser target group (see [postcss.config](./postcss.config))
-- `nodemon` - [Monitor](https://github.com/remy/nodemon) to build sources automatically as they change
-- `http-server` - [Command-line http server](https://github.com/indexzero/http-server)
+## Stack
+
+| Tool | Purpose |
+|---|---|
+| node-sass | Compiles SCSS to CSS |
+| PostCSS + autoprefixer | Adds vendor prefixes for target browsers |
+| nodemon | Watches `sass/` for changes in dev mode |
+| http-server | Local dev server |
+
+## Usage
+
+```bash
+npm install
+npm run build   # compile sass/ -> index.css
+npm start       # serve at http://localhost:8080
+```
+
+### Watch mode
+
+```bash
+npm run watch
+```
+
+Recompiles on every `.scss` change.
+
+## Build pipeline
+
+```
+sass/index.scss
+  -> node-sass -> tmp/index.css
+                    -> postcss (autoprefixer) -> index.css
+```
+
+The intermediate file is written to `tmp/` in the project root.
+
+## Project structure
+
+```
+sass/
+  base/           global base styles
+  component/      component-level SCSS partials
+  index.scss      root import
+index.html        demo page
+index.css         compiled output (generated)
+postcss.config.js PostCSS plugin config
+```
+
+## package.json dependencies
+
+| Package | Purpose |
+|---|---|
+| `node-sass` | Compile SCSS to CSS |
+| `postcss-cli` | Run PostCSS transforms from the command line |
+| `autoprefixer` | PostCSS plugin that adds vendor prefixes |
+| `nodemon` | Watch files and re-run commands on change |
+| `http-server` | Static file server for development |

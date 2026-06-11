@@ -1,29 +1,47 @@
-# Starter template for Karma + Jasmine
+# Starter template: Karma + Jasmine
 
-The bundle contains JavaScript sample application and unit-tests.
-Tests are written by using [Jasmine](https://jasmine.github.io/) testing framework, that runs in [Karma test runner](https://karma-runner.github.io/1.0/index.html) configured for headless Chrome
+JavaScript unit testing with Jasmine running in headless Chrome via Karma. Source is bundled with Webpack before tests run.
 
-## Available Automation Commands
-- `npm run build` - build app
-- `npm test` - run unit-tests
+## Prerequisites
 
-## package.json
+- Node.js >= 10
+- Google Chrome installed (used by `karma-chrome-launcher`)
 
-- `babel-cli` - [Babel CLI](https://babeljs.io/docs/usage/cli/)
-- `babel-loader` - [Babel loader for Webpack](https://github.com/babel/babel-loader)
-- `babel-preset-env` - [Babel env preset](https://github.com/babel/babel-preset-env) to include all the plugins required for target environment automatically
-- `babel-plugin-transform-class-properties`  - [Babel plugin](https://babeljs.io/docs/plugins/transform-class-properties/) to unlock class properties of ES8
-- `babel-plugin-transform-object-rest-spread` - [Babel plugin](https://babeljs.io/docs/plugins/transform-object-rest-spread/) to unlock desctructuring in objects
-- `babel-plugin-transform-runtime` - [Runtime transform](https://babeljs.io/docs/plugins/transform-runtime/) to inject polyfills required according to `Babel env preset` configuration
-- `babel-plugin-syntax-dynamic-import` - [Babel plugin](https://github.com/babel/babel/tree/master/packages/babel-plugin-syntax-dynamic-import) to unlock lazy-loading for modules
-- `clean-webpack-plugin` - [Babel plugin](https://github.com/johnagan/clean-webpack-plugin) to clean up build directory before compilation
-- `uglifyjs-webpack-plugin` - [Babel plugin](https://webpack.js.org/plugins/uglifyjs-webpack-plugin/) to minify & optimize built code
-- `http-server` - [Command-line http server](https://github.com/indexzero/http-server)
-- `jasmine-core` - [Jasmin Testing Framework](https://jasmine.github.io/)
-- `karma` - [Karma Runner](https://karma-runner.github.io)
-- `karma-chrome-launcher` - [Chrome Launcher for Karma](https://github.com/karma-runner/karma-chrome-launcher)
-- `karma-cli` - [Karma Runner CLI](https://github.com/indexzero/http-server) to run run Karma from command line
-- `karma-jasmine` - [Karma plugin](https://github.com/karma-runner/karma-jasmine) to handle Jasmine
-- `karma-spec-reporter` - [Karma plugin](https://github.com/mlex/karma-spec-reporter) test reporter, that prints detailed results to console
+## Stack
 
+| Tool | Purpose |
+|---|---|
+| Webpack 3 | Bundles source and test files |
+| Babel 6 | Transpiles ES.Next syntax |
+| Jasmine | Test framework (describe/it/expect) |
+| Karma | Test runner, launches headless Chrome |
+| karma-spec-reporter | Detailed console output per spec |
 
+## Usage
+
+```bash
+npm install
+npm run build   # bundle src/ with webpack.dev.js
+npm test        # compile tests and run in headless Chrome
+```
+
+## How it works
+
+1. `npm run build` bundles `src/` using `webpack.dev.js`
+2. `npm test` runs two steps:
+   - Webpack compiles test files using `tests/webpack.test.js`
+   - Karma launches headless Chrome, executes the bundle, and prints results via `karma-spec-reporter`
+
+## package.json dependencies
+
+| Package | Purpose |
+|---|---|
+| `karma` | Test runner |
+| `karma-chrome-launcher` | Run tests in headless Chrome |
+| `karma-jasmine` | Jasmine adapter for Karma |
+| `karma-spec-reporter` | Detailed per-spec console output |
+| `jasmine-core` | Jasmine test framework |
+| `babel-loader` | Transpile JS files in Webpack |
+| `babel-preset-env` | Transpile to target browser range |
+| `webpack` | Bundle source and test modules |
+| `webpack-merge` | Merge webpack config objects |

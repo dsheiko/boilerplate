@@ -6,16 +6,16 @@
     "sourceMap": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-
     "removeComments": false,
     "noImplicitAny": true,
-    "outDir": "../dist/",
     "jsx": "react",
     "noUnusedParameters": false,
-    "noUnusedLocals": true
+    "noUnusedLocals": true,
+    "skipLibCheck": true,
+    "strict": false
   },
-
-  "files": [
-    "./src/index.tsx"
+  "include": [
+    "./src/**/*.ts",
+    "./src/**/*.tsx"
   ]
 }

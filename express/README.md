@@ -1,44 +1,60 @@
-# Starter template for Node.js/ Express
+# Starter template: Express.js REST API
 
-The bundle contains a minimalistic REST server sample with asynchronous controller actions written in MVC style
+Minimal REST API with MVC-style async controller actions, Jasmine tests, and auto-generated API docs.
 
-## Available Automation Commands
-- `npm start` - start server
-- `npm run test` - run tests
-- `npm run update:doc` - generate API doc
+## Prerequisites
 
+- Node.js >= 8
 
-## package.json
+## Stack
 
-- `express` - [Express.js, web framework for Node.js](https://expressjs.com/)
-- `body-parser` - [Node.js body parsing middleware](https://www.npmjs.com/package/body-parser)
-- `minimist` - [parse argument options](https://www.npmjs.com/package/minimist)
-- `debug` - [debugging utility](https://www.npmjs.com/package/debug)
-- `cors` - [middleware to enable CORS with various options](https://www.npmjs.com/package/cors)
-- `apidoc` - [apiDoc - REST API doc generator](https://github.com/apidoc/apidoc)
-- `apidoc-markdown` - [apidoc-markdown - apiDoc to Markdown converter](https://github.com/martinj/node-apidoc-markdown)
+| Tool | Purpose |
+|---|---|
+| Express 4 | HTTP server and routing |
+| body-parser | Request body parsing |
+| cors | Cross-origin resource sharing |
+| debug | Debug logging utility |
+| Jasmine | Unit test framework |
+| apidoc | API documentation from JSDoc annotations |
 
+## Usage
 
-## Sample API
-
-[Sample REST API](./API.md)
-
+```bash
+npm install
+npm start            # server starts on http://localhost:9002
+npm test             # run Jasmine tests
+npm run update:doc   # regenerate API.md from annotations
 ```
-curl -X GET http://127.0.0.1:9002/news/101
-```
-Possible response: 200 - `{"content":"Content of new entry 101"}`
 
+## Sample requests
 
-```
+```bash
+# Get a news item
+curl http://127.0.0.1:9002/news/101
+# => {"content":"Content of new entry 101"}
+
+# Create a news item
 curl -X POST http://127.0.0.1:9002/news \
   -H 'content-type: multipart/form-data' \
   -F 'title=some title' \
   -F 'text=some body'
+# => {"message":"News entry with id 69 added"}
+
+# Invalid request (returns 400)
+curl http://127.0.0.1:9002/news/invalid
+# => {"message":"Required parameter is missing or empty"}
 ```
 
-Possible response: 200 - `{"message":"News entry with id 69 added"}`
+## Project structure
 
 ```
-curl -X GET http://127.0.0.1:9002/news/invalid
+Controller/   route handler functions (async, MVC-style)
+Router/       Express router setup
+spec/         Jasmine test suites
+index.js      entry point
+API.md        generated API reference (run update:doc to refresh)
 ```
-Possible response: 400 - `{"message":"Required parameter is is missing or empty"}`
+
+## API documentation
+
+See [API.md](./API.md) for the generated reference. Regenerate it after changing JSDoc annotations with `npm run update:doc`.

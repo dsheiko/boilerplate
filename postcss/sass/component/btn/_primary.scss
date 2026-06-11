@@ -1,3 +1,5 @@
+@use "../../base/index" as *;
+
 .btn--primary {
   color: $color-white;
   background-color: $color-primary;

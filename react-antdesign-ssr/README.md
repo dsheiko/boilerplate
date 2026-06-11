@@ -1,46 +1,95 @@
-# Starter template for React + Ant.Design
+# Starter template: React + Ant.Design + SSR
 
-The bundle represents a manageable data table UI (sorting/filtering and pagination) based on React + Ant.Design
-provided with backend driven by Express.js + MySQL
+Data table UI with sorting, filtering, and pagination. React 18 + Ant.Design 5 on the frontend, Express + MySQL on the backend, with full server-side rendering via `@loadable/component`.
 
 ![Template in action](./docs/data-table-demo.gif)
 
-## Set up
-1) Clone this repo
-2) Create `.env` in the project directory
+## Prerequisites
+
+- Node.js >= 16
+- MySQL 8+
+
+## Stack
+
+| Tool | Purpose |
+|---|---|
+| React 18 | UI library |
+| Ant.Design 5 | Component library (Table, Form, etc.) |
+| Redux Toolkit | State management |
+| React Router 6 | Client and server routing |
+| Express 4 | HTTP server and SSR renderer |
+| @loadable/component | Code splitting with SSR support |
+| Webpack 5 | Bundles frontend and backend |
+| MySQL | Data storage |
+| db-migrate | Schema migrations |
+
+## Setup
+
+1. Install dependencies:
+```bash
+npm install
 ```
-DEMO_NODE_SERVER_HOST=127.0.0.1
-DEMO_NODE_SERVER_PORT=9100
-DEMO_DB_USER="username"
-DEMO_DB_PASS="userpassword"
-DEMO_DB_HOST="localhost"
-DEMO_DB_NAME="react_antd"
+
+2. Configure the database:
+```bash
+cp .env.dist .env
 ```
-3) Create DB as given in `.env` ( e.g. `react_antd` )
-4) Initialize, migrate, build and start
+Edit `.env` with your MySQL credentials.
+
+3. Create the database:
+```sql
+CREATE DATABASE react_antd;
 ```
-npm i
+
+4. Run migrations, build, and start:
+```bash
 npm run migrate:up
 npm run build
 npm start
 ```
 
-## Running in dev mode
+The server listens at `http://127.0.0.1:9100/`.
 
-```
+## Development mode
+
+```bash
 npm run watch
 ```
-The n you can see the changes at `http://127.0.0.1:9100/`
 
-## Available Automation Commands
-- `npm run build` - build app
-- `npm run watch` - start and watch for updates in the code base
-- `npm start` - start app
-- `npm run migrate:up` - run all available migrations up to the latest one
-- `npm run migrate:down` - rollback migration
+Starts nodemon for the server and Webpack in watch mode for both frontend and backend bundles simultaneously.
 
-# Examples
-- Redux from client-side `./frontend/src/Components/Head/Head.jsx`
-- Redux from server-side `./backend/Router/Render/index.jsx`
-- Prefetching a component `./frontend/src/Containers/App.jsx`
-- Configure routes for both server and client sides `./frontend/src/Containers/App.jsx`
+## Commands
+
+| Command | Description |
+|---|---|
+| `npm run build` | Build backend and frontend bundles |
+| `npm run watch` | Dev mode: server + both bundles in watch mode |
+| `npm start` | Start the production server |
+| `npm run migrate:up` | Apply pending migrations |
+| `npm run migrate:down` | Rollback the last migration |
+
+## Project structure
+
+```
+backend/
+  Router/
+    Render/    SSR entry point (renders React to HTML string)
+    api/       REST API route handlers
+frontend/
+  src/
+    Components/  UI components
+    Containers/  Redux-connected containers
+    Actions/     Redux actions
+    Reducers/    Redux reducers
+migrations/    db-migrate SQL migration files
+index.js       Express server entry point
+database.json  db-migrate connection config (reads from .env)
+```
+
+## Code examples
+
+| File | Pattern |
+|---|---|
+| `frontend/src/Components/Head/Head.jsx` | Redux from client-side |
+| `backend/Router/Render/index.jsx` | Redux from server-side (SSR) |
+| `frontend/src/Containers/App.jsx` | Code splitting with prefetch, shared routes |

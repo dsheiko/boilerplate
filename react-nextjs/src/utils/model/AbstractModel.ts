@@ -45,7 +45,7 @@ export default class AbstractModel {
     
     return {
       total: 0 in info ? info[ 0 ].total : 0,
-      rows: rows.map( row => ({ ...row, key:  row.id }))
+      rows: rows.map( row => ({ ...row, key:  row.id }) )
     };
   }
 
@@ -63,7 +63,7 @@ export default class AbstractModel {
   }
 
   static filtersToSql( filters: Record<string, string> ) {  
-    return Object.keys( filters ).reduce(( carry: string[], key: string ) => {
+    return Object.keys( filters ).reduce( ( carry: string[], key: string ) => {
       carry.push( `${  key } = "${ filters[ key ] }"` );
       return carry;
     }, [] ).join( " AND " );

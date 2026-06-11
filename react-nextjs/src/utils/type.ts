@@ -1,4 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+ 
 export type AnyObject = Record<PropertyKey, any>;
 
 export type SearchParams = {
@@ -11,6 +11,6 @@ export type SearchParams = {
 
 export type TableData = {
   total: number;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   
   rows: any[];
 };

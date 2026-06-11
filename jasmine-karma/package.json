@@ -4,7 +4,7 @@
   "author": "Dmitry Sheiko (http://dsheiko.com)",
   "scripts": {
     "build": "webpack --config webpack.dev.js",
-    "test": "webpack --config tests/webpack.test.js && karma start tests/karma.conf.js"
+    "test": "export CHROME_BIN=\"/mnt/c/Program Files/Google/Chrome/Application/chrome.exe\" && webpack --config tests/webpack.test.js && karma start tests/karma.conf.js"
   },
   "keywords": [
     "jasmine",

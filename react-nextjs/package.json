@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint ./src",
+    "lint:fix": "eslint ./src --fix",
     "migrate:up": "db-migrate up",
     "migrate:down": "db-migrate down"
   },
@@ -18,23 +19,23 @@
     "@tanstack/query-core": "^5.66.4",
     "@tanstack/react-query": "^5.66.7",
     "antd": "^5.24.1",
-    "axios": "^1.7.9",
     "dotenv": "^16.4.7",
     "mysql2": "^3.12.0",
-    "next": "^15.5.7",
-    "query-string": "^9.1.1",
+    "next": "^16.2.9",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3",
+    "@babel/eslint-parser": "^7.28.5",
     "@types/node": "^20.17.19",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "db-migrate": "^0.11.14",
     "db-migrate-mysql": "^3.0.0",
     "eslint": "^9",
-    "eslint-config-next": "15.1.7",
+    "eslint-config-next": "16.2.9",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.0.1",
     "sass": "^1.85.0",
     "typescript": "^5"
   }
