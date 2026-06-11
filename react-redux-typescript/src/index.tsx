@@ -1,26 +1,12 @@
-import * as React from "react";
-import { render } from "react-dom";
-import { createStore, applyMiddleware, compose } from "redux";
+import React from "react";
+import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
-
+import { store } from "./store";
 import App from "./Containers/App";
-import { appReducer } from "./Reducers";
-import * as promiseMiddleware from "redux-promise";  // Support for promisable actions
-import thunkMiddleware from "redux-thunk"; // Support for asynchronous actions
 
-// Store enhancement
-const storeEnhancer = compose(
-  applyMiddleware(
-    thunkMiddleware,
-    promiseMiddleware
-  )
+const container = document.querySelector("root")!;
+createRoot(container).render(
+  <Provider store={ store }>
+    <App />
+  </Provider>
 );
-// Store creation
-const store = createStore(
-  appReducer,
-  storeEnhancer
-);
-
-render( <Provider store={store}>
-  <App {...this.props} />
- </Provider>, document.querySelector( "root" ) );

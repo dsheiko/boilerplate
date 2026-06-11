@@ -1,18 +1,16 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "sourceMap": false,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "lib": ["ES2020", "DOM"],
+    "sourceMap": true,
     "removeComments": false,
     "noImplicitAny": true,
-    "jsx": "react",
-    "noUnusedParameters": false,
+    "jsx": "react-jsx",
     "noUnusedLocals": true,
     "skipLibCheck": true,
-    "strict": false
+    "strict": true
   },
   "include": [
     "./src/**/*.ts",

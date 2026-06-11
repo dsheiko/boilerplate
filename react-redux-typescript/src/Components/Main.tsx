@@ -1,38 +1,21 @@
-import * as React from "react";
-import { TStore } from "../Interfaces";
-import Table, { TableBody, TableCell, TableHead, TableRow } from "material-ui/Table";
-import Paper from "material-ui/Paper";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Table, TableBody, TableCell, TableHead, TableRow, Paper } from "@mui/material";
+import { RootState, AppDispatch } from "../store";
+import { fetchPeople } from "../store/peopleSlice";
 import Row from "./Row";
 import Header from "./Header";
 
-interface IState {
-  hasError: boolean;
-}
+export default function Main() {
+  const dispatch = useDispatch<AppDispatch>();
+  const people = useSelector(( state: RootState ) => state.people.people);
 
-// Class component
-export default class Main extends React.Component<TStore, IState> {
+  useEffect(() => {
+    dispatch(fetchPeople());
+  }, [dispatch]);
 
-    constructor( props: TStore ) {
-        super( props );
-        // Set error boundary
-        this.state = { hasError: false };
-    }
-    // Using life-cycle methods
-    componentDidMount() {
-        const { fetchPeople } = this.props;
-        fetchPeople();
-    }
-
-    // Catching JavaScript errors occurred within the component
-    componentDidCatch() {
-        this.setState({ hasError: true });
-    }
-
-    render() {
-        const { people } = this.props.state;
-
-        return (
-        <div>
+  return (
+    <div>
       <Header />
       <main>
         <Paper>
@@ -40,20 +23,18 @@ export default class Main extends React.Component<TStore, IState> {
             <TableHead>
               <TableRow>
                 <TableCell>Name</TableCell>
-                <TableCell>Gernder</TableCell>
-                <TableCell numeric>Height</TableCell>
+                <TableCell>Gender</TableCell>
+                <TableCell>Height</TableCell>
                 <TableCell>Eyes</TableCell>
                 <TableCell>Birthdate</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-            { people.map( ( person, inx ) => ( <Row person={person} key={inx} /> ) ) }
+              { people.map(( person, inx ) => <Row person={ person } key={ inx } />) }
             </TableBody>
           </Table>
         </Paper>
       </main>
     </div>
-        );
-    }
+  );
 }
-

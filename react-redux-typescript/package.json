@@ -18,34 +18,26 @@
     "boilerplate"
   ],
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.62.0",
-    "@typescript-eslint/parser": "^5.62.0",
-    "@types/node": "^18.0.0",
-    "@types/react": "^16.14.18",
-    "@types/react-dom": "^16.9.19",
-    "@types/react-redux": "^5.0.21",
-    "@types/redux": "^3.6.0",
-    "@types/redux-actions": "^2.6.2",
-    "@types/redux-promise": "^0.5.28",
-    "@types/redux-thunk": "^2.1.0",
-    "clean-webpack-plugin": "^0.1.17",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
     "eslint": "^8.57.0",
     "http-server": "^14.1.0",
-    "ts-loader": "^8.4.0",
-    "typescript": "^4.9.5",
-    "webpack": "^4.47.0",
-    "webpack-cli": "^4.10.0"
+    "ts-loader": "^9.5.0",
+    "typescript": "^5.6.0",
+    "webpack": "^5.95.0",
+    "webpack-cli": "^5.1.0"
   },
   "license": "ISC",
   "dependencies": {
-    "material-ui": "^1.0.0-beta.21",
-    "prop-types": "^15.6.0",
-    "react": "^16.1.1",
-    "react-dom": "^16.1.1",
-    "react-redux": "^5.0.6",
-    "redux": "^3.7.2",
-    "redux-actions": "^2.2.1",
-    "redux-promise": "^0.5.3",
-    "redux-thunk": "^2.2.0"
+    "@emotion/react": "^11.13.0",
+    "@emotion/styled": "^11.13.0",
+    "@mui/material": "^6.0.0",
+    "@reduxjs/toolkit": "^2.3.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-redux": "^9.1.0"
   }
 }

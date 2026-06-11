@@ -1,23 +1,19 @@
-import * as React from "react";
-import { TableCell, TableRow } from "material-ui/Table";
-import { IPerson } from "../Interfaces";
+import React from "react";
+import { TableCell, TableRow } from "@mui/material";
+import { IPerson } from "../store/peopleSlice";
 
 interface IProps {
   person: IPerson;
 }
 
-export default class Row extends React.Component<IProps, {}> {
-
-    render() {
-        const { person } = this.props;
-        return (
-            <TableRow>
-          <TableCell>{person.name}</TableCell>
-          <TableCell>{person.gender}</TableCell>
-          <TableCell  numeric>{person.height}</TableCell>
-          <TableCell>{person.eyeColor}</TableCell>
-          <TableCell>{person.birthYear}</TableCell>
-        </TableRow>
-          );
-    }
+export default function Row({ person }: IProps) {
+  return (
+    <TableRow>
+      <TableCell>{ person.name }</TableCell>
+      <TableCell>{ person.gender }</TableCell>
+      <TableCell>{ person.height }</TableCell>
+      <TableCell>{ person.eyeColor }</TableCell>
+      <TableCell>{ person.birthYear }</TableCell>
+    </TableRow>
+  );
 }
