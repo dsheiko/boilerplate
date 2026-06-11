@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "E2E testing starter template with Puppeteer and Jest",
   "scripts": {
-    "test": "URL=https://dsheiko.github.io/react-html5-form/ jest",
+    "test": "URL=https://dsheiko.github.io/react-html5-form/ jest --",
     "test:debug": "URL=https://dsheiko.github.io/react-html5-form/ DEBUG=true jest --detectOpenHandles"
   },
   "jest": {
