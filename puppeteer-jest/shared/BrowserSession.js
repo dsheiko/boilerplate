@@ -6,17 +6,13 @@ class BrowserSession {
    * Obtain browser and page object on bootstrap
    */
   async setup() {
-    const defaultArgs = ["--no-sandbox", "--disable-setuid-sandbox"];
+    const defaultArgs = ["--no-sandbox", "--disable-setuid-sandbox", "--ignore-certificate-errors"];
+    const baseConfig = { args: defaultArgs };
     this.browser = await puppeteer.launch(
        // when called like DEBUG=true jest open in a browser
        process.env.DEBUG
-        ? {
-            headless: false,
-            slowMo: 40,
-            devtools: false,
-            args: defaultArgs
-          }
-        : { args: defaultArgs }
+        ? { ...baseConfig, headless: false, slowMo: 40, devtools: false }
+        : baseConfig
     );
     this.page = await this.browser.newPage();
   }
@@ -25,7 +21,7 @@ class BrowserSession {
    * Close browser on teardown
    */
   async teardown() {
-    this.browser.close();
+    await this.browser.close();
   }
 }
 

@@ -1,6 +1,6 @@
 {
   "name": "boilerplate-puppeteer-jest",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "E2E testing starter template with Puppeteer and Jest",
   "scripts": {
     "test": "URL=https://dsheiko.github.io/react-html5-form/ jest --",
@@ -24,8 +24,8 @@
   "dependencies": {},
   "devDependencies": {
     "cross-env": "^5.1.6",
-    "jest": "^23.1.0",
-    "puppeteer": "^1.4.0",
+    "jest": "^29.7.0",
+    "puppeteer": "^24.43.1",
     "express": "^4.16.3",
     "minimist": "^1.2.0"
   }

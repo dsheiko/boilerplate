@@ -1,8 +1,8 @@
-const devices = require( "puppeteer/DeviceDescriptors" ),
+const { KnownDevices } = require( "puppeteer" ),
       bs = require( "../shared/BrowserSession" ),
       { png } = require( "../shared/helpers" ),
       { BASE_URL, SEL_FORM, SEL_SUBMIT, SEL_EMAIL, SEL_FNAME,
-      SEL_JUMBOTRON_DESC, NETWORK_TIMEOUT } = require( "../shared/constants" );
+      SEL_JUMBOTRON_DESC, NETWORK_TIMEOUT, NAVIGATION_TIMEOUT } = require( "../shared/constants" );
 
 jest.setTimeout( NETWORK_TIMEOUT );
 
@@ -25,7 +25,7 @@ describe( "Boostrap Form Demo", () => {
 
         beforeEach(async () => {
           await bs.page.setViewport({ width: 1280, height: 1024 });
-          await bs.page.goto( BASE_URL, { waitUntil: "networkidle2" } );
+          await bs.page.goto( BASE_URL, { waitUntil: "load", timeout: NAVIGATION_TIMEOUT } );
         });
 
         it( "has Jumbotron description", async () => {
@@ -54,8 +54,8 @@ describe( "Boostrap Form Demo", () => {
 
 
         beforeEach(async () => {
-          await bs.page.emulate( devices[ "iPhone X" ] );
-          await bs.page.goto( BASE_URL, { waitUntil: "networkidle2" } );
+          await bs.page.emulate( KnownDevices[ "iPhone X" ] );
+          await bs.page.goto( BASE_URL, { waitUntil: "load", timeout: NAVIGATION_TIMEOUT } );
         });
 
         it( "does not have Jumbotron description", async () => {

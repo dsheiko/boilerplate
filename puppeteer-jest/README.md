@@ -4,7 +4,7 @@ End-to-end browser tests using Jest and Puppeteer (headless Chrome). Shows how t
 
 ## Prerequisites
 
-- Node.js >= 10
+- Node.js >= 18
 - Puppeteer downloads Chromium automatically on `npm install`
 
 ## Stack
@@ -33,33 +33,65 @@ The test target URL is set via the `URL` environment variable in `package.json`:
 
 Change this to point at your own app. To test a local server, start it first and set `URL=http://localhost:3000`.
 
+## WSL / Linux / CI notes
+
+The `BrowserSession` launcher includes `--no-sandbox` and `--disable-setuid-sandbox` by default. These are required in environments where the kernel does not support Chrome's sandbox (WSL, Docker, most CI runners). `--ignore-certificate-errors` is also set so self-signed or corporate CA certificates do not block test runs.
+
 ## Writing tests
 
+Selectors and timeouts are centralised in `shared/constants.js`. Use `BrowserSession` instead of calling `puppeteer.launch` directly — it handles launch flags and browser lifecycle.
+
 ```js
-const puppeteer = require("puppeteer");
+const bs = require("../shared/BrowserSession");
+const { BASE_URL, NAVIGATION_TIMEOUT } = require("../shared/constants");
 
 describe("My app", () => {
-  let browser, page;
-
-  beforeAll(async () => {
-    browser = await puppeteer.launch();
-    page = await browser.newPage();
-    await page.goto(process.env.URL);
+  beforeEach(async () => {
+    await bs.setup();
+    await bs.page.goto(BASE_URL, { waitUntil: "load", timeout: NAVIGATION_TIMEOUT });
   });
 
-  afterAll(() => browser.close());
+  afterEach(async () => {
+    await bs.teardown();
+  });
 
   it("renders the heading", async () => {
-    const heading = await page.$eval("h1", el => el.textContent);
+    const heading = await bs.page.$eval("h1", el => el.textContent);
     expect(heading).toBe("Expected heading");
   });
 
   it("submits a form", async () => {
-    await page.type("input[name=email]", "user@example.com");
-    await page.click("button[type=submit]");
-    await page.waitForSelector(".success");
+    await bs.page.type("input[name=email]", "user@example.com");
+    await bs.page.click("button[type=submit]");
+    await bs.page.waitForSelector(".success", { timeout: NAVIGATION_TIMEOUT });
+  });
+
+  it("uploads a file", async () => {
+    const input = await bs.page.$("input[type=file]");
+    await input.uploadFile("/path/to/fixture.gif");
   });
 });
+```
+
+### Waiting for page state
+
+Prefer `waitForSelector` with an explicit `timeout` over `waitForTimeout` (removed in Puppeteer 22) or `page.waitFor` (removed in Puppeteer 14).
+
+```js
+// fixed delay (e.g. CSS transition)
+await new Promise(r => setTimeout(r, 200));
+
+// wait for DOM change
+await bs.page.waitForSelector(".my-element", { timeout: NAVIGATION_TIMEOUT });
+```
+
+### Screenshots
+
+Use the `png` helper from `shared/helpers.js`. The `screenshots/` directory is created automatically.
+
+```js
+const { png } = require("../shared/helpers");
+await bs.page.screenshot(png("my-test-name"));
 ```
 
 ## package.json dependencies
