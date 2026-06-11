@@ -19,7 +19,7 @@ A collection of 15 frontend and full-stack starter templates covering a range of
 |---|---|
 | [Webpack + TypeScript + Jest](./webpack-typescript) | TypeScript 5, Webpack 5, Jest 29, ESLint |
 | [Webpack + Babel](./webpack-babel) | Webpack 4, Babel 7, ESLint, dual modern/legacy bundles |
-| [RequireJS + Babel](./babel-requirejs) | Babel 6, AMD modules, SASS |
+
 
 ### Testing
 

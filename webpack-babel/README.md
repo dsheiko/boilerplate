@@ -1,69 +1,69 @@
 # Starter template: Webpack + Babel
 
-ES modules application bundled with Webpack and transpiled by Babel 7. Shows static and dynamic imports, module resolution by path and name, and a dual-bundle strategy for modern vs. legacy browsers.
+ES modules application bundled with Webpack 5 and transpiled by Babel 7. Shows static and dynamic imports, module resolution by path and name, automatic polyfilling via core-js, and HMR in development.
 
 ## Prerequisites
 
-- Node.js >= 10
+- Node.js >= 20
 
 ## Stack
 
 | Tool | Purpose |
 |---|---|
-| Webpack 4 | Module bundler |
+| Webpack 5 | Module bundler |
 | Babel 7 | ES.Next transpiler |
-| @babel/preset-env | Target browser range for transpilation |
-| terser-webpack-plugin | Minify production bundles |
-| ESLint | JavaScript linting |
-| http-server | Local dev server |
+| @babel/preset-env | Target browser range, auto-selects transforms |
+| core-js 3 | Polyfills injected per usage |
+| @babel/plugin-transform-runtime | Deduplicates Babel helpers |
+| html-webpack-plugin | Generates HTML with injected script tags |
+| webpack-dev-server | Dev server with HMR |
+| ESLint 9 | JavaScript linting (flat config) |
 
 ## Usage
 
 ```bash
 npm install
-npm run build:dev    # development build
-npm run build:prod   # production build (modern + legacy bundles)
-npm run watch        # watch mode (dev config)
-npm start            # serve at http://localhost:8080
-npm run lint         # lint src/
-npm run lint:fix     # auto-fix lint issues
+npm run dev      # dev server at http://localhost:8080 with HMR
+npm run build    # production build to dist/
+npm run lint     # lint src/
+npm run lint:fix # auto-fix lint issues
 ```
 
-## Dual-bundle strategy
-
-Production builds generate two bundles:
-
-- `build/index.js` - targets modern browsers, minimal transpilation and polyfills
-- `build/legacy/index.js` - targets legacy browsers, full polyfill set
-
-`index.html` uses `type="module"` / `nomodule` to load the appropriate bundle automatically:
-
-```html
-<script type="module" src="./build/index.js"></script>
-<script nomodule src="./build/legacy/index.js"></script>
-```
-
-Modern browsers load the lighter module bundle; legacy browsers load the polyfilled one.
-
-## Webpack configuration files
+## Configuration files
 
 | File | Purpose |
 |---|---|
-| `webpack.common.js` | Shared base configuration |
-| `webpack.dev.js` | Dev build (extends common, targets modern browsers) |
-| `webpack.prod.js` | Production build for modern browsers (extends dev, adds minification) |
-| `webpack.prod-legacy.js` | Production build for legacy browsers (extends dev, adds full polyfills) |
+| `webpack.common.js` | Shared base: entry, output, babel-loader, HtmlWebpackPlugin |
+| `webpack.dev.js` | Dev mode, eval-source-map, webpack-dev-server |
+| `webpack.prod.js` | Production mode, source-map, content-hash filenames |
+| `babel.config.json` | Babel preset and plugins, read by both webpack and ESLint |
+| `eslint.config.js` | ESLint 9 flat config |
 
-## package.json dependencies
+## Output
+
+- Dev: served in memory by webpack-dev-server
+- Prod: `dist/index.[contenthash].js` plus any lazy chunks
+
+Content hashes ensure proper cache invalidation without a separate cache-busting step.
+
+## Polyfilling
+
+`useBuiltIns: "usage"` in `babel.config.json` means Babel scans each file and injects only the core-js polyfills actually used. No manual `import "core-js"` needed. Browser targets come from the `browserslist` field in `package.json`.
+
+## Module resolution
+
+Webpack is configured to resolve modules from both `node_modules` and `src/`, so bare imports like `import { utilBar } from "util/bar"` resolve to `src/util/bar.js`.
+
+## Dependencies
 
 | Package | Purpose |
 |---|---|
-| `@babel/core`, `@babel/cli` | Babel 7 core and CLI |
-| `babel-loader` | Babel loader for Webpack |
-| `@babel/preset-env` | Transpile to target browser range |
-| `@babel/plugin-transform-runtime` | Inject runtime polyfills |
-| `@babel/plugin-syntax-dynamic-import` | Enable `import()` lazy loading |
-| `terser-webpack-plugin` | Minify and optimize production output |
-| `eslint`, `eslint-plugin-import` | JavaScript linting |
-| `webpack`, `webpack-cli`, `webpack-merge` | Bundler and config merging |
-| `http-server` | Static file server for development |
+| `@babel/core`, `@babel/preset-env` | Babel core and env preset |
+| `@babel/plugin-transform-runtime` | Helper deduplication |
+| `@babel/eslint-parser` | Babel-aware parser for ESLint |
+| `babel-loader` | Webpack loader for Babel |
+| `core-js` | Polyfill library (usage-based injection) |
+| `html-webpack-plugin` | HTML template with auto-injected scripts |
+| `webpack-dev-server` | Dev server with HMR |
+| `webpack-merge` | Config composition (common + dev/prod) |
+| `eslint`, `@eslint/js`, `eslint-plugin-import` | Linting |

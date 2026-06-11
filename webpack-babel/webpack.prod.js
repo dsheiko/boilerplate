@@ -1,13 +1,11 @@
-const merge = require( "webpack-merge" ),
-      baseConfig = require( "./webpack.dev" ),
-      TerserPlugin = require( "terser-webpack-plugin" );
+const { merge } = require( "webpack-merge" );
+const baseConfig = require( "./webpack.common" );
 
-// Extending DEV configuration
 module.exports = merge( baseConfig, {
-    mode: "production",
-
-    optimization: {
-      minimizer: [new TerserPlugin()]
-    }
-
-});
+  mode: "production",
+  devtool: "source-map",
+  output: {
+    filename: "[name].[contenthash].js",
+    chunkFilename: "[name].[contenthash].chunk.js"
+  }
+} );

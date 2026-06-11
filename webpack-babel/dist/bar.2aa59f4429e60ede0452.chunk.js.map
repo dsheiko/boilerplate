@@ -1,0 +1,1 @@
+{"version":3,"file":"bar.44f9cb9bdd84acc61a1a.chunk.js","mappings":"6IAAO,SAASA,IACd,MAAO,YACT","sources":["webpack://boilerplate-webpack-babel/./src/widget/bar.js"],"sourcesContent":["export function widgetBar() {\n  return \"widget-bar\";\n}\n"],"names":["widgetBar"],"sourceRoot":""}

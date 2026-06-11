@@ -1,39 +1,33 @@
-const { join } = require( "path" ),
-      pkg = require( "./package.json" ),
-      CleanWebpackPlugin = require( "clean-webpack-plugin" ),
-      SRC_FULL_PATH = join( __dirname, "./src/" ),
-      PUBLIC_PATH = "./build/",
-      PUBLIC_FULL_PATH = join( __dirname, PUBLIC_PATH );
+const { join } = require( "path" );
+const HtmlWebpackPlugin = require( "html-webpack-plugin" );
+
+const SRC = join( __dirname, "src" );
+const DIST = join( __dirname, "dist" );
 
 module.exports = {
-    // Application entry scripts
-    entry: {
-      // script alias : path
-      index : join( SRC_FULL_PATH, "index.js" )
-    },
-    // Output configuration for Webpack
-    output: {
-			path: PUBLIC_FULL_PATH,
-			filename: `[name].js`,
-      chunkFilename: `[name].v${pkg.version}.widget.js`,
-      publicPath: PUBLIC_PATH
-    },
-    
-    // JavaScript (*.js) module paths to be resolved relatively to node_modules and SRC_FULL_PATH
-    // e.g. if we have `import "mymodule"`
-    // Webpack looks up in node_modules/mymodule/ according to Node.js module loading convention
-    // https://nodejs.org/api/modules.html
-    // and checks SRC_FULL_PATH/mymodule.js
-    resolve: {
-       modules: [
-        "node_modules",
-        SRC_FULL_PATH
-      ],
-      extensions: [ ".js" ]
-    },
-
-    plugins: [
-      // cleaning up the build directory prior to update
-      new CleanWebpackPlugin([ PUBLIC_PATH ])
+  entry: {
+    index: join( SRC, "index.js" )
+  },
+  output: {
+    path: DIST,
+    filename: "[name].js",
+    chunkFilename: "[name].chunk.js",
+    clean: true
+  },
+  resolve: {
+    modules: [ "node_modules", SRC ],
+    extensions: [ ".js" ]
+  },
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: "babel-loader"
+      }
     ]
+  },
+  plugins: [
+    new HtmlWebpackPlugin({ template: "./index.html" })
+  ]
 };

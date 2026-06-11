@@ -1,0 +1,2 @@
+"use strict";(globalThis.webpackChunkboilerplate_webpack_babel=globalThis.webpackChunkboilerplate_webpack_babel||[]).push([[774],{683(e,b,a){function l(){return"widget-bar"}a.r(b),a.d(b,{widgetBar:()=>l})}}]);
+//# sourceMappingURL=bar.2aa59f4429e60ede0452.chunk.js.map
