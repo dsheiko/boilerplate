@@ -40,8 +40,7 @@
     "webpack-merge": "^5.10.0"
   },
   "dependencies": {
-    "@babel/runtime": "^7.25.0",
-    "console-log-html": "^2.0.2"
+    "@babel/runtime": "^7.25.0"
   },
   "license": "ISC"
 }

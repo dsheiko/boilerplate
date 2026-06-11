@@ -1,13 +1,29 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>Boilerplate Demo</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webpack + TypeScript: Pipeline Demo</title>
+    <style>
+      body { font-family: monospace; max-width: 760px; margin: 2rem auto; padding: 0 1rem; color: #1a1a1a; }
+      h1 { font-size: 1rem; font-weight: bold; margin-bottom: 0.25rem; }
+      .subtitle { font-size: 0.85rem; color: #666; margin-bottom: 1.5rem; }
+      table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+      th { text-align: left; padding: 0.4rem 0.6rem; background: #f4f4f4; border: 1px solid #ddd; }
+      td { padding: 0.4rem 0.6rem; border: 1px solid #ddd; vertical-align: top; }
+      td:last-child { color: #1a7a3a; }
+      tr.filtered td { color: #bbb; }
+      tr.filtered td:last-child { color: #bbb; }
+      code { background: #f0f0f0; padding: 0.1rem 0.3rem; border-radius: 2px; }
+      tr.filtered code { background: transparent; }
+      .note { margin-top: 0.75rem; font-size: 0.8rem; color: #999; }
+    </style>
   </head>
   <body>
-    <h3>JavaScript Console</h3>
-    <ul id="log"></ul>
-    <script  src="./build/index.js"></script>
+    <h1>Event Pipeline Demo</h1>
+    <p class="subtitle">
+      TypeScript pipeline: generic class with private fields, typed interfaces, optional chaining, dynamic import.
+    </p>
+    <div id="app">Loading...</div>
   </body>
 </html>

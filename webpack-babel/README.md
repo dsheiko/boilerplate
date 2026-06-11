@@ -29,6 +29,21 @@ npm run lint     # lint src/
 npm run lint:fix # auto-fix lint issues
 ```
 
+## Demo app
+
+The app processes a list of browser events through a two-step pipeline and renders the results as a table.
+
+Each event has a `type`, an optional `target` (with an optional `label`), and optional `meta` (debounce or threshold). Some fields are intentionally null or incomplete to exercise optional chaining and nullish coalescing in real conditions.
+
+The pipeline runs two transforms in sequence:
+
+1. **filter** — `byTypes("click", "input")` drops scroll and focus events
+2. **format** — `toSummary()` reads `target?.label ?? target?.id ?? "unknown"` and appends any meta info
+
+The renderer is lazy-loaded via dynamic `import()`, arriving as a separate webpack chunk. It receives both the original event list and the processed list, then renders all six rows — grey for filtered-out events, green for those that passed. The side-by-side view makes the pipeline effect immediately visible without reading any source code.
+
+The `Pipeline` class is the structural centrepiece: an immutable transform chain backed by a private field (`#transforms`). Each call to `add()` returns `this` for chaining and replaces `#transforms` with a new array rather than mutating it. Private class fields, optional chaining, nullish coalescing, and object spread are all syntax that Babel must transform for the configured browser targets — making the class a direct demonstration of what the toolchain does.
+
 ## Configuration files
 
 | File | Purpose |

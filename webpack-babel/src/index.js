@@ -1,21 +1,14 @@
-// Requesting NPM module
-import ConsoleLogHTML from "console-log-html";
-// Requesting module by relative path
-import { utilFoo } from "./util/foo";
-// Requesting module by absolute path (see Webpack resolve option)
-import { utilBar } from "util/bar";
+import { Pipeline } from "./pipeline/index";
+import { events } from "./events";
+import { byTypes } from "./pipeline/filter";
+import { toSummary } from "./pipeline/format";
 
-// Redirecting log message to HTML
-ConsoleLogHTML.connect( document.querySelector( "#log" ) );
+const pipeline = new Pipeline()
+  .add( byTypes( "click", "input" ) )
+  .add( toSummary );
 
-console.log( "Compiled modules exports ", utilFoo(), utilBar() );
+const processed = pipeline.run( events );
 
-// Requesting modules async
-Promise.all([
-  import( /* webpackChunkName: "foo" */ "./widget/foo" ),
-  import( /* webpackChunkName: "bar" */ "./widget/bar" )
-]).then( ([{ widgetFoo }, { widgetBar }])  => {
-  console.log( "Lazy-loaded modules exports ", widgetFoo(), widgetBar() );
-}).catch( ( e )=> {
-  console.error( e );
-});
+import( /* webpackChunkName: "renderer" */ "./renderer/index" )
+  .then( ( { render } ) => render( events, processed ) )
+  .catch( console.error );

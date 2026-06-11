@@ -1,11 +1,15 @@
-/// <reference path="./console-log-html.d.ts" />
-//
-// Requesting NPM module
-import { connect } from "console-log-html";
-// Requesting module by relative path
-import { utilFoo } from "./util/foo";
+import { Pipeline } from "./pipeline/index";
+import { events } from "./events";
+import { byTypes } from "./pipeline/filter";
+import { toSummary } from "./pipeline/format";
+import type { AppEvent } from "./types";
 
-// Redirecting log message to HTML
-connect( document.querySelector( "#log" ) );
+const pipeline = new Pipeline<AppEvent[]>()
+  .add( byTypes( "click", "input" ) );
 
-console.log( "Compiled modules exports ", utilFoo() );
+const filtered = pipeline.run( events );
+const processed = toSummary( filtered );
+
+import( /* webpackChunkName: "renderer" */ "./renderer/index" )
+  .then( ( { render } ) => render( events, processed ) )
+  .catch( console.error );

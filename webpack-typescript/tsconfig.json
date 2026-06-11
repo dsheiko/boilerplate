@@ -1,19 +1,15 @@
 {
   "compilerOptions": {
-    "target": "es2017",
-    "module": "es2015",
-    "moduleResolution": "node",
+    "target": "ES2022",
+    "module": "ES2022",
+    "moduleResolution": "bundler",
     "sourceMap": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "removeComments": false,
-    "noImplicitAny": true,
-    "noUnusedParameters": false,
+    "strict": true,
     "noUnusedLocals": true,
+    "noUnusedParameters": false,
     "skipLibCheck": true,
-    "strict": false
+    "isolatedModules": true
   },
-  "include": [
-    "./src/**/*.ts"
-  ]
+  "include": ["./src/**/*.ts"],
+  "exclude": ["**/*.spec.ts"]
 }
