@@ -1,0 +1,46 @@
+{
+  "name": "@dsheiko/boilerplate",
+  "version": "1.0.0",
+  "description": "A collection of 20 frontend and full-stack starter templates covering React, Vue, Svelte, SolidJS, Webpack, Vite, Rspack, TypeScript, and more",
+  "private": true,
+  "author": {
+    "name": "Dmitry Sheiko",
+    "url": "https://dsheiko.com"
+  },
+  "license": "MIT",
+  "keywords": [
+    "boilerplate",
+    "starter",
+    "template",
+    "react",
+    "vue",
+    "svelte",
+    "solidjs",
+    "redux",
+    "zustand",
+    "pinia",
+    "webpack",
+    "vite",
+    "rspack",
+    "typescript",
+    "nextjs",
+    "nuxt",
+    "mantine",
+    "playwright",
+    "express"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dsheiko/boilerplate.git"
+  },
+  "homepage": "https://github.com/dsheiko/boilerplate#readme",
+  "bugs": {
+    "url": "https://github.com/dsheiko/boilerplate/issues"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "install:all": "for d in express playwright postcss puppeteer-jest react-antdesign-ssr react-nextjs react-redux react-redux-typescript react-vite-mantine react-zustand rspack-babel solidjs-store svelte-store vue-nuxt vue-pinia webpack-babel webpack-images webpack-sass webpack-sqip webpack-typescript; do echo \"\\n→ $d\" && npm install --prefix $d; done"
+  }
+}

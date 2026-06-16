@@ -1,0 +1,40 @@
+{
+  "name": "boilerplate-vue-pinia",
+  "version": "0.0.1",
+  "author": "Dmitry Sheiko (http://dsheiko.com)",
+  "scripts": {
+    "build": "webpack --config webpack.config.js",
+    "watch": "webpack --watch --config webpack.config.js",
+    "start": "http-server . -c-1",
+    "lint": "eslint --ext=js,vue ./src",
+    "lint:fix": "eslint --ext=js,vue --fix ./src"
+  },
+  "keywords": [
+    "webpack",
+    "vue",
+    "pinia",
+    "starter",
+    "boilerplate"
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.25.0",
+    "@babel/preset-env": "^7.25.0",
+    "@vue/compiler-sfc": "^3.5.0",
+    "babel-loader": "^9.1.0",
+    "css-loader": "^7.1.0",
+    "eslint": "^8.57.0",
+    "eslint-plugin-vue": "^9.28.0",
+    "http-server": "^14.1.0",
+    "style-loader": "^3.3.0",
+    "vue-loader": "^17.4.0",
+    "webpack": "^5.95.0",
+    "webpack-cli": "^5.1.0"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "@mdi/font": "^7.4.0",
+    "pinia": "^2.2.0",
+    "vue": "^3.5.0",
+    "vuetify": "^3.7.0"
+  }
+}

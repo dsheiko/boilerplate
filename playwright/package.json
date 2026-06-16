@@ -1,0 +1,29 @@
+{
+  "name": "boilerplate-playwright",
+  "version": "0.0.1",
+  "type": "module",
+  "description": "E2E testing starter template with Playwright",
+  "scripts": {
+    "test": "BASE_URL=https://dsheiko.github.io/react-html5-form/ playwright test --reporter=list",
+    "test:dev": "BASE_URL=http://localhost:3000 playwright test --reporter=list",
+    "test:debug": "BASE_URL=https://dsheiko.github.io/react-html5-form/ npx playwright test --reporter=list --headed --debug",
+    "test:ui": "BASE_URL=https://dsheiko.github.io/react-html5-form/ playwright test --ui",
+    "lint": "eslint",
+    "lint:fix": "eslint ./tests --fix"
+  },
+  "keywords": [
+    "playwright",
+    "e2e",
+    "testing",
+    "boilerplate"
+  ],
+  "author": "Dmitry Sheiko (http://dsheiko.com)",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.28.5",
+    "@babel/preset-env": "^7.29.2",
+    "@eslint/js": "^9.39.1",
+    "@playwright/test": "^1.52.0",
+    "eslint": "^9.39.1"
+  }
+}

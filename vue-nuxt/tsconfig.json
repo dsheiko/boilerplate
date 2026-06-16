@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": [ "dom", "dom.iterable", "esnext" ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "moduleResolution": "bundler",
+    "module": "esnext",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "paths": {
+      "~/*": [ "./*" ],
+      "@/*": [ "./*" ]
+    }
+  },
+  "include": [ "**/*.ts", "**/*.vue", "**/*.d.ts" ],
+  "exclude": [ "node_modules", ".nuxt", ".output", "dist" ]
+}
